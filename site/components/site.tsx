@@ -155,7 +155,7 @@ export function Footer() {
             <ul>
               <li>
                 <a
-                  href="https://github.com/gafaraleshe/gaffystudios"
+                  href="https://gaffystudios.com/"
                   target="_blank"
                   rel="noreferrer"
                 >
