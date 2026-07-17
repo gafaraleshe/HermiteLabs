@@ -1,0 +1,109 @@
+/* Placeholder styling only — the Clay design system (via getdesign) replaces
+   this when the real site is built. */
+
+:root {
+  --bg: #0e0d0b;
+  --paper: #f4f3ec;
+  --ink: #17150f;
+  --muted: #6f6a5e;
+  --accent: #2f855a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--paper);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.7rem;
+  color: rgba(244, 243, 236, 0.55);
+}
+
+h1 {
+  font-size: clamp(3rem, 10vw, 5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-top: 0.5rem;
+}
+
+.tagline {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  font-size: 0.9rem;
+  color: rgba(244, 243, 236, 0.8);
+}
+
+.stages {
+  list-style: none;
+  margin-top: 3rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stages li {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.stage-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stages h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  white-space: nowrap;
+}
+
+.stages p {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.cta {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: rgba(244, 243, 236, 0.7);
+}
+
+.cta a {
+  color: var(--paper);
+  text-underline-offset: 3px;
+}

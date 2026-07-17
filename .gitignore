@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+build/
+target/
+*.drfx
+.next/
+out/
+
+# Model weights — downloaded on first run, never committed
+models/
+*.gguf
+*.onnx
+*.bin
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
