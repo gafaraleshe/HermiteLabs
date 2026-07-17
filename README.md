@@ -2,7 +2,7 @@
 
 **Smooth animation for DaVinci Resolve** — a plugin by [Gaffy Studios](https://github.com/gafaraleshe/gaffystudios) that brings After Effects–style animation control into Resolve, paired with fully on-device auto-subtitling and a swappable local AI layer.
 
-> **Status: planning / early build.** The full project plan lives in [HERMITE-PLAN.md](./HERMITE-PLAN.md).
+> **Status: planning / early build.** The full project plan lives in [HERMITE-PLAN.md](./HERMITE-PLAN.md); the product-site plan lives in [SITE-PLAN.md](./SITE-PLAN.md).
 
 ## The four stages
 

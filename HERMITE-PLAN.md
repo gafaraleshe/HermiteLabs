@@ -2,6 +2,16 @@
 
 DaVinci Resolve plugin: After Effects–style animation toolkit + on-device auto-subs + swappable local AI layer, plus a paid enterprise API and MCP/agent integration. Screen recorder is parked for later — this is the full plan for Hermite alone.
 
+## 0. Platform context — confirmed / corrected
+
+Verified against current sources (July 2026) before locking the plan:
+
+- **Two API surfaces — confirmed.** DaVinciResolveScript (Python/Lua: Media Pool, Timeline, project data, subtitle tracks) and the Fusion page's own Lua API (`fusion:`/`comp:`/`tool:` for node graphs, keyframes, splines) are separate surfaces, and the smooth-animation work lives on the Fusion side.
+- **`.drfx` — confirmed.** It is a renamed zip of `.setting` files (Fusion macros/templates) plus assets and icons, optionally in subfolders; installed by double-clicking with Resolve running or dragging into the Fusion page. Works on free Resolve. It cannot carry a background service or an app — packaging split stands.
+- **Free vs Studio scripting — corrected, and it reshapes Stage 1.** In free Resolve, scripts still run *inside* the app (Workspace → Scripts menu, or the console), but connecting to the Resolve API from an **external process requires Studio**, and since **Resolve 19.1 UIManager-based script GUIs are Studio-only** (this silently broke Reactor and most free GUI scripts). Consequence: Hermite cannot ship its bezier curve editor or speed-ramp graph editor as an in-Resolve Lua GUI on free Resolve. All custom UI lives in the external desktop app (`/app`), which talks to Resolve through a **bridge script** — a small Lua/Python script launched from the Scripts menu that runs inside Resolve (allowed on free) and relays commands over local HTTP/IPC. On Studio, the app may optionally connect directly via the external scripting API as a fast path. Inspector-exposed controls on macros (sliders, dropdowns baked into `.setting` files) remain fully available on free, so the preset side of Stage 1 is unaffected.
+- **AutoSubs reference architecture — confirmed, with updates.** Current AutoSubs: **Rust** backend (whisper-rs + transcribe-rs/ONNX Runtime) supporting Whisper, Moonshine, Parakeet, SenseVoice, and Canary model families, Silero VAD (auto-downloaded), speaker diarization via a pyannote-rs implementation (~40 MB model), **Tauri** frontend, installed via Workspace → Scripts, **works on both free and Studio** on Mac/Windows/Linux. One gotcha it documents: the Mac App Store build of Resolve is not supported — require the blackmagicdesign.com build.
+- **Model licensing — updated.** Whisper is MIT (code and weights). Gemma up through Gemma 3 ships under Google's custom Gemma Terms of Use: redistribution is allowed but requires passing the Prohibited Use Policy and Terms downstream — not OSI open source. **Gemma 4 reportedly moved to Apache 2.0**, removing those pass-through obligations. Either way, the plan stands: download weights on first run from official sources with the user accepting terms, never bundle weights in the installer.
+
 ## 1. Scope and sequencing
 
 Ship in four stages, each independently useful, rather than one big release:
@@ -24,6 +34,8 @@ Ship in four stages, each independently useful, rather than one big release:
 - Batch-apply: select multiple clips/nodes, apply one preset to all at once
 
 Build order inside this stage: presets first (simplest, most demonstrable), then the bezier editor UI (reusable component — the speed-ramp tool can share its curve-editing widget), then speed-ramp, then batch-apply last since it's a thin wrapper once single-clip application works.
+
+**Where the UI lives (per §0):** because UIManager GUIs are Studio-only since 19.1, Stage 1 splits into two ticks: **1a** — the `.drfx` preset pack alone (macros with Inspector-exposed controls; zero infrastructure, works everywhere, first shippable artifact), and **1b** — the bezier curve editor + speed-ramp graph editor as the first screens of the desktop app (`/app`), driving Fusion keyframes through the bridge script. This pulls a minimal app shell + bridge forward from Stage 2, but the same shell is reused for Subs, so nothing is wasted.
 
 ## 3. Feature list — Hermite Subs (Stage 2)
 
@@ -58,7 +70,7 @@ Monorepo, six areas (no separate showcase site — Hermite has its own product w
 - `/app` — the UI for Subs correction, AI model manager, and settings; Tauri is a reasonable choice here since it keeps the binary small and lets the UI be built in web tech (which also makes the Jest test story clean)
 - `/site` — Hermite's own product website: landing content, the full feature roadmap across all four stages, and `/docs` for the enterprise API + MCP/Composio setup guide. Built with Next.js/Astro + the Clay design system (via `npx getdesign@latest add clay`). Fully JS/TS, so Jest applies cleanly here too
 
-**Process boundaries:** the Fusion macros never talk to the backend directly — Fusion Lua can shell out to write timeline data, but the backend/UI communicate with Resolve through the DaVinciResolveScript Python API (Media Pool, Timeline, subtitle tracks), not through Fusion. Keep that boundary sharp so Stage 1 has zero dependency on Stage 2/3/4 ever running. Similarly, `/api` never touches Resolve at all — it's pure cloud processing on uploaded data, which is exactly why it needs to be positioned as a separate, explicitly-opt-in product line from the on-device story.
+**Process boundaries:** the Fusion macros never talk to the backend directly — the app/backend reach Resolve through the **bridge script** (per §0: a Lua/Python script launched from Workspace → Scripts, running inside Resolve, relaying commands over local HTTP/IPC — the only path that works on free Resolve; a direct external-API connection is an optional Studio-only fast path). The bridge uses DaVinciResolveScript for Media Pool/Timeline/subtitle work and the Fusion Lua surface for node-graph/keyframe work. Keep boundaries sharp so Stage 1a (`.drfx` presets) has zero dependency on the app, bridge, or backend ever running. Similarly, `/api` never touches Resolve at all — it's pure cloud processing on uploaded data, which is exactly why it needs to be positioned as a separate, explicitly-opt-in product line from the on-device story.
 
 **Data flow for Subs (desktop):** audio extracted from the active Resolve timeline → sent to local backend → VAD + transcription → subtitle data returned → shown in the correction UI → on confirm, written into Resolve via DaVinciResolveScript's subtitle/Text+ track APIs.
 
@@ -76,28 +88,30 @@ Monorepo, six areas (no separate showcase site — Hermite has its own product w
 
 ## 7. Milestones
 
-1. Repo scaffold + hello-world Fusion script talking to a running Resolve instance
-2. Motion presets (slide/pop/ken burns) working as Fusion macros, manually testable
-3. Bezier easing curve editor UI, applied to real keyframes
-4. Speed-ramp tool built on the same curve-editor component
-5. Batch-apply + package Stage 1 as an installable `.drfx` — **first shippable release**
-6. `/core` extraction: curve/easing math pulled into a shared, Resolve-independent module (do this before Stage 2 backend work starts, so `/api` doesn't need a later refactor)
-7. Backend service scaffold (`/backend`) with `faster-whisper` transcription working standalone (no Resolve yet), built on top of `/core`
-8. Resolve integration: audio extraction from timeline, subtitle write-back via DaVinciResolveScript
-9. Correction UI (`/app`, Tauri) with waveform + text editing before commit
-10. Package Stage 2 installer (script + local app) — **second release**
-11. Model manager UI + first local LLM (Gemma) wired to the punctuation-cleanup use case
-12. Wire in Sentry, Jest, Polar.sh, Resend, gated PostHog — **v2 release**
-13. `/api` scaffold: hosted wrapper around `/core`, API key auth, rate limiting, enterprise Polar.sh plan
-14. Composio toolkit registration for `/api` + MCP setup guide
-15. `/site` shipped with the full feature roadmap + `/docs` (API reference + MCP/Composio walkthrough) — **enterprise API release**; portfolio and gaffystudios updated with a project entry linking to it
+1. Repo scaffold + hello-world bridge script launched from Workspace → Scripts, talking to a running Resolve instance (verify on **free** Resolve, not just Studio)
+2. Motion presets (slide/pop/ken burns) working as Fusion macros with Inspector-exposed controls, manually testable
+3. Package Stage 1a as an installable `.drfx` preset pack — **first shippable release**
+4. Minimal `/app` shell (Tauri) + bridge relay: the app can read and write keyframes on a selected Fusion node over local HTTP/IPC
+5. Bezier easing curve editor UI in the app, applied to real keyframes through the bridge
+6. Speed-ramp tool built on the same curve-editor component
+7. Batch-apply — **Stage 1b release** (`.drfx` + app installer together)
+8. `/core` extraction: curve/easing math pulled into a shared, Resolve-independent module (do this before Stage 2 backend work starts, so `/api` doesn't need a later refactor)
+9. Backend service scaffold (`/backend`) with `faster-whisper` transcription working standalone (no Resolve yet), built on top of `/core`
+10. Resolve integration: audio extraction from timeline, subtitle write-back via DaVinciResolveScript
+11. Correction UI in `/app` with waveform + text editing before commit
+12. Package Stage 2 installer (bridge script + app + backend) — **Subs release**
+13. Model manager UI + first local LLM (Gemma family) wired to the punctuation-cleanup use case
+14. Wire in Sentry, Jest, Polar.sh, Resend, gated PostHog — **v2 release**
+15. `/api` scaffold: hosted wrapper around `/core`, API key auth, rate limiting, enterprise Polar.sh plan
+16. Composio toolkit registration for `/api` + MCP setup guide
+17. `/site` full build per [SITE-PLAN.md](./SITE-PLAN.md): feature roadmap + `/docs` (API reference + MCP/Composio walkthrough) — **enterprise API release**; portfolio and gaffystudios entries already link here
 
 ## 8. Risks and open questions to confirm early
 
-- Whether some Fusion scripting/macro features are gated behind Resolve Studio (paid) vs free Resolve — confirm before committing to features that assume Studio
-- Resolve API differences across major versions (18/19/20) — pin a minimum supported version early
-- Windows vs Mac install paths for scripts and the `.drfx`/installer flow — test both, don't assume Mac-only given Resolve's userbase is cross-platform
-- Model licensing for redistribution (Gemma's usage terms, Whisper's MIT license) — check before bundling any model weights directly rather than downloading on first run
+- ~~Whether some Fusion scripting/macro features are gated behind Resolve Studio~~ **Confirmed (§0):** macros/`.drfx` and in-app scripts work on free; external-process API access and UIManager GUIs require Studio (the latter since 19.1). Architecture already accounts for this via the bridge-script pattern
+- Resolve API differences across major versions (18/19/20) — pin a minimum supported version early; 19.1 is the natural floor given the UIManager behavior change is already priced in
+- Windows vs Mac install paths for scripts and the `.drfx`/installer flow — test both, don't assume Mac-only given Resolve's userbase is cross-platform. Also: the **Mac App Store build of Resolve doesn't support external script integration** (AutoSubs documents this) — require the blackmagicdesign.com build and say so in the installer
+- ~~Model licensing for redistribution~~ **Confirmed (§0):** Whisper is MIT; Gemma ≤3 has pass-through Terms/Prohibited Use obligations, Gemma 4 reportedly Apache 2.0. Download weights on first run from official sources; never bundle weights in the installer
 - Running local transcription + LLM inference alongside Resolve itself is memory/CPU-heavy on the same machine — budget for this in the model manager's RAM/disk warnings, and default to the smallest viable model
 - The enterprise API (Stage 4) processes customer data in the cloud — this needs its own data-handling/retention policy (how long uploaded audio/video is kept, whether it's used for anything beyond the request) written and published before any enterprise customer signs on, separate from the "fully on-device" claims made about Stages 1–3
 - Composio's pricing is usage-metered on their end too (tool calls per month) — factor that into what Hermite charges enterprise customers so there's margin, not just pass-through cost
