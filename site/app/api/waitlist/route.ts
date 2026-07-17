@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase";
+import { getServiceClient, supabaseEnvStatus } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,7 +24,11 @@ export async function POST(req: Request) {
   const supabase = getServiceClient();
   if (!supabase) {
     // Env not configured yet — tell the client cleanly rather than 500-ing.
-    return NextResponse.json({ ok: false, error: "not-configured" }, { status: 503 });
+    // `has` reports which vars are missing (booleans only, no secrets).
+    return NextResponse.json(
+      { ok: false, error: "not-configured", has: supabaseEnvStatus() },
+      { status: 503 },
+    );
   }
 
   const { error } = await supabase.from("waitlist").insert({ email, source });
