@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { stages, currentFocus, GITHUB_URL } from "@/lib/content";
 import { Changelog, StatusBadge } from "@/components/site";
+import { WaitlistForm } from "@/components/waitlist";
 import {
   ApiFragment,
   CaptionsFragment,
@@ -35,9 +36,10 @@ export default function Home() {
               one-click presets, a real easing curve editor, speed ramps — plus
               auto-subtitles and an AI layer that run entirely on your machine.
             </p>
+            <WaitlistForm source="site-hero" />
             <div className="hero-actions">
               <a
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
