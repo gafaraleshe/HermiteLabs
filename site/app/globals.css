@@ -50,12 +50,61 @@
     sans-serif;
   --mono-stack: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas,
     monospace;
+
+  /* Fixed — never flips with theme. Text sitting on the light-coloured
+     brand cards (lavender/peach/ochre) must stay dark in both modes. */
+  --on-light-card: #1c1a15;
+}
+
+/* Dark theme. Clay is a warm-light system by contract, so the dark variant
+   keeps the warm tint (near-black with a brown cast, cream text) rather than
+   going cool-grey, and the saturated brand cards are left untouched. */
+:root[data-theme="dark"] {
+  --primary: #f6f1e7;
+  --primary-active: #e6dfce;
+  --ink: #f6f1e7;
+  --body: #c9c2b4;
+  --body-strong: #ece5d7;
+  --muted: #a49d90;
+  --muted-soft: #7c766b;
+  --hairline: #322c22;
+  --hairline-soft: #241f16;
+  --canvas: #14110b;
+  --surface-soft: #1b1710;
+  --surface-card: #241f16;
+  --surface-strong: #2d271b;
+  --on-primary: #14110b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #f6f1e7;
+    --primary-active: #e6dfce;
+    --ink: #f6f1e7;
+    --body: #c9c2b4;
+    --body-strong: #ece5d7;
+    --muted: #a49d90;
+    --muted-soft: #7c766b;
+    --hairline: #322c22;
+    --hairline-soft: #241f16;
+    --canvas: #14110b;
+    --surface-soft: #1b1710;
+    --surface-card: #241f16;
+    --surface-strong: #2d271b;
+    --on-primary: #14110b;
+  }
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-pink);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 html {
@@ -69,6 +118,9 @@ body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 a {
@@ -231,22 +283,95 @@ a {
 /* ── Top nav ── */
 .top-nav {
   background: var(--canvas);
-  min-height: 64px;
-  display: flex;
-  align-items: center;
   border-bottom: 1px solid var(--hairline-soft);
   position: sticky;
   top: 0;
   z-index: 20;
+  transition: background-color 0.2s ease;
 }
 .top-nav .container {
   display: flex;
   align-items: center;
   gap: var(--sp-lg);
   width: 100%;
-  flex-wrap: wrap;
-  padding-top: var(--sp-sm);
-  padding-bottom: var(--sp-sm);
+  min-height: 64px;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  margin-left: auto;
+}
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline);
+  background: var(--canvas);
+  color: var(--ink);
+  cursor: pointer;
+}
+.icon-btn:hover {
+  background: var(--surface-card);
+}
+.hamburger {
+  width: 44px;
+  height: 44px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--hairline);
+  background: var(--canvas);
+  cursor: pointer;
+}
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+.hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+.mobile-menu-wrap {
+  border-top: 1px solid var(--hairline-soft);
+}
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xxs);
+  padding: var(--sp-sm) var(--sp-lg) var(--sp-lg);
+}
+.mobile-menu .m-link {
+  padding: 12px;
+  border-radius: var(--r-sm);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--body);
+}
+.mobile-menu .m-link:hover {
+  background: var(--surface-card);
+  color: var(--ink);
+}
+.mobile-menu .btn {
+  width: 100%;
+  margin-top: var(--sp-xs);
 }
 .nav-wordmark {
   font-size: 20px;
@@ -279,8 +404,6 @@ a {
 .nav-links {
   display: flex;
   gap: var(--sp-md);
-  flex-wrap: wrap;
-  margin-right: auto;
 }
 .nav-links a {
   font-size: 14px;
@@ -377,26 +500,42 @@ a {
 }
 .card-lavender {
   background: var(--brand-lavender);
-  color: var(--body-strong);
+  color: var(--on-light-card);
 }
 .card-peach {
   background: var(--brand-peach);
-  color: var(--body-strong);
+  color: var(--on-light-card);
 }
 .card-ochre {
   background: var(--brand-ochre);
-  color: var(--body-strong);
+  color: var(--on-light-card);
 }
 .card-cream {
   background: var(--surface-card);
   color: var(--body);
 }
+/* CTA links inherit the card's own text colour so they stay legible on
+   both dark cards (white) and light cards (dark) in either theme. */
+.feature-card .card-cta a {
+  color: inherit;
+}
 
 /* ── Product UI fragments (mockups inside cards) ── */
 .mockup {
-  background: var(--canvas);
-  color: var(--ink);
-  border: 1px solid var(--hairline);
+  /* These are product "screenshots" sitting on saturated brand cards, so
+     they keep a fixed light palette regardless of page theme. Re-declaring
+     the tokens locally means every descendant (badges, rows) stays light. */
+  --ink: #0a0a0a;
+  --body: #3a3a3a;
+  --muted: #6a6a6a;
+  --muted-soft: #9a9a9a;
+  --surface-card: #f5f0e0;
+  --surface-strong: #ebe6d6;
+  --hairline: #e5e5e5;
+  --hairline-soft: #f0f0f0;
+  background: #fffaf0;
+  color: #0a0a0a;
+  border: 1px solid #e5e5e5;
   border-radius: var(--r-lg);
   padding: var(--sp-lg);
   font-size: 13px;
@@ -760,6 +899,23 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* Header collapses to a hamburger before the six links get cramped. */
+@media (max-width: 860px) {
+  .nav-links,
+  .nav-github {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+@media (min-width: 861px) {
+  .mobile-menu-wrap {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-grid,
   .status-strip {
@@ -786,5 +942,36 @@ a {
   }
   .section {
     padding: var(--sp-xxl) 0;
+  }
+  .hero {
+    padding: var(--sp-xxl) 0;
+  }
+  /* Let wide docs tables scroll instead of blowing out the page width. */
+  .docs-body table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--sp-md);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-lg);
+  }
+  .feature-card,
+  .status-strip,
+  .page-hero {
+    padding: var(--sp-lg);
+  }
+  .changelog-entry {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .hero-actions .btn,
+  .cta-band .actions .btn {
+    width: 100%;
   }
 }

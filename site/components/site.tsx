@@ -26,42 +26,6 @@ export function StatusBadge({
   );
 }
 
-export function Nav() {
-  const links = [
-    ["/motion", "Motion"],
-    ["/subs", "Subs"],
-    ["/ai", "AI"],
-    ["/enterprise", "Enterprise"],
-    ["/roadmap", "Roadmap"],
-    ["/docs", "Docs"],
-  ] as const;
-  return (
-    <nav className="top-nav">
-      <div className="container">
-        <Link href="/" className="nav-wordmark">
-          <span className="mark" aria-hidden="true" />
-          Hermite
-        </Link>
-        <div className="nav-links">
-          {links.map(([href, label]) => (
-            <Link key={href} href={href}>
-              {label}
-            </Link>
-          ))}
-        </div>
-        <a
-          className="btn btn-primary"
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Star on GitHub
-        </a>
-      </div>
-    </nav>
-  );
-}
-
 export function Changelog({ limit }: { limit?: number }) {
   const entries = limit ? changelog.slice(0, limit) : changelog;
   return (
