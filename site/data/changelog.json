@@ -1,0 +1,17 @@
+[
+  {
+    "date": "2026-07-17",
+    "title": "Product site v1",
+    "body": "Hermite's site is live — full four-stage roadmap, docs preview for the enterprise API and MCP integration, built on the Clay design system."
+  },
+  {
+    "date": "2026-07-17",
+    "title": "Platform verified, plan locked",
+    "body": "The four-stage plan is committed after verifying Resolve's real constraints: .drfx packaging, free-vs-Studio scripting limits, and the bridge-script architecture proven by AutoSubs."
+  },
+  {
+    "date": "2026-07-17",
+    "title": "Monorepo scaffolded",
+    "body": "Repository seeded: fusion-macros, core, backend, api, app, and this site, each mapped to a stage of the plan."
+  }
+]

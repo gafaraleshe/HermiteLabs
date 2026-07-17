@@ -1,0 +1,149 @@
+{
+  "currentFocus": "motion",
+  "stages": [
+    {
+      "id": "motion",
+      "stage": 1,
+      "name": "Hermite Motion",
+      "version": "v1",
+      "status": "in-progress",
+      "color": "pink",
+      "tagline": "After Effects–style animation control, inside Resolve.",
+      "summary": "One-click motion presets, a bezier easing curve editor, and speed-ramp tools — so smooth keyframe animation doesn't require hand-editing curves in Fusion.",
+      "features": [
+        {
+          "id": "preset-pack",
+          "title": "Motion preset pack (.drfx)",
+          "blurb": "Slide-in (4 directions), pop/scale-in, ken burns pan-zoom, and fade+move combos as reusable Fusion macros with Inspector controls. One double-click to install.",
+          "status": "in-progress"
+        },
+        {
+          "id": "curve-editor",
+          "title": "Bezier easing curve editor",
+          "blurb": "Draggable-handle curve UI with a preset library — linear, ease, ease-in-out, overshoot, bounce — applied to real keyframes on a selected Fusion node.",
+          "status": "planned"
+        },
+        {
+          "id": "speed-ramp",
+          "title": "Speed-ramp graph editor",
+          "blurb": "Click-drag speed curves with ease handles and hold/freeze segments, modeled on the After Effects graph editor.",
+          "status": "planned"
+        },
+        {
+          "id": "batch-apply",
+          "title": "Batch apply",
+          "blurb": "Select multiple clips, apply one preset to all of them at once.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "subs",
+      "stage": 2,
+      "name": "Hermite Subs",
+      "version": "v1.5",
+      "status": "planned",
+      "color": "peach",
+      "tagline": "Auto-subtitles that never leave your machine.",
+      "summary": "On-device transcription and captioning — model choice, voice activity detection, styling presets, and a correction pass before anything touches your timeline. No cloud calls.",
+      "features": [
+        {
+          "id": "transcription",
+          "title": "On-device transcription",
+          "blurb": "Choice of model size and family — small and fast, or larger and more accurate — running entirely on your machine.",
+          "status": "planned"
+        },
+        {
+          "id": "vad",
+          "title": "Voice activity detection",
+          "blurb": "Silence is skipped before transcription, so long timelines process faster.",
+          "status": "planned"
+        },
+        {
+          "id": "styling",
+          "title": "Styled subtitle tracks",
+          "blurb": "Auto-generated Resolve subtitle/Text+ tracks with adjustable styling presets — font, position, background, karaoke-style highlight.",
+          "status": "planned"
+        },
+        {
+          "id": "correction",
+          "title": "Correction pass",
+          "blurb": "A waveform + text editor to fix errors before committing to the timeline. Nothing is written without your review.",
+          "status": "planned"
+        },
+        {
+          "id": "diarization",
+          "title": "Speaker diarization",
+          "blurb": "Identify and label different speakers in the transcript.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "stage": 3,
+      "name": "Hermite AI",
+      "version": "v2",
+      "status": "planned",
+      "color": "lavender",
+      "tagline": "A local AI layer you choose the brain for.",
+      "summary": "A swappable on-device model layer — pick the lightweight local model that fits your RAM and GPU, starting with caption punctuation and cleanup.",
+      "features": [
+        {
+          "id": "model-manager",
+          "title": "Model picker & manager",
+          "blurb": "Supported local models listed with disk and RAM requirements shown before download, plus version management. Swap models without touching the rest of the app.",
+          "status": "planned"
+        },
+        {
+          "id": "cleanup",
+          "title": "Caption punctuation & cleanup",
+          "blurb": "The first concrete AI use case: a bounded, low-risk pass that directly improves transcription output.",
+          "status": "planned"
+        },
+        {
+          "id": "cloud-tier",
+          "title": "Optional cloud pass (opt-in)",
+          "blurb": "A clearly labeled, off-by-default higher-quality cloud option for users who want it. Never a silent fallback — your data stays local unless you explicitly opt in.",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "enterprise",
+      "stage": 4,
+      "name": "Hermite API",
+      "version": "v2.5",
+      "status": "planned",
+      "color": "teal",
+      "tagline": "Hermite's engine, callable by your tools and agents.",
+      "summary": "A cloud-hosted enterprise API exposing curve generation, motion presets, transcription, and caption cleanup as stateless endpoints — with MCP integration so AI agents can call Hermite as a tool. Cloud by design, clearly separated from the on-device product.",
+      "features": [
+        {
+          "id": "rest-api",
+          "title": "REST API",
+          "blurb": "Easing-curve generation, motion-preset application, transcription-as-a-service, and AI caption cleanup as well-documented, stateless endpoints.",
+          "status": "planned"
+        },
+        {
+          "id": "auth-billing",
+          "title": "API keys & usage billing",
+          "blurb": "API key auth with usage-based or seat-based enterprise plans, separate from the desktop app's consumer licensing.",
+          "status": "planned"
+        },
+        {
+          "id": "rate-limits",
+          "title": "Rate limiting & usage dashboards",
+          "blurb": "Programmatic-load guardrails and visibility from day one.",
+          "status": "planned"
+        },
+        {
+          "id": "mcp",
+          "title": "MCP integration via Composio",
+          "blurb": "Hermite registered as a Composio toolkit, so Claude, Cursor, or any MCP-compatible agent can call it as tool calls.",
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}
