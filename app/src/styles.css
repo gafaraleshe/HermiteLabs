@@ -1,0 +1,382 @@
+/* Hermite desktop app — dark tool UI (sits next to Resolve, which is dark).
+   Pink accent ties it to the Hermite brand; the rest is functional chrome. */
+
+:root {
+  --bg: #14110b;
+  --panel: #1c1811;
+  --panel-2: #241f16;
+  --line: #322c22;
+  --line-soft: #262117;
+  --ink: #f6f1e7;
+  --body: #c9c2b4;
+  --muted: #8f887a;
+  --pink: #ff4d8b;
+  --pink-dim: #b8375f;
+  --lavender: #b8a4ed;
+  --mint: #a4d4c5;
+  --ochre: #e8b94a;
+  --ok: #22c55e;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 24px 40px;
+}
+
+/* ── Top bar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand .mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--pink);
+  position: relative;
+  overflow: hidden;
+}
+.brand .mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 26% 100%, var(--ochre) 0 40%, transparent 42%);
+}
+.brand .name {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.brand .tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pink);
+  border: 1px solid var(--pink-dim);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* ── Connection bar ── */
+.conn-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.conn-bar .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  box-shadow: 0 0 0 3px rgba(143, 136, 122, 0.15);
+}
+.conn-bar.ok {
+  color: var(--body);
+}
+.conn-bar.ok .dot {
+  background: var(--ok);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 18px 0;
+}
+.tab {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+.tab:hover {
+  color: var(--body);
+}
+.tab.active {
+  background: var(--panel-2);
+  color: var(--ink);
+}
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+.panel-head h2 {
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.panel-head p {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* ── Curve editor ── */
+.curve-frame {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 16px 0;
+}
+.curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  touch-action: none;
+}
+.curve-svg .grid line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.curve-svg .axis {
+  stroke: var(--line-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.curve-svg .guide {
+  stroke: var(--lavender);
+  stroke-width: 1.5;
+  opacity: 0.55;
+}
+.curve-svg .curve {
+  stroke: var(--pink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.curve-svg .endpoint {
+  fill: var(--ink);
+}
+.curve-svg .handle {
+  fill: var(--bg);
+  stroke: var(--lavender);
+  stroke-width: 2.5;
+  cursor: grab;
+}
+.curve-svg .handle:hover {
+  fill: var(--lavender);
+}
+.curve-svg .handle.locked {
+  stroke: var(--muted);
+  cursor: default;
+}
+
+/* ── Preset rail ── */
+.preset-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+}
+.preset-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 6px 8px;
+  color: var(--body);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.preset-chip:hover {
+  border-color: var(--pink-dim);
+}
+.preset-chip.active {
+  border-color: var(--pink);
+  background: rgba(255, 77, 139, 0.1);
+  color: var(--ink);
+}
+.mini-curve {
+  width: 46px;
+  height: 46px;
+}
+.mini-curve path {
+  stroke: var(--pink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* ── Controls ── */
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.field span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field input,
+.field select {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 9px 10px;
+}
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--pink);
+}
+
+/* ── Readout ── */
+.readout {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 16px;
+}
+.readout-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.readout .k {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.readout code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--mint);
+}
+.readout-keys {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kf-line {
+  display: grid;
+  grid-template-columns: 42px 60px 1fr;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--body);
+}
+.kf-line .frame {
+  color: var(--ochre);
+}
+.kf-line .handle {
+  color: var(--muted);
+}
+.apply-btn {
+  margin-top: 16px;
+  width: 100%;
+  background: var(--pink);
+  color: #14110b;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px;
+}
+.apply-btn:hover:not(:disabled) {
+  background: #ff689d;
+}
+.apply-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.apply-status {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--body);
+}
+.notice,
+.hint {
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.notice {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+.notice strong {
+  color: var(--ink);
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
