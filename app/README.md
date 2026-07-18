@@ -1,18 +1,30 @@
 # app
 
-The Hermite desktop app (Tauri) — Stage 1b, and later the home for Subs
-correction and the AI model manager. Right now it's the **motion toolkit**: the
-bezier easing curve editor and speed-ramp editor.
+The Hermite desktop app (Tauri) — the motion toolkit (bezier easing curve
+editor, speed-ramp editor) plus the **Subs tab**: model manager and the
+one-button Resolve transcription flow (export timeline audio → transcribe
+on-device → write subtitles back). Deep-link a tab with `?tab=subs|speed`.
 
 ## How it fits together
 
 ```
-┌ Hermite desktop app (this) ┐        ┌ DaVinci Resolve ────────────┐
-│  React + Vite frontend      │  HTTP  │  hermite_bridge.py          │
-│  (curve editor, presets)    │◀──────▶│  (Workspace › Scripts)      │
-│  Tauri (Rust) window shell  │  :8712 │  drives Fusion keyframes    │
-└─────────────────────────────┘        └─────────────────────────────┘
+┌ Hermite desktop app (this) ─┐  :8712 ┌ DaVinci Resolve ────────────┐
+│  React + Vite frontend      │◀──────▶│  hermite_bridge.py          │
+│  curve editor · Subs flow   │        │  (Workspace › Scripts)      │
+│  Tauri (Rust) window shell  │  :8713 │  keyframes · audio export · │
+│                             │◀─┐     │  subtitle write-back        │
+└─────────────────────────────┘  │     └─────────────────────────────┘
+                                 ▼
+                  ┌ hermite backend (../backend) ┐
+                  │  faster-whisper + VAD, jobs, │
+                  │  model manager, SRT/VTT      │
+                  └──────────────────────────────┘
 ```
+
+Subs flow: the app asks the bridge to render timeline audio to a temp WAV
+(`/export-audio`), hands that *path* to the backend (`/transcribe-path`), polls
+the job, then sends the SRT back through the bridge (`/write-subtitles`) —
+Media Pool import + subtitle-track append.
 
 The app never talks to Resolve directly — it calls the **bridge**, a small
 Python script that runs *inside* Resolve. That's the only path that works on

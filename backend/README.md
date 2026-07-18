@@ -28,6 +28,7 @@ python3 -m venv .venv
 | `GET /models` | Registry with disk/RAM requirements and download state |
 | `POST /models/{id}/download` | Explicitly fetch weights (never implicit) |
 | `POST /transcribe` | Multipart upload (`file`, `model`, `language`, `vad`) → `jobId` |
+| `POST /transcribe-path` | JSON `{path, model, language, vad}` → `jobId` — for local files (the Resolve flow: the bridge exports timeline audio, the app passes its path; nothing streams through the UI) |
 | `GET /jobs/{id}` | Status/progress; segments + meta when done |
 | `GET /jobs/{id}/srt` · `/vtt` | Subtitle export |
 | `DELETE /jobs/{id}` | Drop the job and delete its audio |

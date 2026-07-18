@@ -57,3 +57,27 @@ def test_unknown_job_404s(client):
 
 def test_download_unknown_model_404s(client):
     assert client.post("/models/nope/download").status_code == 404
+
+
+def test_transcribe_path_rejects_missing_file(client, tmp_path):
+    # model "present" so we reach the path check
+    fast_dir = tmp_path / "fast"
+    fast_dir.mkdir()
+    (fast_dir / "model.bin").write_bytes(b"x")
+    res = client.post("/transcribe-path", json={"path": "/nope/missing.wav"})
+    assert res.status_code == 400
+    assert "no such audio file" in res.json()["detail"]
+
+
+def test_transcribe_path_refuses_when_model_missing(client, tmp_path):
+    wav = tmp_path / "a.wav"
+    wav.write_bytes(b"RIFF")
+    res = client.post("/transcribe-path", json={"path": str(wav)})
+    assert res.status_code == 409
+
+
+def test_transcribe_path_rejects_unknown_model(client, tmp_path):
+    wav = tmp_path / "a.wav"
+    wav.write_bytes(b"RIFF")
+    res = client.post("/transcribe-path", json={"path": str(wav), "model": "gigantic"})
+    assert res.status_code == 400

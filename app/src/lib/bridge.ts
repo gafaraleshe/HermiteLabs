@@ -34,9 +34,9 @@ export interface ApplyEasingPayload {
   keys: FusionKey[];
 }
 
-async function req<T>(path: string, init?: RequestInit): Promise<T> {
+async function req<T>(path: string, init?: RequestInit, timeoutMs = 1200): Promise<T> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 1200);
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const res = await fetch(`${BRIDGE_URL}${path}`, {
       ...init,
@@ -82,4 +82,36 @@ export async function applyPreset(
     method: "POST",
     body: JSON.stringify({ preset }),
   });
+}
+
+export interface ExportAudioResult {
+  ok: boolean;
+  path?: string;
+  timeline?: string;
+  message?: string;
+}
+
+/** Ask Resolve (via the bridge) to render the timeline's audio to a temp WAV.
+ * Blocks for the duration of the render — allow up to 10 minutes. */
+export async function exportAudio(): Promise<ExportAudioResult> {
+  return req("/export-audio", { method: "POST", body: "{}" }, 615_000);
+}
+
+export interface WriteSubtitlesResult {
+  ok: boolean;
+  imported?: boolean;
+  appended?: boolean;
+  path?: string;
+  message: string;
+}
+
+export async function writeSubtitles(
+  srt: string,
+  name: string,
+): Promise<WriteSubtitlesResult> {
+  return req(
+    "/write-subtitles",
+    { method: "POST", body: JSON.stringify({ srt, name }) },
+    30_000,
+  );
 }

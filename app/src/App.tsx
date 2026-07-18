@@ -3,9 +3,10 @@ import { CurveEditor } from "./components/CurveEditor";
 import { PresetRail } from "./components/PresetRail";
 import { ConnectionBar } from "./components/ConnectionBar";
 import { FusionReadout } from "./components/FusionReadout";
+import { SubsPanel } from "./components/SubsPanel";
 import { presetById, type CubicBezier } from "./lib/easing";
 
-type Tab = "easing" | "speed";
+type Tab = "easing" | "speed" | "subs";
 
 const EASING_TARGETS = ["Size", "Angle", "Blend"] as const;
 const TARGET_DEFAULTS: Record<string, { from: number; to: number }> = {
@@ -15,8 +16,13 @@ const TARGET_DEFAULTS: Record<string, { from: number; to: number }> = {
   Speed: { from: 100, to: 40 },
 };
 
+function initialTab(): Tab {
+  const t = new URLSearchParams(window.location.search).get("tab");
+  return t === "speed" || t === "subs" ? t : "easing";
+}
+
 export default function App() {
-  const [tab, setTab] = useState<Tab>("easing");
+  const [tab, setTab] = useState<Tab>(initialTab);
   const [activeId, setActiveId] = useState("overshoot");
   const [cubic, setCubic] = useState<CubicBezier | null>(
     presetById("overshoot")?.cubic ?? null,
@@ -37,6 +43,7 @@ export default function App() {
 
   function switchTab(next: Tab) {
     setTab(next);
+    if (next === "subs") return;
     const d = TARGET_DEFAULTS[next === "speed" ? "Speed" : target];
     setFrom(d.from);
     setTo(d.to);
@@ -60,7 +67,7 @@ export default function App() {
         <div className="brand">
           <span className="mark" aria-hidden="true" />
           <span className="name">Hermite</span>
-          <span className="tag">Motion</span>
+          <span className="tag">v0.1</span>
         </div>
         <ConnectionBar />
       </header>
@@ -80,8 +87,18 @@ export default function App() {
         >
           Speed ramp
         </button>
+        <button
+          type="button"
+          className={`tab${tab === "subs" ? " active" : ""}`}
+          onClick={() => switchTab("subs")}
+        >
+          Subs
+        </button>
       </div>
 
+      {tab === "subs" ? (
+        <SubsPanel />
+      ) : (
       <main className="layout">
         <section className="panel editor-panel">
           <div className="panel-head">
@@ -162,6 +179,7 @@ export default function App() {
           )}
         </section>
       </main>
+      )}
     </div>
   );
 }

@@ -138,6 +138,127 @@ def apply_easing(body):
     }
 
 
+def export_audio(body):
+    """Render the current timeline's audio to a temp WAV and return its path.
+
+    Synchronous: audio-only renders are fast, so the request blocks until the
+    render finishes (10-minute ceiling). The app shows progress states around
+    this call. v0.1 — the render-settings keys are per Blackmagic's docs but
+    Resolve versions vary in accepted format/codec strings, so we try a couple
+    and surface whatever Resolve reports on failure.
+    """
+    import os
+    import tempfile
+    import time
+
+    r = resolve()
+    pm = r.GetProjectManager()
+    proj = pm.GetCurrentProject() if pm else None
+    if proj is None:
+        return {"ok": False, "message": "No project open."}
+    timeline = proj.GetCurrentTimeline()
+    if timeline is None:
+        return {"ok": False, "message": "No timeline open."}
+
+    outdir = tempfile.mkdtemp(prefix="hermite-audio-")
+    custom_name = "hermite_timeline_audio"
+
+    # Try known (format, codec) spellings across Resolve versions.
+    for fmt, codec in (("wav", "lpcm"), ("WAV", "LinearPCM"), ("mp3", "mp3")):
+        if proj.SetCurrentRenderFormatAndCodec(fmt, codec):
+            break
+
+    proj.SetRenderSettings({
+        "SelectAllFrames": 1,
+        "TargetDir": outdir,
+        "CustomName": custom_name,
+        "ExportVideo": False,
+        "ExportAudio": True,
+    })
+    job_id = proj.AddRenderJob()
+    if not job_id:
+        return {"ok": False, "message": "Resolve refused the render job."}
+    if not proj.StartRendering(job_id):
+        proj.DeleteRenderJob(job_id)
+        return {"ok": False, "message": "Rendering failed to start."}
+
+    deadline = time.time() + 600
+    while proj.IsRenderingInProgress():
+        if time.time() > deadline:
+            proj.StopRendering()
+            proj.DeleteRenderJob(job_id)
+            return {"ok": False, "message": "Render timed out after 10 minutes."}
+        time.sleep(0.5)
+
+    status = proj.GetRenderJobStatus(job_id) or {}
+    proj.DeleteRenderJob(job_id)
+    if status.get("JobStatus") not in ("Complete", None):
+        return {"ok": False, "message": f"Render ended as {status.get('JobStatus')!r}."}
+
+    files = sorted(
+        (os.path.join(outdir, f) for f in os.listdir(outdir)),
+        key=os.path.getmtime,
+        reverse=True,
+    )
+    if not files:
+        return {"ok": False, "message": "Render finished but produced no file."}
+    return {"ok": True, "path": files[0], "timeline": timeline.GetName()}
+
+
+def write_subtitles(body):
+    """Import subtitle content (SRT text) into the project.
+
+    v0.1 strategy — most reliable documented path first: write the SRT to
+    disk, import it into the Media Pool, then attempt AppendToTimeline so it
+    lands on a subtitle track. Each step reports individually, so if the
+    append isn't supported in a given Resolve version, the user still has the
+    SRT in the Media Pool (drag it to the timeline) and on disk.
+    """
+    import os
+    import tempfile
+
+    srt_text = body.get("srt", "")
+    if not srt_text.strip():
+        return {"ok": False, "message": "Empty subtitle content."}
+    name = body.get("name") or "hermite_subtitles"
+
+    r = resolve()
+    pm = r.GetProjectManager()
+    proj = pm.GetCurrentProject() if pm else None
+    if proj is None:
+        return {"ok": False, "message": "No project open."}
+
+    outdir = tempfile.mkdtemp(prefix="hermite-subs-")
+    srt_path = os.path.join(outdir, f"{name}.srt")
+    with open(srt_path, "w", encoding="utf-8") as fh:
+        fh.write(srt_text)
+
+    media_pool = proj.GetMediaPool()
+    items = media_pool.ImportMedia([srt_path]) if media_pool else None
+    imported = bool(items)
+
+    appended = False
+    if imported:
+        try:
+            appended = bool(media_pool.AppendToTimeline(items))
+        except Exception:
+            appended = False
+
+    if appended:
+        message = "Subtitles added to the timeline."
+    elif imported:
+        message = "SRT imported to the Media Pool — drag it onto the timeline."
+    else:
+        message = f"Couldn't import into Resolve — the SRT is saved at {srt_path}."
+    return {
+        "ok": imported,
+        "imported": imported,
+        "appended": appended,
+        "path": srt_path,
+        "message": message,
+    }
+
+
 def apply_preset(body):
     # Motion presets ship in the .drfx and are applied from Resolve's Effects
     # library; driving that from the bridge is a later convenience.
@@ -149,7 +270,12 @@ def apply_preset(body):
 
 
 ROUTES_GET = {"/health": health_payload, "/selection": selection_payload}
-ROUTES_POST = {"/apply-easing": apply_easing, "/apply-preset": apply_preset}
+ROUTES_POST = {
+    "/apply-easing": apply_easing,
+    "/apply-preset": apply_preset,
+    "/export-audio": export_audio,
+    "/write-subtitles": write_subtitles,
+}
 
 
 # ── HTTP server ──────────────────────────────────────────────────────────────

@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 from fastapi import FastAPI, HTTPException, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import PlainTextResponse
+from pydantic import BaseModel
 
 from hermite_core import __version__ as core_version
 from hermite_core import models
@@ -167,6 +168,44 @@ async def transcribe(
     threading.Thread(
         target=_run_job,
         args=(job, audio_path, language or None, vad),
+        daemon=True,
+    ).start()
+    return {"ok": True, "jobId": job.id}
+
+
+class PathTranscribeRequest(BaseModel):
+    path: str
+    model: str = ""
+    language: str = ""
+    vad: bool = True
+
+
+@app.post("/transcribe-path")
+def transcribe_path(req: PathTranscribeRequest) -> dict:
+    """Transcribe an audio file already on this machine — the Resolve flow:
+    the bridge renders timeline audio to a temp file, the app passes its path
+    here, and nothing large ever moves through the UI process. Loopback-only
+    trust model (same as the bridge); the source file is never deleted by us.
+    """
+    model_id = req.model or models.default_model().id
+    try:
+        models.spec(model_id)
+    except KeyError:
+        raise HTTPException(400, f"unknown model '{model_id}'")
+    if not models.is_downloaded(model_id):
+        raise HTTPException(
+            409,
+            f"model '{model_id}' is not downloaded — POST /models/{model_id}/download first",
+        )
+    if not os.path.isfile(req.path):
+        raise HTTPException(400, f"no such audio file: {req.path}")
+
+    job = Job(id=uuid.uuid4().hex[:12], model=model_id, workdir="")
+    with JOBS_LOCK:
+        JOBS[job.id] = job
+    threading.Thread(
+        target=_run_job,
+        args=(job, req.path, req.language or None, req.vad),
         daemon=True,
     ).start()
     return {"ok": True, "jobId": job.id}
