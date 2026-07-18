@@ -42,7 +42,7 @@
       "stage": 2,
       "name": "Hermite Subs",
       "version": "v1.5",
-      "status": "planned",
+      "status": "in-progress",
       "color": "peach",
       "tagline": "Auto-subtitles that never leave your machine.",
       "summary": "On-device transcription and captioning — model choice, voice activity detection, styling presets, and a correction pass before anything touches your timeline. No cloud calls.",
@@ -51,13 +51,13 @@
           "id": "transcription",
           "title": "On-device transcription",
           "blurb": "Choice of model size and family — small and fast, or larger and more accurate — running entirely on your machine.",
-          "status": "planned"
+          "status": "in-progress"
         },
         {
           "id": "vad",
           "title": "Voice activity detection",
           "blurb": "Silence is skipped before transcription, so long timelines process faster.",
-          "status": "planned"
+          "status": "in-progress"
         },
         {
           "id": "styling",

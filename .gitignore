@@ -4,6 +4,8 @@ node_modules/
 venv/
 __pycache__/
 *.pyc
+*.egg-info/
+.pytest_cache/
 
 # Build output
 dist/
@@ -15,6 +17,7 @@ out/
 
 # Model weights — downloaded on first run, never committed
 models/
+.models-test/
 *.gguf
 *.onnx
 *.bin

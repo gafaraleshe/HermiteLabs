@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-07-18",
+    "title": "Transcription engine running",
+    "body": "Hermite Subs' on-device engine is alive: faster-whisper + Silero VAD behind a local service — model manager with disk/RAM requirements up front, async jobs, SRT/VTT export. Verified end-to-end; correction UI is next."
+  },
+  {
+    "date": "2026-07-18",
+    "title": "Motion preset pack + curve editor",
+    "body": "Stage 1 built: the .drfx preset pack (7 Fusion macros) and the desktop app's bezier curve editor that maps curves to exact Fusion keyframes, with the Resolve bridge script."
+  },
+  {
     "date": "2026-07-17",
     "title": "Product site v1",
     "body": "Hermite's site is live — full four-stage roadmap, docs preview for the enterprise API and MCP integration, built on the Clay design system."
