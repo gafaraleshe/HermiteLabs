@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/site";
 import "./globals.css";
 
+/**
+ * Root layout: document shell only.
+ *
+ * Chrome lives with each surface — the Hermite Labs parent site brings its own
+ * (app/page.tsx), and the HermiteCut product pages keep the Clay header and
+ * footer via app/(resolve)/layout.tsx.
+ */
 export const metadata: Metadata = {
   title: {
-    default: "Hermite — Smooth Animation for DaVinci Resolve",
-    template: "%s — Hermite",
+    default: "Hermite Labs — software for creative businesses",
+    template: "%s — Hermite Labs",
   },
   description:
-    "After Effects–style animation control for DaVinci Resolve: one-click motion presets, a bezier easing curve editor, speed-ramp tools, fully on-device auto-subtitling, and a swappable local AI layer.",
+    "Hermite Labs builds the tools that run a modern studio. One system, many surfaces: HermiteFlow for billing, HermiteCut for Resolve, HermiteMind for AI.",
 };
 
 // Runs before paint so the correct theme is applied with no flash of the
@@ -23,9 +28,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

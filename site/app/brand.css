@@ -1,0 +1,298 @@
+/**
+ * Hermite Labs — brand tokens (parent site).
+ *
+ * Values taken verbatim from hermite-brand-system.html. This is the same token
+ * set used by HermiteFlow; when @hermite/brand is extracted, both consume it
+ * from there instead of duplicating it here.
+ *
+ * The mechanism: a product surface is the parent surface with ONE variable
+ * changed — `--accent`. hermitelabs.com sets no product and is therefore
+ * monochrome by construction, not by discipline.
+ */
+
+.hermite {
+  /* ─── Monochrome ramp ─── */
+  --ink-000: #000000;
+  --ink-050: #08090a;
+  --ink-100: #0e1011;
+  --ink-200: #16191b;
+  --ink-300: #1f2325;
+  --ink-400: #2c3134;
+  --ink-500: #4a5155;
+  --ink-600: #6b7378;
+  --ink-700: #9aa1a6;
+  --ink-800: #c9cfd3;
+  --ink-900: #edf0f1;
+  --paper: #fafafa;
+
+  /* ─── Product accents ─── */
+  --flow: #3adcc8;
+  --cut: #ff7a45;
+  --mind: #9b8afb;
+  --reserve: #e8e85c;
+
+  /* ─── Hairlines. Depth comes from these, never shadows. ─── */
+  --hairline: rgba(255, 255, 255, 0.09);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+
+  /* ─── Type ─── */
+  --mono-brand: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
+    Consolas, monospace;
+  --sans-brand: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif;
+
+  /* ─── Layout / radii / motion ─── */
+  --gut-brand: clamp(20px, 5vw, 72px);
+  --measure: 1180px;
+  --grid-cell: 64px;
+  --radius-action: 2px;
+  --dur-base: 180ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Parent is monochrome. Product pages set --accent; nothing else changes. */
+  --accent: var(--paper);
+  --accent-ink: var(--ink-050);
+
+  background: var(--ink-050);
+  color: var(--ink-900);
+  font-family: var(--sans-brand);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hermite[data-product="flow"] {
+  --accent: var(--flow);
+  --accent-ink: #04201c;
+}
+.hermite[data-product="cut"] {
+  --accent: var(--cut);
+  --accent-ink: #2a0f05;
+}
+.hermite[data-product="mind"] {
+  --accent: var(--mind);
+  --accent-ink: #150e33;
+}
+
+/* ─── Layout ─── */
+.h-wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-inline: var(--gut-brand);
+  width: 100%;
+}
+.hermite section {
+  border-top: 1px solid var(--hairline);
+  padding: clamp(48px, 7vw, 96px) 0;
+}
+.hermite .h-hero {
+  border-top: 0;
+  padding: clamp(64px, 11vw, 150px) 0 clamp(48px, 7vw, 90px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 64px background grid, masked radially at the section top. */
+.h-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image: linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 60% at 50% 0%,
+    #000 10%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 60% at 50% 0%,
+    #000 10%,
+    transparent 75%
+  );
+}
+
+/* ─── Type ─── */
+.h-label {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--ink-600);
+  display: inline-block;
+}
+.h-label--on {
+  color: var(--ink-800);
+}
+.h-display {
+  font-size: clamp(34px, 6.4vw, 70px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.03;
+  color: var(--ink-900);
+  margin: 26px 0 20px;
+}
+.h-display em {
+  font-style: normal;
+  color: var(--ink-500);
+}
+.h-h2 {
+  font-size: clamp(24px, 3.4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--ink-900);
+}
+.h-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-700);
+  max-width: 62ch;
+}
+.h-sec-head {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  margin-bottom: 40px;
+}
+.h-sec-num {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-500);
+}
+
+/* ─── Actions: 2px radius, mono uppercase. Pills are status-only. ─── */
+.h-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  border: 1px solid var(--hairline-strong);
+  color: var(--paper);
+  text-decoration: none;
+  background: transparent;
+  border-radius: var(--radius-action);
+  transition: background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  cursor: pointer;
+}
+.h-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.h-btn--solid {
+  background: var(--paper);
+  color: var(--ink-050);
+  border-color: var(--paper);
+}
+.h-btn--solid:hover {
+  background: var(--ink-900);
+  border-color: var(--ink-900);
+}
+.h-btn--ghost {
+  border-color: var(--hairline);
+  color: var(--ink-700);
+}
+
+/* ─── Surfaces ─── */
+.h-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.h-cell {
+  background: var(--ink-050);
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+a.h-cell:hover {
+  background: var(--ink-100);
+}
+/* A product is identified by a 2px rule in its own accent — the only colour
+   on the parent site, and it names rather than decorates. */
+.h-cell[data-tint]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--tint);
+}
+.h-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 99px;
+  padding: 5px 12px;
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-700);
+}
+.h-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--tint, var(--paper));
+}
+
+/* ─── Numbered feature block — the signature layout ─── */
+.h-feat {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 20px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.h-feat:last-child {
+  border-bottom: 0;
+}
+.h-feat-n {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  color: var(--ink-500);
+  letter-spacing: 0.1em;
+  padding-top: 3px;
+}
+.h-feat h3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--ink-900);
+}
+
+.h-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+/* ─── Motion: fade + 8px rise, once. Honour reduced motion. ─── */
+@media (prefers-reduced-motion: no-preference) {
+  .h-rise {
+    animation: h-rise var(--dur-base) var(--ease-out) both;
+  }
+}
+@keyframes h-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
