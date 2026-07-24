@@ -1,4 +1,14 @@
-# Hermite
+# Hermite Labs
+
+> **This repo is the home of [Hermite Labs](https://hermitelabs.com)** — software
+> for creative businesses, by Gaffy Studios. The **platform** (hermitelabs.com +
+> [flow.hermitelabs.com](https://flow.hermitelabs.com), the Hermite Flow
+> CRM + invoicing product) lives on the
+> [`main`](https://github.com/gafaraleshe/hermite/tree/main) branch — migrated
+> here in full from the former `InvoiceFlow` repo. This branch holds the
+> **Hermite** Resolve plugin, below.
+
+# Hermite (Resolve plugin)
 
 **Smooth animation for DaVinci Resolve** — a plugin by [Gaffy Studios](https://github.com/gafaraleshe/gaffystudios) that brings After Effects–style animation control into Resolve, paired with fully on-device auto-subtitling and a swappable local AI layer.
 
