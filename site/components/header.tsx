@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GITHUB_URL } from "@/lib/content";
+import { HermiteMark } from "@/components/hermite-mark";
 
 const LINKS = [
   ["/motion", "Motion"],
@@ -93,9 +94,11 @@ export function Header() {
   return (
     <nav className="top-nav">
       <div className="container">
-        <Link href="/" className="nav-wordmark" onClick={close}>
-          <span className="mark" aria-hidden="true" />
-          Hermite
+        {/* Product lockup: accent lands on the right crossbar segment only.
+            Links to /cut, the product home — "/" is Hermite Labs. */}
+        <Link href="/cut" className="nav-wordmark" onClick={close}>
+          <HermiteMark size={26} product="cut" title="HermiteCut" />
+          Hermite<span style={{ color: "var(--accent)" }}>Cut</span>
         </Link>
 
         <div className="nav-links">
@@ -109,7 +112,7 @@ export function Header() {
         <div className="nav-actions">
           <ThemeToggle />
           <a
-            className="btn btn-primary nav-github"
+            className="btn btn-secondary nav-github"
             href={GITHUB_URL}
             target="_blank"
             rel="noreferrer"
@@ -145,7 +148,7 @@ export function Header() {
               </Link>
             ))}
             <a
-              className="btn btn-primary"
+              className="btn btn-secondary"
               href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"

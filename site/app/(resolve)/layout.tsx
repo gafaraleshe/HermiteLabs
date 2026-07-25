@@ -1,25 +1,28 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/site";
+import "./cut-theme.css";
 
 /**
  * Chrome for the HermiteCut product pages.
  *
- * These keep the existing Clay design while the parent site (`app/page.tsx`)
- * runs on the Hermite brand system. Route groups do not affect URLs, so every
- * path here is unchanged — /motion, /subs, /cut and so on.
+ * `data-product="cut"` sets the accent; `hermite-cut` re-points the Clay
+ * tokens at the Hermite ink ramp (see cut-theme.css). Between them the whole
+ * product surface inherits the brand system — same grid, type and spacing as
+ * the parent site, distinguished by exactly one accent (#FF7A45).
  *
- * When these pages move to cut.hermitelabs.com they should be re-themed to the
- * brand system with the HermiteCut accent (#FF7A45), at which point this
- * layout and the parent layout converge.
+ * Route groups do not affect URLs, so every path here is unchanged:
+ * /motion, /subs, /ai, /enterprise, /roadmap, /docs and /cut.
+ *
+ * These pages are ready to move to cut.hermitelabs.com as-is.
  */
 export default function ResolveLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <div className="hermite-cut" data-product="cut">
       <Header />
       {children}
       <Footer />
-    </>
+    </div>
   );
 }

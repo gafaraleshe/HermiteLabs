@@ -12,21 +12,21 @@ export function CurveFragment() {
         <span className="win-title">Easing · Overshoot</span>
       </div>
       <svg viewBox="0 0 260 120" width="100%" role="img" aria-label="Bezier easing curve with draggable handles">
-        <line x1="10" y1="110" x2="250" y2="110" stroke="#e5e5e5" />
-        <line x1="10" y1="10" x2="10" y2="110" stroke="#e5e5e5" />
+        <line x1="10" y1="110" x2="250" y2="110" stroke="var(--ink-400)" />
+        <line x1="10" y1="10" x2="10" y2="110" stroke="var(--ink-400)" />
         <path
           d="M10 110 C 80 110, 90 -14, 150 22 S 230 10, 250 10"
           fill="none"
-          stroke="#ff4d8b"
+          stroke="var(--accent)"
           strokeWidth="3"
           strokeLinecap="round"
         />
-        <line x1="10" y1="110" x2="80" y2="110" stroke="#b8a4ed" strokeWidth="1.5" />
-        <line x1="150" y1="22" x2="196" y2="8" stroke="#b8a4ed" strokeWidth="1.5" />
-        <circle cx="80" cy="110" r="5" fill="#fffaf0" stroke="#0a0a0a" strokeWidth="2" />
-        <circle cx="196" cy="8" r="5" fill="#fffaf0" stroke="#0a0a0a" strokeWidth="2" />
-        <circle cx="10" cy="110" r="4" fill="#0a0a0a" />
-        <circle cx="250" cy="10" r="4" fill="#0a0a0a" />
+        <line x1="10" y1="110" x2="80" y2="110" stroke="var(--ink-500)" strokeWidth="1.5" />
+        <line x1="150" y1="22" x2="196" y2="8" stroke="var(--ink-500)" strokeWidth="1.5" />
+        <circle cx="80" cy="110" r="5" fill="var(--ink-050)" stroke="var(--paper)" strokeWidth="2" />
+        <circle cx="196" cy="8" r="5" fill="var(--ink-050)" stroke="var(--paper)" strokeWidth="2" />
+        <circle cx="10" cy="110" r="4" fill="var(--paper)" />
+        <circle cx="250" cy="10" r="4" fill="var(--paper)" />
       </svg>
     </div>
   );
@@ -131,28 +131,28 @@ export function HeroIllustration() {
       role="img"
       aria-label="Abstract clay shapes with a smooth easing curve"
     >
-      <ellipse cx="330" cy="80" rx="52" ry="52" fill="#e8b94a" />
+      <ellipse cx="330" cy="80" rx="52" ry="52" fill="var(--ink-400)" />
       <path
         d="M20 340 C 60 190, 150 150, 210 220 C 250 265, 260 340, 260 340 Z"
-        fill="#b8a4ed"
+        fill="var(--ink-500)"
       />
       <path
         d="M180 340 C 230 140, 330 130, 400 340 Z"
-        fill="#1a3a3a"
+        fill="var(--ink-300)"
       />
       <path
         d="M110 340 C 130 280, 180 270, 205 340 Z"
-        fill="#ffb084"
+        fill="var(--ink-400)"
       />
       <path
         d="M20 300 C 130 300, 170 90, 400 84"
         fill="none"
-        stroke="#ff4d8b"
+        stroke="var(--accent)"
         strokeWidth="7"
         strokeLinecap="round"
       />
-      <circle cx="20" cy="300" r="9" fill="#0a0a0a" />
-      <circle cx="400" cy="84" r="9" fill="#0a0a0a" />
+      <circle cx="20" cy="300" r="9" fill="var(--paper)" />
+      <circle cx="400" cy="84" r="9" fill="var(--paper)" />
     </svg>
   );
 }
@@ -166,10 +166,10 @@ export function FooterMountains() {
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <path d="M0 120 C 200 40, 320 40, 470 120 Z" fill="#b8a4ed" />
-      <path d="M300 120 C 520 10, 660 10, 900 120 Z" fill="#1a3a3a" />
-      <path d="M760 120 C 920 50, 1030 50, 1180 120 Z" fill="#ffb084" />
-      <path d="M1040 120 C 1200 30, 1300 30, 1440 120 Z" fill="#e8b94a" />
+      <path d="M0 120 C 200 40, 320 40, 470 120 Z" fill="var(--ink-500)" />
+      <path d="M300 120 C 520 10, 660 10, 900 120 Z" fill="var(--ink-300)" />
+      <path d="M760 120 C 920 50, 1030 50, 1180 120 Z" fill="var(--ink-400)" />
+      <path d="M1040 120 C 1200 30, 1300 30, 1440 120 Z" fill="var(--ink-400)" />
     </svg>
   );
 }

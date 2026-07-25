@@ -1,0 +1,223 @@
+/**
+ * HermiteCut — the Clay design system remapped onto the Hermite brand system.
+ *
+ * Rather than rewrite seven page files, this re-points the Clay tokens at the
+ * Hermite ink ramp and overrides the structural rules the brand system fixes:
+ * 2px radii, mono uppercase micro-labels, hairline borders at 9% white, and a
+ * single accent. Every page under app/(resolve) inherits it at once.
+ *
+ * Accent is #FF7A45 — HermiteCut's allocated colour. It reads as render /
+ * active timeline. It appears on one CTA, one active state, one focus ring, and
+ * nowhere else: never a background fill, never body text.
+ *
+ * When these pages move to cut.hermitelabs.com they are already correct.
+ */
+
+.hermite-cut {
+  /* ─── Ink ramp (from hermite-brand-system.html) ─── */
+  --ink-050: #08090a;
+  --ink-100: #0e1011;
+  --ink-200: #16191b;
+  --ink-300: #1f2325;
+  --ink-400: #2c3134;
+  --ink-500: #4a5155;
+  --ink-600: #6b7378;
+  --ink-700: #9aa1a6;
+  --ink-800: #c9cfd3;
+  --ink-900: #edf0f1;
+  --paper: #fafafa;
+
+  /* The one accent. */
+  --accent: #ff7a45;
+  --accent-ink: #2a0f05;
+
+  --mono-brand: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
+    Consolas, monospace;
+
+  /* ─── Clay tokens, re-pointed ─── */
+  --primary: var(--accent);
+  --primary-active: var(--accent);
+  --ink: var(--ink-900);
+  --body: var(--ink-700);
+  --body-strong: var(--ink-800);
+  --muted: var(--ink-600);
+  --muted-soft: var(--ink-500);
+  --hairline: rgba(255, 255, 255, 0.09);
+  --hairline-soft: rgba(255, 255, 255, 0.09);
+  --canvas: var(--ink-050);
+  --surface-soft: var(--ink-100);
+  --surface-card: var(--ink-100);
+  --surface-strong: var(--ink-200);
+  --surface-dark: var(--ink-100);
+  --on-primary: var(--accent-ink);
+  --on-dark: var(--ink-900);
+  --on-dark-soft: var(--ink-600);
+  --on-light-card: var(--ink-900);
+
+  /* The Clay brand palette is retired here. Card tints collapse to the ink
+     ramp so no second or third colour competes with the accent. */
+  --brand-pink: var(--ink-200);
+  --brand-teal: var(--ink-200);
+  --brand-lavender: var(--ink-200);
+  --brand-peach: var(--ink-200);
+  --brand-ochre: var(--ink-200);
+  --brand-mint: var(--ink-200);
+  --brand-coral: var(--ink-200);
+
+  --success: #3adcc8;
+  --warning: #e8e85c;
+  --error: #ff5a5a;
+
+  /* ─── Radii: 2px on actions and surfaces; pills stay pills (status only). ── */
+  --r-xs: 2px;
+  --r-sm: 2px;
+  --r-md: 2px;
+  --r-lg: 2px;
+  --r-xl: 3px;
+
+  background: var(--ink-050);
+  color: var(--ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Micro-label: the signature element. Mono, uppercase, 10.5px, 0.16em. ── */
+.hermite-cut .label-upper,
+.hermite-cut .card-kicker {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink-600);
+}
+
+/* ─── Display type: Inter 600, negative tracking, never 700+. ─── */
+.hermite-cut .display-xl,
+.hermite-cut .display-lg,
+.hermite-cut .display-md,
+.hermite-cut .display-sm {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--ink-900);
+}
+.hermite-cut .title-lg,
+.hermite-cut .title-md,
+.hermite-cut .title-sm {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink-900);
+}
+.hermite-cut .body-lead {
+  color: var(--ink-700);
+}
+
+/* ─── Buttons: 2px radius, mono uppercase 0.14em, hairline borders. ─── */
+.hermite-cut .btn {
+  height: auto;
+  padding: 12px 20px;
+  border-radius: 2px;
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition:
+    background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* The single accent CTA — this is the ~5%. */
+.hermite-cut .btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.hermite-cut .btn-primary:hover {
+  filter: brightness(1.1);
+  background: var(--accent);
+}
+.hermite-cut .btn-secondary {
+  background: transparent;
+  color: var(--paper);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.hermite-cut .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.hermite-cut .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ink-050), 0 0 0 4px var(--accent);
+}
+
+/* ─── Surfaces: hairline + one background step. No shadows. ─── */
+.hermite-cut .feature-card,
+.hermite-cut .hero-illustration-card,
+.hermite-cut .status-strip,
+.hermite-cut .cta-band {
+  background: var(--ink-100);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+/* Status pills keep their pill shape — they are status, never actions. */
+.hermite-cut .badge-pill {
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-700);
+}
+/* The one permitted glow in the system. */
+.hermite-cut .badge-pill .dot.dot-in-progress {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ─── Nav ─── */
+.hermite-cut .top-nav {
+  background: rgba(8, 9, 10, 0.82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--hairline);
+}
+.hermite-cut .nav-links a {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-600);
+}
+.hermite-cut .nav-links a:hover,
+.hermite-cut .nav-links a.active {
+  color: var(--paper);
+}
+
+/* ─── Forms ─── */
+.hermite-cut .waitlist-form input {
+  background: var(--ink-100);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  color: var(--ink-900);
+}
+.hermite-cut .waitlist-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ─── Section rules: every section separated by a full-bleed hairline. ─── */
+.hermite-cut .section,
+.hermite-cut .section-tight {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ─── Motion: 150–200ms ease-out; respect reduced motion. ─── */
+@media (prefers-reduced-motion: reduce) {
+  .hermite-cut * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
