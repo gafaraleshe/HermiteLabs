@@ -140,7 +140,7 @@
         {
           "id": "mcp",
           "title": "MCP integration via Composio",
-          "blurb": "Hermite registered as a Composio toolkit, so Claude, Cursor, or any MCP-compatible agent can call it as tool calls.",
+          "blurb": "Hermite registered as a Composio toolkit, so Cursor or any MCP-compatible agent can call it as tool calls.",
           "status": "planned"
         }
       ]

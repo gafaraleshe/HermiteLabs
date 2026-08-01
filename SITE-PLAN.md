@@ -21,7 +21,7 @@ All feature pages show the **full roadmap** — everything planned, not just wha
 - `/enterprise` — the Stage 4 API as a **visibly separate product line**: cloud by design, for customers who want that. Plans, MCP/agents positioning, link into `/docs`.
 - `/roadmap` — the four stages laid out in full with statuses + the changelog feed (from `data/changelog.json`).
 - `/pricing` — consumer desktop license and enterprise API plans side by side, both checking out through Polar. Ships as "join the waitlist" until Stage 1b is sellable.
-- `/docs` — the technical docs section (see §3): API reference (endpoints, auth, rate limits, example requests/responses) and the MCP/Composio setup guide (connect Hermite as a tool for Claude, Cursor, or a custom agent). Versioned, code-sample-heavy, its own content type and layout — not a marketing page.
+- `/docs` — the technical docs section (see §3): API reference (endpoints, auth, rate limits, example requests/responses) and the MCP/Composio setup guide (connect Hermite as a tool for Cursor or a custom agent). Versioned, code-sample-heavy, its own content type and layout — not a marketing page.
 
 ## 2. Progress-sync mechanism
 

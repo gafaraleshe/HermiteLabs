@@ -38,7 +38,7 @@ export default function DocsIndex() {
           <Link href="/docs/mcp" style={{ textDecoration: "underline" }}>
             MCP &amp; Composio setup
           </Link>{" "}
-          — connect Hermite as a tool for Claude, Cursor, or a custom agent.
+          — connect Hermite as a tool for Cursor or a custom agent.
         </li>
       </ul>
 

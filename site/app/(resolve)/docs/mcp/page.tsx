@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "MCP & Composio setup",
   description:
-    "Connect Hermite as a tool for Claude, Cursor, or a custom agent via MCP and Composio.",
+    "Connect Hermite as a tool for Cursor or a custom agent via MCP and Composio.",
 };
 
 function Code({ children }: { children: string }) {
@@ -22,7 +22,7 @@ export default function McpGuide() {
       <p style={{ marginTop: "16px" }}>
         Hermite&apos;s enterprise API registers as a{" "}
         <strong>Composio toolkit</strong>, which means any MCP-compatible agent
-        — Claude, Cursor, or something you build — can call Hermite&apos;s
+        — Cursor, or something you build — can call Hermite&apos;s
         capabilities as ordinary tool calls: generate an easing curve,
         transcribe a file, clean up captions.
       </p>
@@ -76,17 +76,15 @@ export default function McpGuide() {
         </tbody>
       </table>
 
-      <h2 id="claude">Claude (claude.ai or Claude Code)</h2>
+      <h2 id="http">HTTP MCP endpoint</h2>
       <p>
-        Add Hermite through Composio&apos;s MCP endpoint. For Claude Code,
-        that&apos;s one command:
+        Any client that speaks MCP over HTTP connects to Composio&apos;s
+        endpoint directly:
       </p>
-      <Code>{`claude mcp add hermite \\
-  --transport http \\
-  https://mcp.composio.dev/hermite?api_key=<your-composio-key>`}</Code>
+      <Code>{`https://mcp.composio.dev/hermite?api_key=<your-composio-key>`}</Code>
       <p>
-        On claude.ai, add the same URL as a custom connector in Settings →
-        Connectors. Claude then discovers the four tools automatically.
+        Add that URL as a custom connector or remote MCP server in your
+        client&apos;s settings. It then discovers the four tools automatically.
       </p>
 
       <h2 id="cursor">Cursor</h2>
