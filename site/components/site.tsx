@@ -7,6 +7,7 @@ import {
   type Status,
 } from "@/lib/content";
 import { FooterMountains } from "@/components/fragments";
+import { HermiteMark } from "@/components/hermite-mark";
 
 export function StatusBadge({
   status,
@@ -65,9 +66,11 @@ export function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <Link href="/" className="nav-wordmark">
-              <span className="mark" aria-hidden="true" />
-              Hermite
+            <Link href="/cut" className="nav-wordmark">
+              <HermiteMark size={22} product="cut" title="HermiteCut" />
+              <span>
+                Hermite<span style={{ color: "var(--accent)" }}>Cut</span>
+              </span>
             </Link>
             <p className="fine">
               Smooth animation, on-device subtitles, and a local AI layer for
@@ -115,24 +118,21 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h5>Gaffy Studios</h5>
+            <h5>Hermite Labs</h5>
             <ul>
+              <li>
+                <a href="https://hermitelabs.com">The suite</a>
+              </li>
+              <li>
+                <a href="https://flow.hermitelabs.com">HermiteFlow</a>
+              </li>
               <li>
                 <a
                   href="https://gaffystudios.com/"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  The studio
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.gafaraleshe.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Gafar Aleshe
+                  Gaffy Studios
                 </a>
               </li>
             </ul>

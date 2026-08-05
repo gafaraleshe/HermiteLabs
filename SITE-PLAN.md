@@ -10,6 +10,17 @@ The site lives in **`/site` inside this monorepo** (not a linked repo). This is 
 - Set an **Ignored Build Step** so site deploys skip when `site/` (which contains `site/data/`) didn't change: `git diff --quiet HEAD^ HEAD -- site`.
 - Production branch: currently the working branch is the repo default; once work merges to `main`, point Vercel's production branch at `main`.
 
+### 0a. Two domains, one project — decided
+
+`hermitelabs.com` is the parent site; `cut.hermitelabs.com` is HermiteCut. They are **the same Vercel project and the same build**, separated by `site/middleware.ts` on the `Host` header, not by a second deployment.
+
+- The parent site is `app/page.tsx`. The HermiteCut surface is the `app/(resolve)` route group, which — because route groups don't affect URLs — already serves `/cut`, `/motion`, `/subs`, `/ai`, `/enterprise`, `/roadmap` and `/docs`.
+- On a cut host the middleware rewrites `/` to `/cut` (URL unchanged) and 308s `/cut` and `/cut/*` back down to the bare path, so nothing on that domain is reachable at two URLs.
+- On the production apex (`hermitelabs.com`, `www.hermitelabs.com`) those same product paths 308 out to the subdomain. The rule is keyed to those two hostnames only, so Vercel previews and `localhost` keep serving the whole site from one origin and stay browsable without wildcard DNS. `cut.localhost:3000` exercises the subdomain path locally.
+- **Deploy step:** add `cut.hermitelabs.com` under *Project → Settings → Domains* and point a `CNAME` for `cut` at `cname.vercel-dns.com`. Nothing else changes — no second project, no second build, one set of analytics.
+
+Why not a separate Vercel project per product: the two surfaces share `lib/products.ts`, the roadmap/changelog data, the brand tokens and the waitlist route. Splitting them would mean duplicating all of it or extracting a package before either domain is earning anything. When HermiteFlow-style independence is actually needed, the route group lifts out cleanly — that is what the group is for.
+
 ## 1. Site structure
 
 All feature pages show the **full roadmap** — everything planned, not just what's built — with per-item status badges (`shipped` / `in-progress` / `planned`) driven by `data/roadmap.json`, never hand-edited copy.
