@@ -1,86 +1,214 @@
 /**
- * HermiteCut — the Clay design system remapped onto the Hermite brand system.
+ * HermiteCut — the surface for cut.hermitelabs.com.
  *
- * Rather than rewrite seven page files, this re-points the Clay tokens at the
- * Hermite ink ramp and overrides the structural rules the brand system fixes:
- * 2px radii, mono uppercase micro-labels, hairline borders at 9% white, and a
- * single accent. Every page under app/(resolve) inherits it at once.
+ * Three things are being reconciled here:
  *
- * Accent is #FF7A45 — HermiteCut's allocated colour. It reads as render /
- * active timeline. It appears on one CTA, one active state, one focus ring, and
- * nowhere else: never a background fill, never body text.
+ *  1. The Hermite brand system (hermitelabs.com) — mono uppercase micro-labels,
+ *     2px radii on actions, hairline borders, one accent and no second colour,
+ *     depth from rules rather than shadows, 150–200ms ease-out motion.
+ *  2. The editorial warmth of the reference site — a cream paper canvas, a very
+ *     dark olive ink, oversized display type, generous vertical rhythm, and a
+ *     dark product panel floating on the light page.
+ *  3. HermiteCut's accent, reallocated from orange to green (#46DD79 bright /
+ *     #0C7A42 deep). Green is the render/approved colour in an NLE, which is
+ *     what this product does to a timeline.
  *
- * When these pages move to cut.hermitelabs.com they are already correct.
+ * Light is the default because that is the reference look. Dark mode is not a
+ * separate design — it swaps the primitives for the Hermite ink ramp verbatim,
+ * so the dark surface *is* hermitelabs.com with one variable changed. Every
+ * rule below reads from the primitives, so neither theme is written twice.
+ *
+ * The green is used at two lightnesses on purpose: #0C7A42 carries 5.2:1 on
+ * cream and 5.4:1 under white, #46DD79 carries 11.3:1 on ink. A single value
+ * cannot pass in both directions, and legibility outranks literal sameness.
  */
 
 .hermite-cut {
-  /* ─── Ink ramp (from hermite-brand-system.html) ─── */
-  --ink-050: #08090a;
-  --ink-100: #0e1011;
-  --ink-200: #16191b;
-  --ink-300: #1f2325;
-  --ink-400: #2c3134;
-  --ink-500: #4a5155;
-  --ink-600: #6b7378;
-  --ink-700: #9aa1a6;
-  --ink-800: #c9cfd3;
-  --ink-900: #edf0f1;
-  --paper: #fafafa;
+  /* ─── Paper: warm neutral, never pure white ─── */
+  --p-000: #ffffff;
+  --p-050: #fbfaf6;
+  --p-100: #f4f2ea;
+  --p-200: #edeae0;
+  --p-300: #e3e0d4;
 
-  /* The one accent. */
-  --accent: #ff7a45;
-  --accent-ink: #2a0f05;
+  /* ─── Ink: dark olive, the reference site's cast ─── */
+  --i-900: #191c12;
+  --i-800: #2b2f20;
+  --i-700: #4a4f3b;
+  --i-600: #5f6551;
+  --i-500: #797f69;
+  --i-400: #9aa08b;
+
+  /* ─── The green ramp. One hue family, two working lightnesses. ─── */
+  --cut-050: #e9fbf0;
+  --cut-200: #7ce9a2;
+  --cut-300: #46dd79;
+  --cut-400: #22c46a;
+  --cut-500: #12a356;
+  --cut-600: #0c7a42;
+  --cut-700: #075c32;
+  --cut-900: #052414;
+
+  /* Resolved per theme below. `accent` is the one that fills; `accent-line`
+     is the one that draws; `accent-ink` is what sits on top of a fill. */
+  --accent: var(--cut-600);
+  --accent-ink: #ffffff;
+  --accent-line: var(--cut-500);
+  --accent-wash: var(--cut-050);
+  --accent-glow: rgba(12, 122, 66, 0.22);
+
+  --hairline: rgba(25, 28, 18, 0.11);
+  --hairline-strong: rgba(25, 28, 18, 0.2);
+  --wash: rgba(25, 28, 18, 0.045);
+  --nav-bg: rgba(251, 250, 246, 0.82);
+
+  /* The product panel is dark in BOTH themes — a screenshot of an NLE, not a
+     themed surface. These never flip. */
+  --stage-000: #08090a;
+  --stage-100: #0e1011;
+  --stage-200: #16191b;
+  --stage-300: #1f2325;
+  --stage-line: rgba(255, 255, 255, 0.09);
+  --stage-line-strong: rgba(255, 255, 255, 0.16);
+  --stage-text: #edf0f1;
+  --stage-dim: #6b7378;
 
   --mono-brand: "JetBrains Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
     Consolas, monospace;
+  --sans-brand: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    Arial, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 180ms;
 
-  /* ─── Clay tokens, re-pointed ─── */
+  /* ─── Clay tokens, re-pointed. Written once; the primitives above are what
+         the dark block overrides. ─── */
   --primary: var(--accent);
   --primary-active: var(--accent);
-  --ink: var(--ink-900);
-  --body: var(--ink-700);
-  --body-strong: var(--ink-800);
-  --muted: var(--ink-600);
-  --muted-soft: var(--ink-500);
-  --hairline: rgba(255, 255, 255, 0.09);
-  --hairline-soft: rgba(255, 255, 255, 0.09);
-  --canvas: var(--ink-050);
-  --surface-soft: var(--ink-100);
-  --surface-card: var(--ink-100);
-  --surface-strong: var(--ink-200);
-  --surface-dark: var(--ink-100);
+  --ink: var(--i-900);
+  --body: var(--i-700);
+  --body-strong: var(--i-800);
+  --muted: var(--i-600);
+  --muted-soft: var(--i-500);
+  --hairline-soft: var(--hairline);
+  --canvas: var(--p-050);
+  --surface-soft: var(--p-100);
+  --surface-card: var(--p-100);
+  --surface-strong: var(--p-200);
+  --surface-dark: var(--stage-100);
   --on-primary: var(--accent-ink);
-  --on-dark: var(--ink-900);
-  --on-dark-soft: var(--ink-600);
-  --on-light-card: var(--ink-900);
+  --on-dark: var(--stage-text);
+  --on-dark-soft: var(--stage-dim);
+  --on-light-card: var(--i-900);
 
-  /* The Clay brand palette is retired here. Card tints collapse to the ink
-     ramp so no second or third colour competes with the accent. */
-  --brand-pink: var(--ink-200);
-  --brand-teal: var(--ink-200);
-  --brand-lavender: var(--ink-200);
-  --brand-peach: var(--ink-200);
-  --brand-ochre: var(--ink-200);
-  --brand-mint: var(--ink-200);
-  --brand-coral: var(--ink-200);
+  /* The Clay brand palette is retired: card tints collapse onto paper so no
+     second or third colour competes with the accent. */
+  --brand-pink: var(--p-100);
+  --brand-teal: var(--p-100);
+  --brand-lavender: var(--p-100);
+  --brand-peach: var(--p-100);
+  --brand-ochre: var(--p-100);
+  --brand-mint: var(--p-100);
+  --brand-coral: var(--p-100);
 
-  --success: #3adcc8;
-  --warning: #e8e85c;
-  --error: #ff5a5a;
+  --success: var(--accent);
+  --warning: #b57e12;
+  --error: #c0402f;
 
-  /* ─── Radii: 2px on actions and surfaces; pills stay pills (status only). ── */
+  /* Aliases so the SVG fragments in components/fragments.tsx — written
+     against the Hermite ink ramp — keep working on paper as well as ink.
+     Mapped by role, not by name: `paper` is whatever reads as foreground. */
+  --ink-050: var(--canvas);
+  --ink-100: var(--p-100);
+  --ink-200: var(--p-200);
+  --ink-300: var(--i-400);
+  --ink-400: var(--i-400);
+  --ink-500: var(--i-500);
+  --ink-600: var(--i-600);
+  --ink-700: var(--i-700);
+  --ink-800: var(--i-800);
+  --ink-900: var(--i-900);
+  --paper: var(--i-900);
+
+  /* Radii: 2px on actions and surfaces; pills stay pills (status only). */
   --r-xs: 2px;
   --r-sm: 2px;
   --r-md: 2px;
   --r-lg: 2px;
   --r-xl: 3px;
 
-  background: var(--ink-050);
-  color: var(--ink-900);
+  background: var(--canvas);
+  color: var(--body);
+  font-family: var(--sans-brand);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Micro-label: the signature element. Mono, uppercase, 10.5px, 0.16em. ── */
+/* ─── Dark: the Hermite ink ramp, unmodified. ─────────────────────────────── */
+:root[data-theme="dark"] .hermite-cut {
+  --p-000: #000000;
+  --p-050: #08090a;
+  --p-100: #0e1011;
+  --p-200: #16191b;
+  --p-300: #1f2325;
+
+  --i-900: #edf0f1;
+  --i-800: #c9cfd3;
+  --i-700: #9aa1a6;
+  --i-600: #6b7378;
+  --i-500: #4a5155;
+  --i-400: #2c3134;
+
+  --accent: var(--cut-300);
+  --accent-ink: var(--cut-900);
+  --accent-line: var(--cut-300);
+  --accent-wash: rgba(70, 221, 121, 0.09);
+  --accent-glow: rgba(70, 221, 121, 0.32);
+
+  --hairline: rgba(255, 255, 255, 0.09);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --wash: rgba(255, 255, 255, 0.04);
+  --nav-bg: rgba(8, 9, 10, 0.82);
+
+  --warning: #e8e85c;
+  --error: #ff5a5a;
+}
+
+/* Same values for users who never touch the toggle and have no stored choice.
+   The inline theme script normally sets data-theme before paint; this is the
+   no-JS path. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hermite-cut {
+    --p-000: #000000;
+    --p-050: #08090a;
+    --p-100: #0e1011;
+    --p-200: #16191b;
+    --p-300: #1f2325;
+
+    --i-900: #edf0f1;
+    --i-800: #c9cfd3;
+    --i-700: #9aa1a6;
+    --i-600: #6b7378;
+    --i-500: #4a5155;
+    --i-400: #2c3134;
+
+    --accent: var(--cut-300);
+    --accent-ink: var(--cut-900);
+    --accent-line: var(--cut-300);
+    --accent-wash: rgba(70, 221, 121, 0.09);
+    --accent-glow: rgba(70, 221, 121, 0.32);
+
+    --hairline: rgba(255, 255, 255, 0.09);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    --wash: rgba(255, 255, 255, 0.04);
+    --nav-bg: rgba(8, 9, 10, 0.82);
+
+    --warning: #e8e85c;
+    --error: #ff5a5a;
+  }
+}
+
+/* ══ Part 1 — the brand system applied to the existing Clay pages ══════════ */
+
+/* Micro-label: the signature element. Mono, uppercase, 10.5px, 0.16em. */
 .hermite-cut .label-upper,
 .hermite-cut .card-kicker {
   font-family: var(--mono-brand);
@@ -89,30 +217,30 @@
   letter-spacing: 0.16em;
   line-height: 1;
   text-transform: uppercase;
-  color: var(--ink-600);
+  color: var(--muted);
 }
 
-/* ─── Display type: Inter 600, negative tracking, never 700+. ─── */
+/* Display type: 600, negative tracking, never 700+. */
 .hermite-cut .display-xl,
 .hermite-cut .display-lg,
 .hermite-cut .display-md,
 .hermite-cut .display-sm {
   font-weight: 600;
   letter-spacing: -0.04em;
-  color: var(--ink-900);
+  color: var(--ink);
 }
 .hermite-cut .title-lg,
 .hermite-cut .title-md,
 .hermite-cut .title-sm {
   font-weight: 600;
   letter-spacing: -0.015em;
-  color: var(--ink-900);
+  color: var(--ink);
 }
 .hermite-cut .body-lead {
-  color: var(--ink-700);
+  color: var(--body);
 }
 
-/* ─── Buttons: 2px radius, mono uppercase 0.14em, hairline borders. ─── */
+/* Actions: 2px radius, mono uppercase 0.14em, hairline borders. */
 .hermite-cut .btn {
   height: auto;
   padding: 12px 20px;
@@ -123,9 +251,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   border: 1px solid transparent;
-  transition:
-    background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
 }
 /* The single accent CTA — this is the ~5%. */
 .hermite-cut .btn-primary {
@@ -134,53 +261,119 @@
   border-color: var(--accent);
 }
 .hermite-cut .btn-primary:hover {
-  filter: brightness(1.1);
-  background: var(--accent);
+  background: var(--cut-500);
+  border-color: var(--cut-500);
+}
+:root[data-theme="dark"] .hermite-cut .btn-primary:hover {
+  background: var(--cut-200);
+  border-color: var(--cut-200);
 }
 .hermite-cut .btn-secondary {
   background: transparent;
-  color: var(--paper);
-  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--ink);
+  border-color: var(--hairline-strong);
 }
 .hermite-cut .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--wash);
+  border-color: var(--i-500);
 }
 .hermite-cut .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--ink-050), 0 0 0 4px var(--accent);
+  box-shadow: 0 0 0 2px var(--canvas), 0 0 0 4px var(--accent);
 }
 
-/* ─── Surfaces: hairline + one background step. No shadows. ─── */
+/* Surfaces: hairline + one background step. No shadows. */
 .hermite-cut .feature-card,
 .hermite-cut .hero-illustration-card,
 .hermite-cut .status-strip,
-.hermite-cut .cta-band {
-  background: var(--ink-100);
+.hermite-cut .cta-band,
+.hermite-cut .callout,
+.hermite-cut .waitlist-done {
+  background: var(--surface-card);
   border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+/* Clay's saturated cards are retired. They all collapse to one paper surface,
+   which means their baked-in white text has to come back to ink. */
+.hermite-cut .card-pink,
+.hermite-cut .card-teal,
+.hermite-cut .card-lavender,
+.hermite-cut .card-peach,
+.hermite-cut .card-ochre,
+.hermite-cut .card-cream {
+  background: var(--surface-card);
+  color: var(--body);
+  border: 1px solid var(--hairline);
+}
+.hermite-cut .feature-card h3,
+.hermite-cut .card-pink h3,
+.hermite-cut .card-teal h3,
+.hermite-cut .page-hero h1,
+.hermite-cut .feature-card .card-cta a {
+  color: var(--ink);
+}
+.hermite-cut .page-hero .lead {
+  color: var(--body);
+}
+.hermite-cut .badge-on-dark,
+.hermite-cut .badge-on-color {
+  background: transparent;
+  color: var(--body);
+}
+
+/* The product "screenshots" keep a fixed light palette by design (they are
+   screenshots, not surfaces). Retint them to warm paper and the deep green so
+   they belong to this page rather than to Clay. */
+.hermite-cut .mockup {
+  --ink: #191c12;
+  --body: #4a4f3b;
+  --muted: #5f6551;
+  --muted-soft: #797f69;
+  --surface-card: #f4f2ea;
+  --surface-strong: #e3e0d4;
+  --hairline: rgba(25, 28, 18, 0.11);
+  --hairline-soft: rgba(25, 28, 18, 0.08);
+  --hairline-strong: rgba(25, 28, 18, 0.2);
+  --accent: var(--cut-600);
+  --brand-coral: var(--cut-500);
+  --ink-050: #ffffff;
+  --ink-300: #9aa08b;
+  --ink-400: #9aa08b;
+  --ink-500: #797f69;
+  --paper: #191c12;
+  background: #fbfaf6;
+  color: #191c12;
+  border-color: rgba(25, 28, 18, 0.11);
   border-radius: 2px;
 }
 
 /* Status pills keep their pill shape — they are status, never actions. */
 .hermite-cut .badge-pill {
   border-radius: 99px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--hairline-strong);
   background: transparent;
   font-family: var(--mono-brand);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-700);
+  color: var(--body);
 }
 /* The one permitted glow in the system. */
 .hermite-cut .badge-pill .dot.dot-in-progress {
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
+  background: var(--accent-line);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+.hermite-cut .badge-pill .dot.dot-shipped {
+  background: var(--accent-line);
+}
+.hermite-cut .badge-pill .dot.dot-planned {
+  background: var(--muted-soft);
 }
 
-/* ─── Nav ─── */
+/* Nav */
 .hermite-cut .top-nav {
-  background: rgba(8, 9, 10, 0.82);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--hairline);
 }
@@ -189,35 +382,1061 @@
   font-size: 10.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-600);
+  color: var(--muted);
 }
 .hermite-cut .nav-links a:hover,
 .hermite-cut .nav-links a.active {
-  color: var(--paper);
+  color: var(--ink);
 }
-
-/* ─── Forms ─── */
-.hermite-cut .waitlist-form input {
-  background: var(--ink-100);
+.hermite-cut .nav-wordmark,
+.hermite-cut .icon-btn {
+  color: var(--ink);
+}
+.hermite-cut .icon-btn {
   border: 1px solid var(--hairline);
   border-radius: 2px;
-  color: var(--ink-900);
+}
+.hermite-cut .mobile-menu-wrap {
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+}
+.hermite-cut .mobile-menu .m-link {
+  color: var(--body);
+  font-family: var(--mono-brand);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Forms */
+.hermite-cut .waitlist-form input {
+  background: var(--p-000);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px;
+  color: var(--ink);
+}
+:root[data-theme="dark"] .hermite-cut .waitlist-form input {
+  background: var(--p-100);
 }
 .hermite-cut .waitlist-form input:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-wash);
 }
 
-/* ─── Section rules: every section separated by a full-bleed hairline. ─── */
+/* Every section is separated by a full-bleed hairline. */
 .hermite-cut .section,
 .hermite-cut .section-tight {
   border-top: 1px solid var(--hairline);
 }
 
-/* ─── Motion: 150–200ms ease-out; respect reduced motion. ─── */
+/* Footer */
+.hermite-cut .footer {
+  background: var(--surface-soft);
+  border-top: 1px solid var(--hairline);
+  margin-top: 0;
+}
+.hermite-cut .footer h5 {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+}
+.hermite-cut .footer a {
+  color: var(--body);
+}
+.hermite-cut .footer a:hover {
+  color: var(--ink);
+}
+.hermite-cut .footer-mountains {
+  opacity: 0.5;
+}
+
+/* Docs */
+.hermite-cut .docs-nav a.active {
+  color: var(--accent);
+}
+.hermite-cut .code-block,
+.hermite-cut .docs-body code.inline {
+  border-radius: 2px;
+}
+
+/* ══ Part 2 — the landing page ════════════════════════════════════════════ */
+
+.hc-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: clamp(20px, 5vw, 44px);
+}
+
+.hc-sec {
+  padding: clamp(64px, 8vw, 116px) 0;
+  border-top: 1px solid var(--hairline);
+  position: relative;
+}
+.hc-sec--flush {
+  border-top: 0;
+}
+.hc-sec--tint {
+  background: var(--surface-soft);
+}
+
+/* Section head: mono index + oversized heading, the parent site's grammar. */
+.hc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1;
+}
+.hc-eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--accent-line);
+}
+.hc-h2 {
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 20px 0 0;
+  max-width: 20ch;
+}
+.hc-lede {
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.55;
+  color: var(--body);
+  max-width: 56ch;
+  margin-top: 18px;
+}
+.hc-sec-head {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+/* ─── Hero ─── */
+.hc-hero {
+  padding: clamp(56px, 9vw, 120px) 0 clamp(40px, 5vw, 64px);
+  position: relative;
+  overflow: hidden;
+}
+/* 64px grid, masked from the top — lifted from the parent site verbatim. */
+.hc-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 65% at 50% 0%,
+    #000 8%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 8%, transparent 76%);
+}
+.hc-hero-in {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Announcement pill */
+.hc-ann {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 14px 5px 5px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 99px;
+  font-size: 12.5px;
+  color: var(--body);
+  text-decoration: none;
+  background: var(--p-000);
+  transition: border-color var(--dur) var(--ease-out);
+}
+:root[data-theme="dark"] .hc-ann {
+  background: var(--p-100);
+}
+.hc-ann:hover {
+  border-color: var(--accent);
+}
+.hc-ann b {
+  font-family: var(--mono-brand);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 99px;
+  padding: 4px 9px;
+}
+.hc-ann i {
+  font-style: normal;
+  color: var(--muted);
+}
+
+.hc-title {
+  font-size: clamp(40px, 7.4vw, 86px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  color: var(--ink);
+  margin: 26px 0 0;
+  max-width: 15ch;
+  text-wrap: balance;
+}
+/* The rotating noun. Three stacked spans, one visible at a time — no JS, and
+   the box is sized by the longest word so nothing reflows. */
+.hc-rotate {
+  display: inline-grid;
+  vertical-align: bottom;
+  color: var(--accent);
+}
+.hc-rotate > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  animation: hc-rotate 9s var(--ease-out) infinite;
+}
+.hc-rotate > span:nth-child(1) {
+  animation-delay: 0s;
+}
+.hc-rotate > span:nth-child(2) {
+  animation-delay: 3s;
+}
+.hc-rotate > span:nth-child(3) {
+  animation-delay: 6s;
+}
+@keyframes hc-rotate {
+  0% {
+    opacity: 0;
+    transform: translateY(0.14em);
+  }
+  4%,
+  30% {
+    opacity: 1;
+    transform: none;
+  }
+  36%,
+  100% {
+    opacity: 0;
+    transform: translateY(-0.1em);
+  }
+}
+
+.hc-sub {
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.55;
+  color: var(--body);
+  max-width: 60ch;
+  margin: 22px 0 0;
+}
+.hc-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+.hc-actions--start {
+  justify-content: flex-start;
+}
+.hc-fine {
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  margin-top: 18px;
+}
+.hc-hero .waitlist-form,
+.hc-final .waitlist-form {
+  justify-content: center;
+  margin-inline: auto;
+}
+.hc-hero .waitlist-done,
+.hc-final .waitlist-done {
+  margin-inline: auto;
+}
+
+/* ─── The product panel — dark in both themes ─── */
+.hc-app {
+  margin-top: clamp(40px, 6vw, 72px);
+  width: 100%;
+  background: var(--stage-100);
+  border: 1px solid var(--stage-line-strong);
+  border-radius: 3px;
+  overflow: hidden;
+  text-align: left;
+  color: var(--stage-text);
+  position: relative;
+}
+.hc-app-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 38px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--stage-line);
+  background: var(--stage-000);
+}
+.hc-app-dots {
+  display: flex;
+  gap: 6px;
+}
+.hc-app-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--stage-300);
+}
+.hc-app-title {
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stage-dim);
+}
+.hc-app-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stage-dim);
+}
+.hc-app-right em {
+  font-style: normal;
+  color: var(--cut-300);
+}
+
+.hc-app-body {
+  display: grid;
+  grid-template-columns: 1fr 236px;
+}
+.hc-app-main {
+  border-right: 1px solid var(--stage-line);
+  min-width: 0;
+}
+.hc-viewer {
+  aspect-ratio: 16 / 7;
+  background: radial-gradient(
+      ellipse 70% 90% at 50% 40%,
+      rgba(70, 221, 121, 0.07),
+      transparent 70%
+    ),
+    var(--stage-000);
+  border-bottom: 1px solid var(--stage-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+/* A title card mid-animation: the thing a motion preset actually produces. */
+.hc-card {
+  text-align: center;
+  animation: hc-card 9s var(--ease-out) infinite;
+}
+.hc-card b {
+  display: block;
+  font-size: clamp(18px, 2.6vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: #fff;
+}
+.hc-card span {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cut-300);
+}
+@keyframes hc-card {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.965);
+  }
+  22%,
+  78% {
+    opacity: 1;
+    transform: none;
+  }
+  96%,
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.99);
+  }
+}
+.hc-safe {
+  position: absolute;
+  inset: 12% 8%;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* Timeline */
+.hc-timeline {
+  padding: 12px 14px 16px;
+  position: relative;
+}
+.hc-ruler {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono-brand);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--stage-dim);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--stage-line);
+  margin-bottom: 10px;
+}
+.hc-track {
+  display: grid;
+  grid-template-columns: 66px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.hc-track-name {
+  font-family: var(--mono-brand);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stage-dim);
+}
+.hc-lane {
+  height: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.hc-clip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  transform-origin: left center;
+}
+.hc-clip--base {
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--stage-line-strong);
+}
+.hc-clip--motion {
+  left: 6%;
+  width: 44%;
+  background: rgba(70, 221, 121, 0.24);
+  border: 1px solid rgba(70, 221, 121, 0.55);
+  animation: hc-grow 9s var(--ease-out) infinite;
+}
+.hc-clip--subs {
+  left: 54%;
+  width: 40%;
+  background: rgba(70, 221, 121, 0.16);
+  border: 1px solid rgba(70, 221, 121, 0.4);
+  animation: hc-grow 9s var(--ease-out) infinite;
+  animation-delay: 0.5s;
+}
+@keyframes hc-grow {
+  0%,
+  14% {
+    opacity: 0;
+    transform: scaleX(0.06);
+  }
+  30%,
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+.hc-playhead {
+  position: absolute;
+  top: 30px;
+  bottom: 16px;
+  width: 1px;
+  background: var(--cut-300);
+  box-shadow: 0 0 8px var(--cut-300);
+  animation: hc-playhead 9s linear infinite;
+}
+@keyframes hc-playhead {
+  0% {
+    left: 12%;
+  }
+  100% {
+    left: 92%;
+  }
+}
+
+/* Inspector rail */
+.hc-app-side {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.hc-side-label {
+  font-family: var(--mono-brand);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stage-dim);
+}
+.hc-curve {
+  border: 1px solid var(--stage-line);
+  border-radius: 2px;
+  background: var(--stage-000);
+  padding: 8px;
+}
+.hc-preset {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--stage-line);
+  border-radius: 2px;
+  font-size: 11.5px;
+  color: var(--stage-text);
+}
+.hc-preset span {
+  font-family: var(--mono-brand);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--stage-dim);
+}
+.hc-preset--on {
+  border-color: rgba(70, 221, 121, 0.5);
+  background: rgba(70, 221, 121, 0.08);
+}
+.hc-preset--on span {
+  color: var(--cut-300);
+}
+
+/* ─── Marquee ─── */
+.hc-marquee {
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  padding: 20px 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.hc-marquee-row {
+  display: flex;
+  width: max-content;
+  gap: 14px;
+  animation: hc-marquee 42s linear infinite;
+}
+.hc-marquee:hover .hc-marquee-row {
+  animation-play-state: paused;
+}
+@keyframes hc-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.hc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  white-space: nowrap;
+  font-family: var(--mono-brand);
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 16px;
+  border: 1px solid var(--hairline);
+  border-radius: 99px;
+}
+.hc-chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--accent-line);
+  flex-shrink: 0;
+}
+
+/* ─── Bento ─── */
+.hc-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.hc-tile {
+  grid-column: span 2;
+  background: var(--canvas);
+  padding: clamp(22px, 2.6vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.hc-tile--wide {
+  grid-column: span 3;
+}
+.hc-tile--lead {
+  grid-column: span 6;
+  background: var(--surface-soft);
+}
+.hc-tile h3 {
+  font-size: clamp(17px, 1.8vw, 21px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.hc-tile p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--body);
+  max-width: 46ch;
+}
+.hc-tile-n {
+  font-family: var(--mono-brand);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--muted-soft);
+}
+.hc-tile--lead .hc-tile-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: center;
+}
+
+/* Curve figure inside the lead tile */
+.hc-figure {
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  background: var(--canvas);
+  padding: 18px;
+}
+.hc-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ─── Format / audience row ─── */
+.hc-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.hc-pill {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--body);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 99px;
+  padding: 8px 15px;
+}
+.hc-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 40px;
+}
+.hc-col {
+  background: var(--canvas);
+  padding: clamp(20px, 2.4vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.hc-col h3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.hc-col p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--body);
+}
+
+/* ─── Numbered process ─── */
+.hc-steps {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--hairline);
+}
+.hc-step {
+  display: grid;
+  grid-template-columns: 92px 1fr 1fr;
+  gap: clamp(16px, 3vw, 44px);
+  padding: clamp(24px, 3vw, 34px) 0;
+  border-bottom: 1px solid var(--hairline);
+  align-items: start;
+}
+.hc-step-n {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 4px;
+}
+.hc-step h3 {
+  font-size: clamp(19px, 2.2vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.hc-step p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+/* ─── Build log ─── */
+.hc-log {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+.hc-log-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--hairline);
+}
+.hc-log-item {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.hc-log-item time {
+  font-family: var(--mono-brand);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--muted-soft);
+  padding-top: 2px;
+}
+.hc-log-item h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+.hc-log-item p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--body);
+}
+.hc-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  margin-top: 28px;
+}
+.hc-stat {
+  background: var(--canvas);
+  padding: 18px;
+}
+.hc-stat b {
+  display: block;
+  font-family: var(--mono-brand);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 8px;
+}
+
+/* ─── Plans ─── */
+.hc-plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.hc-plan {
+  background: var(--canvas);
+  padding: clamp(24px, 2.8vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.hc-plan--featured {
+  background: var(--surface-soft);
+}
+.hc-plan--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--accent);
+}
+.hc-plan-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.hc-plan h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.hc-plan-tag {
+  font-family: var(--mono-brand);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: 99px;
+  padding: 4px 9px;
+}
+.hc-plan-price {
+  font-family: var(--mono-brand);
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.hc-plan-price small {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  margin-left: 8px;
+}
+.hc-plan > p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--body);
+}
+.hc-plan-list {
+  list-style: none;
+  display: grid;
+  gap: 9px;
+  margin: 4px 0 0;
+  padding: 0;
+  flex: 1;
+}
+.hc-plan-list li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 9px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--body);
+}
+.hc-plan-list li::before {
+  content: "";
+  width: 9px;
+  height: 5px;
+  margin-top: 5px;
+  border-left: 1.5px solid var(--accent-line);
+  border-bottom: 1.5px solid var(--accent-line);
+  transform: rotate(-45deg);
+}
+.hc-plan-list li[data-off]::before {
+  border-color: var(--muted-soft);
+  opacity: 0.5;
+}
+.hc-plan .btn {
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* ─── FAQ ─── */
+.hc-faq {
+  display: grid;
+  border-top: 1px solid var(--hairline);
+  max-width: 900px;
+}
+.hc-q {
+  border-bottom: 1px solid var(--hairline);
+}
+.hc-q summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.hc-q summary::-webkit-details-marker {
+  display: none;
+}
+.hc-q summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform var(--dur) var(--ease-out);
+}
+.hc-q[open] summary::after {
+  transform: rotate(-135deg) translate(-3px, -3px);
+  border-color: var(--accent);
+}
+.hc-q p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--body);
+  max-width: 74ch;
+  padding-bottom: 24px;
+}
+
+/* ─── Closing CTA ─── */
+.hc-final {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hc-final .hc-h2 {
+  max-width: 18ch;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 980px) {
+  .hc-app-body {
+    grid-template-columns: 1fr;
+  }
+  .hc-app-main {
+    border-right: 0;
+    border-bottom: 1px solid var(--stage-line);
+  }
+  .hc-app-side {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .hc-app-side > * {
+    flex: 1 1 160px;
+  }
+  .hc-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hc-log {
+    grid-template-columns: 1fr;
+  }
+  .hc-plans {
+    grid-template-columns: 1fr;
+  }
+  .hc-tile--lead .hc-tile-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .hc-bento {
+    grid-template-columns: 1fr;
+  }
+  .hc-tile,
+  .hc-tile--wide,
+  .hc-tile--lead {
+    grid-column: span 1;
+  }
+  .hc-step {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .hc-step-n {
+    padding-top: 0;
+  }
+  .hc-stats {
+    grid-template-columns: 1fr;
+  }
+  .hc-log-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .hc-title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .hc-cols {
+    grid-template-columns: 1fr;
+  }
+  .hc-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Motion: 150–200ms ease-out, and nothing at all if the OS says so. */
 @media (prefers-reduced-motion: reduce) {
-  .hermite-cut * {
+  .hermite-cut *,
+  .hc-marquee-row,
+  .hc-rotate > span,
+  .hc-clip,
+  .hc-playhead,
+  .hc-card {
     animation: none !important;
     transition: none !important;
+  }
+  /* Without the cycle, show the first word and settle the panel in its
+     finished state rather than its empty one. */
+  .hc-rotate > span:nth-child(1) {
+    opacity: 1;
+  }
+  .hc-clip--motion,
+  .hc-clip--subs,
+  .hc-card {
+    opacity: 1;
+    transform: none;
   }
 }

@@ -6,7 +6,7 @@
  * with no space. HermiteFlow, not "Hermite Flow".
  *
  * `accent` is set ONLY for products the brand system has allocated a colour to
- * — flow (#3ADCC8), cut (#FF7A45), mind (#9B8AFB). Everything else stays
+ * — flow (#3ADCC8), cut (#46DD79), mind (#9B8AFB). Everything else stays
  * monochrome. Do not invent an accent for an unallocated product; allocate it
  * in the brand system first.
  */
@@ -45,7 +45,8 @@ export const PRODUCTS: Product[] = [
     suffix: "Cut",
     category: "DaVinci Resolve",
     domain: "cut.hermitelabs.com",
-    href: "/cut",
+    href: "https://cut.hermitelabs.com",
+    external: true,
     blurb:
       "After Effects-style motion control inside Resolve — presets, a real easing curve editor, speed ramps — plus on-device subtitling.",
     status: "In development",
@@ -56,7 +57,8 @@ export const PRODUCTS: Product[] = [
     suffix: "Mind",
     category: "AI tools",
     domain: "mind.hermitelabs.com",
-    href: "/ai",
+    href: "https://cut.hermitelabs.com/ai",
+    external: true,
     blurb:
       "A swappable local AI layer across the suite. You pick the models, you see what is installed, and nothing is uploaded.",
     status: "Planned",

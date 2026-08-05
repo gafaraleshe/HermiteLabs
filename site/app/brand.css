@@ -27,7 +27,7 @@
 
   /* ─── Product accents ─── */
   --flow: #3adcc8;
-  --cut: #ff7a45;
+  --cut: #46dd79;
   --mind: #9b8afb;
   --reserve: #e8e85c;
 
@@ -65,7 +65,7 @@
 }
 .hermite[data-product="cut"] {
   --accent: var(--cut);
-  --accent-ink: #2a0f05;
+  --accent-ink: #052414;
 }
 .hermite[data-product="mind"] {
   --accent: var(--mind);

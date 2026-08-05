@@ -26,6 +26,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* The brand system specifies Inter and JetBrains Mono; both stacks
+            fell through to system-ui on any machine without them installed,
+            which is most of them. Loaded at runtime rather than through
+            next/font so the build has no network dependency. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        />
+      </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}

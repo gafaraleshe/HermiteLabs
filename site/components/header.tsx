@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import { GITHUB_URL } from "@/lib/content";
 import { HermiteMark } from "@/components/hermite-mark";
 
+/**
+ * Product-site nav: the landing page's own sections first, then the two
+ * standing references. The four stage pages hang off the footer and the plans
+ * section rather than crowding six links into the bar.
+ */
 const LINKS = [
-  ["/motion", "Motion"],
-  ["/subs", "Subs"],
-  ["/ai", "AI"],
-  ["/enterprise", "Enterprise"],
+  ["/cut#features", "Features"],
+  ["/cut#process", "How it works"],
+  ["/cut#plans", "Plans"],
   ["/roadmap", "Roadmap"],
   ["/docs", "Docs"],
 ] as const;
@@ -96,9 +100,14 @@ export function Header() {
       <div className="container">
         {/* Product lockup: accent lands on the right crossbar segment only.
             Links to /cut, the product home — "/" is Hermite Labs. */}
+        {/* One span around the whole word: .nav-wordmark is a flex row with a
+            gap, and a bare text node next to <span>Cut</span> would put 10px
+            of air inside a name the brand system spells with none. */}
         <Link href="/cut" className="nav-wordmark" onClick={close}>
           <HermiteMark size={26} product="cut" title="HermiteCut" />
-          Hermite<span style={{ color: "var(--accent)" }}>Cut</span>
+          <span>
+            Hermite<span style={{ color: "var(--accent)" }}>Cut</span>
+          </span>
         </Link>
 
         <div className="nav-links">
@@ -117,8 +126,11 @@ export function Header() {
             target="_blank"
             rel="noreferrer"
           >
-            Star on GitHub
+            GitHub
           </a>
+          <Link className="btn btn-primary nav-github" href="/cut#waitlist">
+            Join the waitlist
+          </Link>
           <button
             type="button"
             className="hamburger"
@@ -147,6 +159,9 @@ export function Header() {
                 {label}
               </Link>
             ))}
+            <Link className="btn btn-primary" href="/cut#waitlist" onClick={close}>
+              Join the waitlist
+            </Link>
             <a
               className="btn btn-secondary"
               href={GITHUB_URL}
@@ -154,7 +169,7 @@ export function Header() {
               rel="noreferrer"
               onClick={close}
             >
-              Star on GitHub
+              GitHub
             </a>
           </div>
         </div>
