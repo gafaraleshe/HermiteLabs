@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { HermiteMark } from "@/components/hermite-mark";
 import { LabsNav } from "@/components/labs-nav";
-import { PRODUCTS, PRINCIPLES } from "@/lib/products";
+import { PRODUCTS, VISIBLE_PRODUCTS, PRINCIPLES } from "@/lib/products";
 import "./brand.css";
 
 export const metadata: Metadata = {
   title: "Hermite Labs — software for creative businesses",
   description:
-    "Hermite Labs builds the tools that run a modern studio. One account, one design language: HermiteFlow for billing, HermiteCut for Resolve, HermiteMind for AI, and more on the way.",
+    "Hermite Labs builds software for creative businesses. HermiteFlow is available now, with additional products in development.",
   openGraph: {
     title: "Hermite Labs — software for creative businesses",
     description:
-      "One account, one design language, everything that runs a studio. HermiteFlow is live today.",
+      "Software for creative businesses. HermiteFlow is available now, with additional products in development.",
     url: "https://hermitelabs.com",
     siteName: "Hermite Labs",
     type: "website",
@@ -26,7 +26,6 @@ export default function Home() {
   const building = PRODUCTS.filter(p => p.status === "In development").length;
 
   return (
-    // No data-product: the parent carries no accent, by rule.
     <div className="hermite">
       <LabsNav />
 
@@ -37,25 +36,22 @@ export default function Home() {
           <div className="h-wrap h-rise" style={{ position: "relative" }}>
             <span className="h-label">Hermite Labs — by Gaffy Studios</span>
             <h1 className="h-display" style={{ maxWidth: "16ch" }}>
-              The parent is silent. <em>The products speak in color.</em>
+              The parent is quiet. <em>The products do the work.</em>
             </h1>
             <p className="h-body">
-              Hermite Labs builds the tools that run a modern studio — billing,
-              editing, and an AI layer that stays on your machine. One design
-              language across all of it, so moving between products never feels
-              like moving between companies.
+              Hermite Labs builds focused software for creative businesses. The
+              suite starts with HermiteFlow for client management and invoicing,
+              with additional products developed in the open.
             </p>
             <div className="h-row">
               <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
-                Start with HermiteFlow
+                Open HermiteFlow
               </a>
               <a className="h-btn" href="#products">
                 Explore the suite
               </a>
             </div>
 
-            {/* Honest counts, derived from the product list — not invented
-                traction numbers. */}
             <div
               style={{
                 display: "flex",
@@ -65,18 +61,12 @@ export default function Home() {
               }}
             >
               <div>
-                <span className="h-label">Products live</span>
+                <span className="h-label">Available now</span>
                 <div className="h-stat">{live}</div>
               </div>
               <div>
                 <span className="h-label">In development</span>
                 <div className="h-stat">{building}</div>
-              </div>
-              <div>
-                <span className="h-label">Planned</span>
-                <div className="h-stat">
-                  {PRODUCTS.length - live - building}
-                </div>
               </div>
             </div>
           </div>
@@ -90,13 +80,13 @@ export default function Home() {
               <h2 className="h-h2">The suite</h2>
             </div>
             <p className="h-body" style={{ marginBottom: "32px" }}>
-              Each product stands on its own. Together they share an account, an
-              API surface, and a design system. Only allocated products carry an
-              accent — the rest stay monochrome until they ship.
+              What is available or actively being built is shown here. Planned
+              concepts stay off the primary product surface until they have a
+              real destination.
             </p>
 
             <div className="h-grid h-grid--suite">
-              {PRODUCTS.map(p => {
+              {VISIBLE_PRODUCTS.map(p => {
                 const inner = (
                   <>
                     <span className="h-badge" style={{ alignSelf: "flex-start" }}>
@@ -122,7 +112,7 @@ export default function Home() {
                     >
                       {p.blurb}
                     </p>
-                    <code className="h-domain">{p.domain}</code>
+                    {p.domain && <code className="h-domain">{p.domain}</code>}
                   </>
                 );
 
@@ -130,24 +120,20 @@ export default function Home() {
                   ? ({ ["--tint" as string]: p.accent } as React.CSSProperties)
                   : undefined;
 
-                if (p.href === "#products") {
+                if (p.external) {
                   return (
-                    <div key={p.suffix} className="h-cell" style={tint}>
+                    <a
+                      key={p.suffix}
+                      className="h-cell"
+                      data-tint=""
+                      style={tint}
+                      href={p.href}
+                    >
                       {inner}
-                    </div>
+                    </a>
                   );
                 }
-                return p.external ? (
-                  <a
-                    key={p.suffix}
-                    className="h-cell"
-                    data-tint=""
-                    style={tint}
-                    href={p.href}
-                  >
-                    {inner}
-                  </a>
-                ) : (
+                return (
                   <Link
                     key={p.suffix}
                     className="h-cell"
@@ -159,7 +145,7 @@ export default function Home() {
                   </Link>
                 );
               })}
-              {PRODUCTS.length % 4 !== 0 && (
+              {VISIBLE_PRODUCTS.length % 4 !== 0 && (
                 <div className="h-cell h-cell-empty" aria-hidden />
               )}
             </div>
@@ -195,8 +181,8 @@ export default function Home() {
               <h2 className="h-h2">Start where it helps most</h2>
             </div>
             <p className="h-body">
-              HermiteFlow is live today. HermiteCut is in active development and
-              you can follow it as it is built.
+              HermiteFlow is available now. HermiteCut is in development and is
+              presented separately until its product surface is ready.
             </p>
             <div className="h-row">
               <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
@@ -233,14 +219,9 @@ export default function Home() {
             <div>
               <span className="h-label h-label--on">Products</span>
               <ul className="labs-footer-list">
-                {PRODUCTS.map(p => (
+                {VISIBLE_PRODUCTS.map(p => (
                   <li key={p.suffix}>
-                    {p.href === "#products" ? (
-                      <span>
-                        {p.prefix}
-                        {p.suffix}
-                      </span>
-                    ) : p.external ? (
+                    {p.external ? (
                       <a href={p.href}>
                         {p.prefix}
                         {p.suffix}
