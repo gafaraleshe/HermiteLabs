@@ -1,20 +1,11 @@
 /**
  * The Hermite Labs product suite — the single source of truth for the parent
  * site's navigation, products index, and footer.
- *
- * Naming follows the brand system: "Hermite" + one short concrete noun, joined,
- * with no space. HermiteFlow, not "Hermite Flow".
- *
- * `accent` is set ONLY for products the brand system has allocated a colour to
- * — flow (#3ADCC8), cut (#46DD79), mind (#9B8AFB). Everything else stays
- * monochrome. Do not invent an accent for an unallocated product; allocate it
- * in the brand system first.
  */
 
 export type ProductStatus = "Live" | "In development" | "Planned";
 
 export type Product = {
-  /** Wordmark split so the product half can take the accent. */
   prefix: "Hermite";
   suffix: string;
   category: string;
@@ -23,7 +14,6 @@ export type Product = {
   external?: boolean;
   blurb: string;
   status: ProductStatus;
-  /** Allocated accent, or null for monochrome. */
   accent: string | null;
 };
 
@@ -36,7 +26,7 @@ export const PRODUCTS: Product[] = [
     href: "https://flow.hermitelabs.com",
     external: true,
     blurb:
-      "Bookings to paid invoices, on autopilot. A CRM and billing engine for creative studios, built on a versioned public API.",
+      "CRM and invoicing for creative businesses. Manage clients, create invoices, generate documents and send them from one workspace.",
     status: "Live",
     accent: "var(--flow)",
   },
@@ -44,11 +34,10 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Cut",
     category: "DaVinci Resolve",
-    domain: "cut.hermitelabs.com",
-    href: "https://cut.hermitelabs.com",
-    external: true,
+    domain: "",
+    href: "/cut",
     blurb:
-      "After Effects-style motion control inside Resolve — presets, a real easing curve editor, speed ramps — plus on-device subtitling.",
+      "Motion and editing tooling for DaVinci Resolve, currently in development.",
     status: "In development",
     accent: "var(--cut)",
   },
@@ -56,21 +45,19 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Mind",
     category: "AI tools",
-    domain: "mind.hermitelabs.com",
-    href: "https://cut.hermitelabs.com/ai",
-    external: true,
-    blurb:
-      "A swappable local AI layer across the suite. You pick the models, you see what is installed, and nothing is uploaded.",
+    domain: "",
+    href: "#products",
+    blurb: "Planned local AI tooling across the Hermite suite.",
     status: "Planned",
-    accent: "var(--mind)",
+    accent: null,
   },
   {
     prefix: "Hermite",
     suffix: "Auth",
     category: "Authentication",
-    domain: "auth.hermitelabs.com",
+    domain: "",
     href: "#products",
-    blurb: "One sign-in across every Hermite Labs product. SSO-ready.",
+    blurb: "Planned shared authentication across Hermite products.",
     status: "Planned",
     accent: null,
   },
@@ -78,9 +65,9 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Cloud",
     category: "Cloud services",
-    domain: "cloud.hermitelabs.com",
+    domain: "",
     href: "#products",
-    blurb: "Storage, delivery and hosting for your files, galleries and sites.",
+    blurb: "Planned storage and hosting services for creative workflows.",
     status: "Planned",
     accent: null,
   },
@@ -88,10 +75,9 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Finance",
     category: "Smart budgeting",
-    domain: "finance.hermitelabs.com",
+    domain: "",
     href: "#products",
-    blurb:
-      "Budgeting and cashflow built for an irregular creative income, not a salary.",
+    blurb: "Planned budgeting and cashflow tooling for creative businesses.",
     status: "Planned",
     accent: null,
   },
@@ -99,16 +85,21 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Analytics",
     category: "Business intelligence",
-    domain: "analytics.hermitelabs.com",
+    domain: "",
     href: "#products",
-    blurb: "Product and revenue analytics — a PostHog for your studio.",
+    blurb: "Planned product and revenue analytics for studios.",
     status: "Planned",
     accent: null,
   },
 ];
 
-/** Products with somewhere real to go — used for the nav menu. */
+/** Products with a real destination — used for navigation. */
 export const NAV_PRODUCTS = PRODUCTS.filter(p => p.href !== "#products");
+
+/** Products worth showing on the primary suite surface right now. */
+export const VISIBLE_PRODUCTS = PRODUCTS.filter(
+  p => p.status === "Live" || p.status === "In development",
+);
 
 export const PRINCIPLES = [
   {
