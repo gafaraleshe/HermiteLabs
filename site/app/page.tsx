@@ -6,13 +6,13 @@ import { PRODUCTS, VISIBLE_PRODUCTS, PRINCIPLES } from "@/lib/products";
 import "./brand.css";
 
 export const metadata: Metadata = {
-  title: "Hermite Labs — software for creative businesses",
+  title: "Hermite Labs — HermiteFlow",
   description:
-    "Hermite Labs builds software for creative businesses. HermiteFlow is available now, with additional products in development.",
+    "Hermite Labs builds software for creative businesses. HermiteFlow is the flagship product, available now for client management and invoicing.",
   openGraph: {
-    title: "Hermite Labs — software for creative businesses",
+    title: "Hermite Labs — HermiteFlow",
     description:
-      "Software for creative businesses. HermiteFlow is available now, with additional products in development.",
+      "HermiteFlow is the flagship Hermite Labs product, available now for client management and invoicing.",
     url: "https://hermitelabs.com",
     siteName: "Hermite Labs",
     type: "website",
@@ -34,21 +34,21 @@ export default function Home() {
         <section className="h-hero">
           <div className="h-grid-overlay" aria-hidden />
           <div className="h-wrap h-rise" style={{ position: "relative" }}>
-            <span className="h-label">Hermite Labs — by Gaffy Studios</span>
+            <span className="h-label">Hermite Labs — flagship product</span>
             <h1 className="h-display" style={{ maxWidth: "16ch" }}>
-              The parent is quiet. <em>The products do the work.</em>
+              Meet <em>HermiteFlow.</em>
             </h1>
             <p className="h-body">
-              Hermite Labs builds focused software for creative businesses. The
-              suite starts with HermiteFlow for client management and invoicing,
-              with additional products developed in the open.
+              HermiteFlow is a CRM and invoicing platform built for creative
+              businesses. Manage clients, create invoices, handle UK VAT, and
+              keep the work of getting paid in one place.
             </p>
             <div className="h-row">
               <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
                 Open HermiteFlow
               </a>
               <a className="h-btn" href="#products">
-                Explore the suite
+                Explore Hermite Labs
               </a>
             </div>
 
@@ -178,7 +178,7 @@ export default function Home() {
           <div className="h-wrap">
             <div className="h-sec-head">
               <span className="h-sec-num">03</span>
-              <h2 className="h-h2">Start where it helps most</h2>
+              <h2 className="h-h2">Start with HermiteFlow</h2>
             </div>
             <p className="h-body">
               HermiteFlow is available now. HermiteCut is in development and is
