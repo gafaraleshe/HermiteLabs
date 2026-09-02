@@ -6,13 +6,13 @@ import { PRODUCTS, VISIBLE_PRODUCTS, PRINCIPLES } from "@/lib/products";
 import "./brand.css";
 
 export const metadata: Metadata = {
-  title: "Hermite Labs — HermiteFlow",
+  title: "HermiteFlow — Hermite Labs",
   description:
-    "Hermite Labs builds software for creative businesses. HermiteFlow is the flagship product, available now for client management and invoicing.",
+    "HermiteFlow is a CRM and invoicing platform for creative businesses. Manage clients, create invoices, handle UK VAT, and keep the work of getting paid in one place.",
   openGraph: {
-    title: "Hermite Labs — HermiteFlow",
+    title: "HermiteFlow — Hermite Labs",
     description:
-      "HermiteFlow is the flagship Hermite Labs product, available now for client management and invoicing.",
+      "HermiteFlow is a CRM and invoicing platform for creative businesses.",
     url: "https://hermitelabs.com",
     siteName: "Hermite Labs",
     type: "website",
@@ -34,21 +34,25 @@ export default function Home() {
         <section className="h-hero">
           <div className="h-grid-overlay" aria-hidden />
           <div className="h-wrap h-rise" style={{ position: "relative" }}>
-            <span className="h-label">Hermite Labs — flagship product</span>
+            <span className="h-label h-label--flow">Hermite Labs / Available now</span>
             <h1 className="h-display" style={{ maxWidth: "16ch" }}>
-              Meet <em>HermiteFlow.</em>
+              <span>Hermite</span><em>Flow.</em>
             </h1>
+            <p className="h-hero-lead">
+              The CRM and invoicing platform for creative businesses.
+            </p>
             <p className="h-body">
-              HermiteFlow is a CRM and invoicing platform built for creative
-              businesses. Manage clients, create invoices, handle UK VAT, and
-              keep the work of getting paid in one place.
+              Keep clients, invoices, VAT, PDF documents, email delivery,
+              payment status, and reminders together in one focused workspace.
+              HermiteFlow is built to make the business side of creative work
+              feel as considered as the work itself.
             </p>
             <div className="h-row">
-              <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
+              <a className="h-btn h-btn--flow" href="https://flow.hermitelabs.com">
                 Open HermiteFlow
               </a>
               <a className="h-btn" href="#products">
-                Explore Hermite Labs
+                Explore the product
               </a>
             </div>
 
@@ -62,7 +66,7 @@ export default function Home() {
             >
               <div>
                 <span className="h-label">Available now</span>
-                <div className="h-stat">{live}</div>
+                <div className="h-stat h-stat--flow">{live}</div>
               </div>
               <div>
                 <span className="h-label">In development</span>
@@ -72,17 +76,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── 01 The suite ── */}
+        {/* ── 01 The product ── */}
         <section id="products">
           <div className="h-wrap">
             <div className="h-sec-head">
-              <span className="h-sec-num">01</span>
-              <h2 className="h-h2">The suite</h2>
+              <span className="h-sec-num h-sec-num--flow">01</span>
+              <h2 className="h-h2">Built around the work that gets you paid</h2>
             </div>
             <p className="h-body" style={{ marginBottom: "32px" }}>
-              What is available or actively being built is shown here. Planned
-              concepts stay off the primary product surface until they have a
-              real destination.
+              HermiteFlow brings the operational side of a creative business
+              into one place — from the first client record to the final paid
+              invoice.
             </p>
 
             <div className="h-grid h-grid--suite">
@@ -177,7 +181,7 @@ export default function Home() {
         <section>
           <div className="h-wrap">
             <div className="h-sec-head">
-              <span className="h-sec-num">03</span>
+              <span className="h-sec-num h-sec-num--flow">03</span>
               <h2 className="h-h2">Start with HermiteFlow</h2>
             </div>
             <p className="h-body">
@@ -185,7 +189,7 @@ export default function Home() {
               presented separately until its product surface is ready.
             </p>
             <div className="h-row">
-              <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
+              <a className="h-btn h-btn--flow" href="https://flow.hermitelabs.com">
                 Open HermiteFlow
               </a>
               <Link className="h-btn" href="/cut">
