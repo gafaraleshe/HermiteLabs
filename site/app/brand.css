@@ -27,7 +27,7 @@
 
   /* ─── Product accents ─── */
   --flow: #3adcc8;
-  --cut: #ff7a45;
+  --cut: #b9acff;
   --mind: #9b8afb;
   --reserve: #e8e85c;
 
@@ -65,7 +65,7 @@
 }
 .hermite[data-product="cut"] {
   --accent: var(--cut);
-  --accent-ink: #2a0f05;
+  --accent-ink: #15102e;
 }
 .hermite[data-product="mind"] {
   --accent: var(--mind);
@@ -501,3 +501,21 @@ a.h-cell:hover {
 .h-grid--suite .h-cell-empty {
   background: var(--ink-050);
 }
+
+/* ─── Hub: featured product + list (lib/products.ts drives both) ─── */
+.skip-link { position: absolute; left: -9999px; top: 8px; z-index: 50; background: var(--paper); color: var(--ink-050); padding: 8px 12px; }
+.skip-link:focus { left: 8px; }
+.hub-feature { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; border: 1px solid var(--hairline-strong); background: var(--ink-100); padding: clamp(24px, 4vw, 44px); transition: border-color var(--dur-base) var(--ease-out); }
+.hub-feature:hover { border-color: rgba(185, 172, 255, 0.45); }
+.hub-name { font-size: clamp(30px, 4.2vw, 46px); font-weight: 600; letter-spacing: -0.04em; color: var(--ink-900); margin: 14px 0 8px; }
+.hub-name.sm { font-size: 26px; }
+.hub-tagline { font-size: 17px; color: var(--ink-800); margin-bottom: 10px; }
+.hub-cta { display: inline-block; margin-top: 18px; font-family: var(--mono-brand); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; }
+.hub-points { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); }
+.hub-points li { background: var(--ink-050); padding: 16px 18px; font-family: var(--mono-brand); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-800); }
+.hub-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.hub-card { display: block; border: 1px solid var(--hairline); background: var(--ink-100); padding: 26px; transition: border-color var(--dur-base) var(--ease-out); }
+.hub-card:hover { border-color: var(--hairline-strong); }
+.site-credit { opacity: 0.7; }
+.site-credit:hover { opacity: 1; }
+@media (max-width: 860px) { .hub-feature { grid-template-columns: 1fr; } }

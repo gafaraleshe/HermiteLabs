@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CUT_DOWNLOAD } from "@/lib/cut";
+import { CUT_DOWNLOAD, POLAR_CHECKOUT_URL } from "@/lib/config";
 
 /** A slim bar with the download button, shown once the hero has scrolled away. */
 export function StickyBar({ watch }: { watch: string }) {
@@ -18,11 +18,12 @@ export function StickyBar({ watch }: { watch: string }) {
       <div className="container hc-sticky-inner">
         <span className="hc-sticky-name">
           Hermite<span style={{ color: "var(--accent)" }}>Cut</span>
-          <span className="label-upper">1.0 · Free · Windows</span>
+          <span className="label-upper">Windows & Mac</span>
         </span>
-        <a className="btn btn-primary" href={CUT_DOWNLOAD} tabIndex={show ? 0 : -1}>
-          Download
-        </a>
+        <span className="hc-sticky-cta">
+          <a className={POLAR_CHECKOUT_URL ? "btn btn-secondary" : "btn btn-primary"} href={CUT_DOWNLOAD} tabIndex={show ? 0 : -1}>Download</a>
+          {POLAR_CHECKOUT_URL && <a className="btn btn-primary" href={POLAR_CHECKOUT_URL} tabIndex={show ? 0 : -1}>Buy</a>}
+        </span>
       </div>
     </div>
   );

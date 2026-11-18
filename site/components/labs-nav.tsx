@@ -76,7 +76,7 @@ export function LabsNav() {
                         </span>
                       </span>
                       <span className="labs-menu-meta">
-                        {p.status === "Live" ? p.category : p.status}
+                        {p.category}
                       </span>
                     </>
                   );
@@ -106,14 +106,11 @@ export function LabsNav() {
             )}
           </div>
 
-          <Link className="h-label" href="/roadmap" onClick={close}>
-            Roadmap
-          </Link>
-          <Link className="h-label" href="/docs" onClick={close}>
-            Docs
-          </Link>
-          <a className="h-btn labs-nav-cta" href="https://flow.hermitelabs.com">
-            Open Flow
+          <a className="h-label" href="https://cut.hermitelabs.com/changelog" onClick={close}>
+            Changelog
+          </a>
+          <a className="h-btn labs-nav-cta" href="https://cut.hermitelabs.com">
+            Get HermiteCut
           </a>
         </nav>
       </div>

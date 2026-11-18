@@ -8,9 +8,7 @@
  */
 import templatesData from "../data/cut-templates.json";
 
-export const CUT_REPO = "https://github.com/gafaraleshe/HermiteCut";
-export const CUT_DOWNLOAD = `${CUT_REPO}/releases/latest`;
-export const CUT_ROADMAP = `${CUT_REPO}/blob/main/docs/ROADMAP.md`;
+export { CUT_REPO, CUT_DOWNLOAD } from "@/lib/config";
 
 export type TemplateKind = "effect" | "transition" | "title";
 
@@ -28,9 +26,10 @@ export const packVersion = templatesData.version;
 
 /** Gallery tabs, in display order. Time FX are effects, shown on their own. */
 export const TABS = [
-  { id: "effects", label: "Effects", match: (t: CutTemplate) => t.kind === "effect" && t.family !== "Time FX" },
+  { id: "effects", label: "Effects", match: (t: CutTemplate) => t.kind === "effect" && !["Time FX", "Grid Reveal"].includes(t.family) },
   { id: "timefx", label: "Time FX", match: (t: CutTemplate) => t.family === "Time FX" },
-  { id: "transitions", label: "Transitions", match: (t: CutTemplate) => t.kind === "transition" },
+  { id: "transitions", label: "Transitions", match: (t: CutTemplate) => t.kind === "transition" && t.family !== "Grid Reveal" },
+  { id: "grid", label: "Grid Reveal", match: (t: CutTemplate) => t.family === "Grid Reveal" },
   { id: "titles", label: "Titles", match: (t: CutTemplate) => t.kind === "title" },
 ] as const;
 
@@ -73,102 +72,71 @@ const DEMO_BY_NAME: Record<string, string> = {
 };
 
 export function demoFor(t: CutTemplate): string {
+  if (t.family === "Grid Reveal") return "t-grid";
   if (t.kind === "transition" && (t.name === "Slide" || t.name === "Film Burn" || t.name === "Light Leak" || t.name === "Zoom Blur")) {
     return { Slide: "t-slide", "Film Burn": "t-burn", "Light Leak": "t-leak", "Zoom Blur": "t-zoomblur" }[t.name]!;
   }
   return DEMO_BY_NAME[t.name] ?? (t.kind === "transition" ? "t-whip" : t.kind === "title" ? "title-rise" : "flash");
 }
 
-export const TOOLS_V1 = [
-  { name: "Ease", line: "A bezier speed-graph editor with 30 presets and saved curves, for Fusion keyframes." },
+import soundsData from "../data/cut-sounds.json";
+
+export const sounds = soundsData;
+
+export const TOOLS = [
+  { name: "Ease", line: "A bezier speed-graph editor with 30 presets and your own curves, for Fusion keyframes." },
   { name: "Align", line: "A 3×3 align grid, fit and fill, split-screens, picture-in-picture and blend modes." },
   { name: "Actions", line: "67 one-click actions: speed, fades, ripple delete, silence removal, exports and more." },
   { name: "Motion", line: "Grow, slide, whip, spin, pop, punch, Ken Burns and shake, in, out or both." },
-  { name: "Bounce", line: "Overshoot and bounce springs on keyframes, or as a pop-in on clips." },
-  { name: "Beats", line: "Finds the beat in a clip or song and drops markers every beat, bar or eight." },
-  { name: "Captions", line: "Resolve Studio speech-to-text in 36 languages, plus .srt and .vtt import." },
+  { name: "Bounce", line: "Overshoot and bounce springs on keyframes, or a spring pop-in on clips." },
+  { name: "Beats", line: "Finds the beat in a song and drops markers every beat, bar or eight." },
+  { name: "Captions", line: "Speech-to-text in 36 languages, then animated word captions with Captions+." },
+  { name: "Shorts", line: "A 9:16 copy of your timeline with Smart Reframe, in one click." },
 ];
 
-export const SPECS = [
-  { k: "Tools in 1.0", v: "7" },
-  { k: "Templates in 2.0", v: String(templates.length) },
-  { k: "Platforms", v: "Windows · macOS in 2.0" },
-  { k: "DaVinci Resolve", v: "19+ · tested on 21.2" },
-];
+export const counts = {
+  templates: templates.length,
+  effects: templates.filter(t => t.kind === "effect" && t.family !== "Grid Reveal").length,
+  transitions: templates.filter(t => t.kind === "transition").length,
+  titles: templates.filter(t => t.kind === "title").length,
+  grid: templates.filter(t => t.family === "Grid Reveal").length,
+  sounds: soundsData.count,
+};
 
-export const SHARED_CONTROLS = [
-  {
-    kind: "Effects",
-    items: [
-      ["Apply at", "Post (the start of the clip), Pre (the end), Both, or the Whole clip."],
-      ["Frames", "How long the effect lasts at each end."],
-      ["Curve", "Linear, Smooth, Ease Out, Ease In, Snap or Overshoot."],
-      ["Strength", "How hard it hits, from a whisper to a slam."],
-      ["Seed", "A new random pattern for shakes, glitches and burns."],
-    ],
-  },
-  {
-    kind: "Transitions",
-    items: [
-      ["Direction", "Left, right, up or down, wherever motion is involved."],
-      ["Curve", "Linear, Smooth, Fast, Ease In, Ease Out or Overshoot."],
-      ["Blur", "Motion blur and streaks that follow the move."],
-      ["Glow", "A bloom that peaks on the cut."],
-      ["Flash", "An exposure hit, in any colour."],
-    ],
-  },
-  {
-    kind: "Titles",
-    items: [
-      ["Text", "Song, Artist, Directed By and Credit fields, with fonts."],
-      ["Colour", "One text colour and one accent colour drive every line."],
-      ["Title Styling", "Size, position, tracking, shadow and glow."],
-      ["Film Look", "Grain, flicker, jitter and softness."],
-      ["Animation", "Fade, Rise, Blur, Scale, Track or Slide, with in and out frames."],
-    ],
-  },
-] as const;
+export const COMPAT = [
+  ["DaVinci Resolve", "Version 20 or newer, tested on 21.2. The app and templates work in the free version; the panel inside Resolve needs Studio."],
+  ["Windows", "Windows 10 or 11, 64-bit. Installs per user."],
+  ["macOS", "macOS 12 or newer, on Apple Silicon or Intel."],
+  ["Resolve setting", "Preferences → System → General → External scripting using: Local."],
+];
 
 export const FAQ = [
   {
-    q: "What's included?",
-    a: `HermiteCut 1.0 is a panel inside DaVinci Resolve Studio with seven tools: Ease, Align, Actions, Motion, Bounce, Beats and Captions. HermiteCut 2.0 adds a template pack of ${templates.length} effects, time effects, transitions and titles, a sound-effects library, Shorts tools and a standalone app for Windows and macOS.`,
+    q: "Does it work in the free version of Resolve?",
+    a: "Yes. The HermiteCut app, the templates, Grid Reveal and the sound library all work in DaVinci Resolve (free). The panel that opens inside Resolve (Workspace → Workflow Integrations) is a Resolve Studio feature, and a few actions use Studio-only tools such as Smart Reframe and Magic Mask.",
   },
   {
-    q: "Is it free?",
-    a: "HermiteCut 1.0 is free and open source under the MIT licence. Download the Windows installer from GitHub Releases.",
+    q: "Mac and Windows?",
+    a: "Both. There is an installer for Windows 10 and 11 and a disk image for Apple Silicon and Intel Macs. The first time you open it on a Mac, right-click the app and choose Open, because it is not notarised yet.",
   },
   {
-    q: "Where do I find the templates after installing?",
-    a: "Restart Resolve, then open the Effects library on the Edit page. The effects are under Effects, the transitions under Video Transitions and the titles under Titles, each in a HermiteCut folder. Drag an effect onto a clip, a transition onto a cut, or a title onto the timeline, then adjust it in the Inspector.",
+    q: "How do I install it?",
+    a: "Download and run the installer, open HermiteCut and click Setup → Install everything. That adds the templates, the Resolve panel, the Scripts menu launcher and the title fonts. Restart Resolve once and you are done.",
   },
   {
-    q: "How do Post, Pre and Both work?",
-    a: "Every effect has an Apply at control. Post puts the effect at the start of the clip, so it hits on the cut in. Pre puts it at the end, on the cut out. Both does each end, and Whole runs it across the clip. Frames sets how long it lasts, and the clip is untouched outside that window.",
+    q: "Do I get updates?",
+    a: "Yes. Updates are published on GitHub Releases with full notes in the changelog. Install the new version over the old one; your presets and favourites are kept.",
   },
   {
-    q: "Which version of Resolve does it need?",
-    a: "The 1.0 panel is a Workflow Integration plugin, so it needs DaVinci Resolve Studio 19 or newer (tested on 21.2). The 2.0 templates are plain Fusion macros with no third-party plugins, built to work in the free version of Resolve as well as Studio.",
+    q: "What about refunds?",
+    a: "If you buy HermiteCut and it does not work for you, you can ask for a refund within 14 days. See the refund policy for details.",
   },
   {
-    q: "Will it work on my Mac?",
-    a: "1.0 ships with a Windows installer, and the plugin can be installed by hand on macOS. 2.0 ships as a .dmg for Apple Silicon and Intel Macs, and an installer for Windows.",
+    q: "How many computers can I use it on?",
+    a: "Your licence covers you on up to two of your own computers, Windows or Mac. See the licence (EULA) for the full terms.",
   },
   {
-    q: "Are the previews on this page real renders?",
-    a: "Not yet. They are animated illustrations of each template. Thumbnails and clips rendered in Resolve replace them when 2.0 is released.",
+    q: "How do I get help?",
+    a: "Open an issue on GitHub with what you tried and your Resolve version. Bugs and feature requests go to the same place, and you can follow the fix in the changelog.",
   },
-  {
-    q: "Does anything leave my computer?",
-    a: "No. HermiteCut works through Resolve's own scripting on your machine. Nothing is uploaded, and there is no account.",
-  },
-];
-
-export const PROGRESS_V2 = [
-  { item: "Resolve API checks: external bridge, template loading, placement", status: "shipped" as const },
-  { item: "Template generator and dev pack, proven in Resolve", status: "shipped" as const },
-  { item: `Template pack: ${templates.length} effects, transitions and titles`, status: "in-progress" as const },
-  { item: "Sound-effects library and asset library", status: "planned" as const },
-  { item: "Standalone app with Effects, Transitions, Titles, Sound, Shorts and Setup", status: "planned" as const },
-  { item: "Windows installer and macOS .dmg", status: "planned" as const },
 ];

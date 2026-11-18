@@ -1,28 +1,19 @@
-import { Header } from "@/components/header";
-import { Footer } from "@/components/site";
+import { CutNav } from "@/components/cut/nav";
+import { SiteFooter } from "@/components/footer";
+import "../brand.css";
 import "./cut-theme.css";
 
 /**
- * Chrome for the HermiteCut product pages.
- *
- * `data-product="cut"` sets the accent; `hermite-cut` re-points the Clay
- * tokens at the Hermite ink ramp (see cut-theme.css). Between them the whole
- * product surface inherits the brand system — same grid, type and spacing as
- * the parent site, distinguished by exactly one accent (#FF7A45).
- *
- * Route groups do not affect URLs, so every path here is unchanged:
- * /motion, /subs, /ai, /enterprise, /roadmap, /docs and /cut.
- *
- * These pages are ready to move to cut.hermitelabs.com as-is.
+ * Chrome for HermiteCut's site (cut.hermitelabs.com). The brand system with
+ * HermiteCut's accent (#b9acff); see middleware.ts for the host routing.
  */
-export default function ResolveLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function CutLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="hermite-cut" data-product="cut">
-      <Header />
+    <div className="hermite hermite-cut" data-product="cut">
+      <a className="skip-link" href="#main">Skip to content</a>
+      <CutNav />
       {children}
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
