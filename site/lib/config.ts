@@ -24,6 +24,8 @@ export const CUT_SUPPORT = `${CUT_REPO}/issues`;
  * NEXT_PUBLIC_POLAR_CHECKOUT_URL in Vercel, then redeploy.
  */
 export const POLAR_CHECKOUT_URL = process.env.NEXT_PUBLIC_POLAR_CHECKOUT_URL || "";
+/** Where buyers find their licence key and downloads (Polar customer portal). */
+export const POLAR_PORTAL_URL = process.env.NEXT_PUBLIC_POLAR_PORTAL_URL || "";
 /** Buying is on once the checkout link is set. */
 export const CHECKOUT_LIVE = Boolean(POLAR_CHECKOUT_URL);
 /**
