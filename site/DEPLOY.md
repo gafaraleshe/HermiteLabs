@@ -1,0 +1,50 @@
+# Deploying hermitelabs.com and cut.hermitelabs.com
+
+Both sites are one Next.js app (this `site/` folder) on **one Vercel project**.
+`middleware.ts` routes by host:
+
+| Host | Serves |
+|---|---|
+| `hermitelabs.com`, `www.hermitelabs.com` | the Hermite Labs hub (`app/page.tsx`), legal pages; `/cut/*` 301 → cut.hermitelabs.com |
+| `cut.hermitelabs.com` | HermiteCut (`app/(resolve)/cut`) at `/`, its changelog at `/changelog`, the shared legal pages |
+| anything else (previews, localhost) | everything as-is, including `/cut` for testing |
+
+## Vercel settings
+
+- Framework preset **Next.js**, Root Directory **`site`**, default build
+  (`next build`) and output.
+- **Domains** (Project → Settings → Domains): `hermitelabs.com`,
+  `www.hermitelabs.com` and `cut.hermitelabs.com`, all on this project. The
+  cut subdomain is already attached; it serves HermiteCut once this branch is
+  in production.
+- **Production branch:** the branch these changes are merged into.
+
+## Environment variables (Project → Settings → Environment Variables)
+
+| Name | Needed | What it does |
+|---|---|---|
+| `NEXT_PUBLIC_POLAR_CHECKOUT_URL` | when you start selling | The Polar checkout link. Empty = every Buy button is hidden and only Download shows. |
+| `NEXT_PUBLIC_CUT_PRICE` | with the checkout link | The price label, e.g. `£39`. |
+| `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | only for `/api/waitlist` | Unchanged from before. |
+
+You can also set the checkout link in `lib/config.ts` (`POLAR_CHECKOUT_URL`).
+Redeploy after changing either.
+
+## Company details for the legal pages
+
+Fill `COMPANY` in `lib/config.ts` (company number, registered address, contact
+email). Each line appears on the Terms, Privacy, Refunds and EULA pages only
+once it is set.
+
+## Keeping the template list and changelog current
+
+- `data/cut-templates.json`: exported from HermiteCut's
+  `build/HermiteCut-manifest.json` (`python tools/fusegen/build_pack.py`).
+- `data/cut-sounds.json` and `public/cut/sfx/`: samples from HermiteCut's
+  `build/sfx` (`python tools/sfxgen/sfxgen.py`).
+- `data/hermitecut-changelog.md`: a copy of HermiteCut's `CHANGELOG.md`. The
+  changelog page also fetches the copy on GitHub's main branch at build and
+  uses whichever is newer.
+
+Check locally with `npm ci && npx next build && npx next start`, then
+`curl -H "Host: cut.hermitelabs.com" localhost:3000/` to test the host routing.
