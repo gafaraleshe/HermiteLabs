@@ -117,7 +117,7 @@ export const FAQ = [
   },
   {
     q: "Mac and Windows?",
-    a: "Both. There is an installer for Windows 10 and 11 and a disk image for Apple Silicon and Intel Macs. The first time you open it on a Mac, right-click the app and choose Open, because it is not notarised yet.",
+    a: "Both. There is an installer for Windows 10 and 11 and a disk image for Apple Silicon and Intel Macs. It is not notarised yet, so the first time you open it on a Mac, go to System Settings → Privacy & Security and click Open Anyway (on macOS 14 or older, right-click the app and choose Open).",
   },
   {
     q: "How do I install it?",

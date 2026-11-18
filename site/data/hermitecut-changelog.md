@@ -6,6 +6,22 @@ All notable changes to HermiteCut are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-11-18
+
+### Fixed
+- **Setup → Resolve panel** in the app said the panel was missing from the
+  install. The app now ships the panel with the rest of its resources.
+
+### Changed
+- HermiteCut now runs on a Rust engine where it can. The template and sound
+  catalogue and the asset library (indexing folders and zips, extracting on
+  use) run in Rust, in the app and in the Resolve panel, on Windows and macOS.
+  If the engine can't load, for example where Resolve refuses an unsigned
+  module, HermiteCut quietly uses its JavaScript code instead, with the same
+  results. **Settings → Open log file** shows which one is running.
+- The app moves to TypeScript + Electron + Rust, with Bun for development
+  (docs/RUST_PLAN.md).
+
 ## [2.0.0] - 2026-11-18
 
 HermiteCut is now its own app for **Windows and macOS** as well as the panel
@@ -17,10 +33,11 @@ library and an asset library.
   administrator rights needed. SmartScreen may warn because the installer is
   not code-signed yet: click **More info → Run anyway**.
 - **macOS:** `HermiteCut-Mac-arm64.dmg` (Apple Silicon) or
-  `HermiteCut-Mac-x64.dmg` (Intel). **First open on Mac: right-click
-  HermiteCut in Applications and choose Open**, then click Open again. The app
+  `HermiteCut-Mac-x64.dmg` (Intel). **First open on Mac:** the app
   is ad-hoc signed, not notarised, so a normal double-click is blocked the
-  first time.
+  first time. On macOS 15 or newer, try to open it once, then click **Open
+  Anyway** in System Settings → Privacy & Security. On macOS 14 or older,
+  right-click HermiteCut in Applications and choose Open.
 - `HermiteCut.drfx`: the template pack on its own. Double-click it with
   Resolve open, then restart Resolve.
 - `HermiteCut-v2.0.0-windows-panel.zip`: the Resolve panel on its own, as in
@@ -62,6 +79,8 @@ library and an asset library.
   Resolve Studio.
 
 ### Changed
+- The panel-only installer (`Install HermiteCut.exe`) is now written in Rust
+  instead of Go.
 - The code is now a shared core (`core/`) plus a Resolve adapter
   (`hosts/resolve/`), ready for other editors later.
 - Offline checks for every template (`check_pack.py`, `test_grid.py`) and an
