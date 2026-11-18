@@ -5,12 +5,13 @@ import { NextResponse, type NextRequest } from "next/server";
  *   - cut.hermitelabs.com serves the HermiteCut pages (app/(resolve)/cut) at its
  *     root: "/" -> /cut, "/changelog" -> /cut/changelog. Shared pages (legal)
  *     pass straight through.
- *   - hermitelabs.com is the Hermite Labs hub. Its old /cut pages move to the
- *     subdomain with a 301.
+ *   - hermitelabs.com is the Hermite Labs hub. /cut and /flow move to their
+ *     subdomains (cut.hermitelabs.com, flow.hermitelabs.com) with a 301.
  * Any other host (Vercel previews, localhost) is left alone, so /cut still
  * works there for testing.
  */
 const CUT_HOST = "cut.hermitelabs.com";
+const FLOW_HOST = "flow.hermitelabs.com";
 const HUB_HOSTS = new Set(["hermitelabs.com", "www.hermitelabs.com"]);
 
 export function middleware(req: NextRequest) {
@@ -31,9 +32,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (HUB_HOSTS.has(host) && (pathname === "/cut" || pathname.startsWith("/cut/"))) {
-    const rest = pathname.replace(/^\/cut/, "") || "/";
-    return NextResponse.redirect(`https://${CUT_HOST}${rest}${search}`, 301);
+  if (HUB_HOSTS.has(host)) {
+    for (const [prefix, target] of [["/cut", CUT_HOST], ["/flow", FLOW_HOST]] as const) {
+      if (pathname === prefix || pathname.startsWith(prefix + "/")) {
+        const rest = pathname.slice(prefix.length) || "/";
+        return NextResponse.redirect(`https://${target}${rest}${search}`, 301);
+      }
+    }
   }
   return NextResponse.next();
 }

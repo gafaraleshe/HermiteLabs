@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { Announce } from "@/components/announce";
-import { LabsNav } from "@/components/labs-nav";
-import { SiteFooter } from "@/components/footer";
-import { PRODUCTS, PRINCIPLES, type Product } from "@/lib/products";
-import { countFor, counts } from "@/lib/cut";
+import { StatusBar, StudioFooter, StudioHeader } from "@/components/studio/chrome";
+import { BuyButton, Price, RegionProvider } from "@/components/studio/pricing";
+import { PRINCIPLES } from "@/lib/products";
+import { counts } from "@/lib/cut";
 import { cutVersion } from "@/lib/cut-version";
-import { CUT_PRICE, CUT_URL, HUB_URL, POLAR_CHECKOUT_URL } from "@/lib/config";
-import "./brand.css";
+import { CHECKOUT_LIVE, CUT_URL, FLOW_URL, HUB_URL } from "@/lib/config";
+import "./studio.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "Hermite Labs — tools for working creators" },
+  title: { absolute: "Hermite Labs — precision software for editors and creative studios" },
   description:
-    "Hermite Labs makes tools for working creators: HermiteCut, effects, transitions, titles and sound for DaVinci Resolve, and HermiteFlow, clients and invoicing for the studio.",
+    "Hermite Labs builds fast, single-purpose tools: HermiteCut, effects, motion and sound for DaVinci Resolve, and HermiteFlow, clients and invoicing for creative studios.",
   openGraph: {
-    title: "Hermite Labs — tools for working creators",
+    title: "Hermite Labs — precision software for editors and creative studios",
     description: "HermiteCut for DaVinci Resolve. HermiteFlow for running the studio.",
     url: HUB_URL,
     siteName: "Hermite Labs",
@@ -23,143 +22,116 @@ export const metadata: Metadata = {
   alternates: { canonical: HUB_URL },
 };
 
-/** What a product costs, as the shelf shows it. Only real prices: no placeholders. */
-function priceFor(p: Product): string {
-  if (p.id === "cut") return POLAR_CHECKOUT_URL && CUT_PRICE ? CUT_PRICE : "Free download";
-  return "Web app";
-}
-
-/** A small, drawn picture of each product (no stock imagery). */
-function ProductArt({ id }: { id: Product["id"] }) {
-  if (id === "cut") {
-    return (
-      <div className="art art-cut" aria-hidden="true">
-        {Array.from({ length: 40 }, (_, i) => <i key={i} style={{ animationDelay: `${((i % 8) + Math.floor(i / 8)) * 90}ms` }} />)}
-      </div>
-    );
-  }
-  return (
-    <div className="art art-flow" aria-hidden="true">
-      <div className="inv">
-        <b>Invoice</b>
-        <span /><span /><span className="short" />
-        <em>Paid</em>
-      </div>
-    </div>
-  );
-}
+const card = "rounded-3xl bg-studio-surface shadow-panel-depth p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden";
+const fact = "p-3 rounded-xl bg-studio-bg border border-studio-border";
 
 export default function Home() {
   const version = cutVersion();
-  const collection = [
-    { name: "Effects", n: countFor("effects"), href: `${CUT_URL}/#effects`, note: "Flashes, shakes, blurs, glitch, film" },
-    { name: "Transitions", n: countFor("transitions"), href: `${CUT_URL}/#transitions`, note: "Whips, spins, light, shutters" },
-    { name: "Grid Reveal", n: countFor("grid"), href: `${CUT_URL}/#grid-reveal`, note: "The cell-by-cell reveal, 11 looks" },
-    { name: "Titles", n: countFor("titles"), href: `${CUT_URL}/#titles`, note: "Credits, neon, cinematic, social" },
-    { name: "Time FX", n: countFor("timefx"), href: `${CUT_URL}/#templates`, note: "Slow shutter, echo, prism, stutter" },
-    { name: "Sound effects", n: counts.sounds, href: `${CUT_URL}/#sound`, note: "Whooshes, risers, impacts, glitches" },
-  ];
   return (
-    // No data-product: the parent carries no accent, by rule.
-    <div className="hermite store">
-      <a className="skip-link" href="#main">Skip to content</a>
-      <Announce />
-      <LabsNav />
-      <main id="main">
-        <section className="store-hero">
-          <div className="h-grid-overlay" aria-hidden="true" />
-          <div className="h-wrap h-rise store-hero-in">
-            <span className="h-label">Hermite Labs · by Gaffy Studios</span>
-            <h1 className="store-title">Tools for <em>working</em> creators.</h1>
-            <p className="h-body store-sub">
-              Effects, transitions, titles and sound for DaVinci Resolve, and the clients and invoices for the studio
-              around the edit. Made to be used every day.
-            </p>
-            <div className="h-row">
-              <a className="h-btn h-btn--solid" href="#shop">Shop the tools</a>
-              <a className="h-btn" href={CUT_URL}>HermiteCut{version ? ` ${version}` : ""} →</a>
-            </div>
-          </div>
-        </section>
+    <RegionProvider>
+      <div className="studio">
+        <a className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-3 focus:bg-studio-accent focus:text-white" href="#main">Skip to content</a>
+        <StatusBar version={version} />
+        <StudioHeader current="hub" />
+        <main id="main">
+          <section className="relative studio-grid-bg border-b border-studio-border pt-14 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+            <div className="pointer-events-none absolute -top-36 left-1/2 -translate-x-1/2 w-[720px] h-[340px] rounded-full bg-studio-accent/10 blur-[130px]" />
+            <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-studio-surface border border-studio-border mb-6">
+                  <span className="w-2 h-2 rounded-full bg-studio-green" />
+                  <span className="font-mono text-xs uppercase tracking-wider text-studio-muted">Hermite Labs · independent creator software studio</span>
+                </div>
+                <h1 className="font-display font-black text-4xl sm:text-6xl tracking-tight leading-[1.04] text-studio-text mb-5">
+                  Precision software for working editors &amp; creative studios.
+                </h1>
+                <p className="text-base sm:text-xl text-studio-muted leading-relaxed mb-10">
+                  Fast, single-purpose tools without bloat: effects, motion and sound inside DaVinci Resolve, and the clients and invoices for the studio around the edit.
+                </p>
+              </div>
 
-        <section id="shop" className="store-sec">
-          <div className="h-wrap">
-            <div className="store-head">
-              <h2 className="h-h2">The tools</h2>
-              <span className="h-label">{PRODUCTS.length} products</span>
-            </div>
-            <div className="shelf">
-              {PRODUCTS.map(p => (
-                <a key={p.id} className="shelf-card" href={p.href} data-product={p.id} style={{ ["--acc" as string]: p.accent }}>
-                  <div className="shelf-media"><ProductArt id={p.id} /></div>
-                  <div className="shelf-body">
-                    <span className="h-label">{p.category}</span>
-                    <h3 className="shelf-name">{p.prefix}<span>{p.suffix}</span></h3>
-                    <p className="shelf-line">{p.tagline}</p>
-                    <ul className="shelf-points">{p.points.map(pt => <li key={pt}>{pt}</li>)}</ul>
-                    <div className="shelf-foot">
-                      <span className="shelf-price">{priceFor(p)}</span>
-                      <span className="shelf-cta">{p.cta} →</span>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                {/* HermiteCut */}
+                <div className={`${card} border border-studio-accent/50`}>
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-studio-accent to-studio-accent-deep" />
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-5">
+                      <span className="font-mono text-xs px-3 py-1 rounded-full bg-studio-accent/15 border border-studio-accent/40 text-studio-accent font-semibold">FLAGSHIP 01 · DAVINCI RESOLVE</span>
+                      <span className="font-mono text-xs text-studio-green flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-studio-green" />v{version} LIVE</span>
+                    </div>
+                    <h2 className="font-display font-black text-3xl text-studio-text tracking-tight mb-2">HermiteCut</h2>
+                    <p className="font-mono text-xs text-studio-muted mb-4">cut.hermitelabs.com · macOS &amp; Windows</p>
+                    <p className="text-sm sm:text-base text-studio-muted leading-relaxed mb-6">
+                      {counts.templates} effects, transitions and titles with Grid Reveal, {counts.sounds} sound effects, a speed-graph editor,
+                      beat markers, captions and 3×3 align, in one click inside DaVinci Resolve. Now works with Claude.
+                    </p>
+                    <div className="grid grid-cols-2 gap-2.5 mb-8 font-mono text-xs">
+                      <div className={fact}>
+                        <div className="text-studio-muted text-[10px]">LICENCE</div>
+                        <div className="text-studio-text font-semibold mt-0.5">{CHECKOUT_LIVE ? <>One-time (<Price />)</> : "Free download"}</div>
+                      </div>
+                      <div className={fact}>
+                        <div className="text-studio-muted text-[10px]">COMPATIBILITY</div>
+                        <div className="text-studio-text font-semibold mt-0.5">Resolve Free &amp; Studio</div>
+                      </div>
                     </div>
                   </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a href={CUT_URL} className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-studio-accent to-studio-accent-deep hover:opacity-95 text-white font-display font-black text-sm uppercase tracking-wider shadow-ember-glow text-center transition-all">
+                      Explore HermiteCut →
+                    </a>
+                    <BuyButton short label="Buy" className="py-3.5 px-5 rounded-xl bg-studio-bg hover:bg-studio-elevated border border-studio-border-strong text-studio-text font-mono text-xs font-semibold text-center transition-colors" />
+                  </div>
+                </div>
 
-        <section className="store-sec" data-product="cut">
-          <div className="h-wrap">
-            <div className="store-head">
-              <h2 className="h-h2">The HermiteCut collection</h2>
-              <a className="h-label store-more" href={CUT_URL}>Everything in HermiteCut →</a>
-            </div>
-            <div className="collection">
-              {collection.map(c => (
-                <a key={c.name} className="tile" href={c.href}>
-                  <span className="tile-n">{c.n}</span>
-                  <span className="tile-name">{c.name}</span>
-                  <span className="tile-note">{c.note}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="store-sec">
-          <div className="h-wrap">
-            <ul className="works" aria-label="Works with">
-              <li><b>DaVinci Resolve</b><span>20 or newer, free or Studio</span></li>
-              <li><b>Windows</b><span>10 and 11, 64-bit</span></li>
-              <li><b>macOS</b><span>Apple Silicon and Intel</span></li>
-              <li><b>Claude</b><span>Ask it to edit with you</span></li>
-            </ul>
-            <ul className="assure">
-              <li><b>Instant download</b><span>Straight from the release page, for Windows and Mac.</span></li>
-              <li><b>Updates in the open</b><span>Every change is in the <a href={`${CUT_URL}/changelog`}>changelog</a>.</span></li>
-              <li><b>14-day refunds</b><span>If something you buy doesn&apos;t work for you. <a href={`${HUB_URL}/refunds`}>Refund policy</a>.</span></li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="store-sec">
-          <div className="h-wrap">
-            <div className="store-head">
-              <h2 className="h-h2">How we build</h2>
-            </div>
-            {PRINCIPLES.map(p => (
-              <div className="h-feat" key={p.n}>
-                <span className="h-feat-n">{p.n}</span>
-                <div>
-                  <h3>{p.title}</h3>
-                  <p className="h-body" style={{ fontSize: "13px" }}>{p.body}</p>
+                {/* HermiteFlow */}
+                <div className={`${card} border border-studio-border-strong`}>
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-5">
+                      <span className="font-mono text-xs px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 font-semibold">FLAGSHIP 02 · STUDIO OPERATIONS</span>
+                      <span className="font-mono text-xs text-sky-300">WEB APP</span>
+                    </div>
+                    <h2 className="font-display font-black text-3xl text-studio-text tracking-tight mb-2">HermiteFlow</h2>
+                    <p className="font-mono text-xs text-studio-muted mb-4">flow.hermitelabs.com · clients &amp; invoicing</p>
+                    <p className="text-sm sm:text-base text-studio-muted leading-relaxed mb-6">
+                      Bookings to paid invoices, on autopilot: clients, invoices with UK VAT, PDF and email delivery, payment tracking and
+                      reminders in one workspace, built for creative businesses.
+                    </p>
+                    <div className="grid grid-cols-2 gap-2.5 mb-8 font-mono text-xs">
+                      <div className={fact}>
+                        <div className="text-studio-muted text-[10px]">CORE</div>
+                        <div className="text-studio-text font-semibold mt-0.5">Clients · Invoices</div>
+                      </div>
+                      <div className={fact}>
+                        <div className="text-studio-muted text-[10px]">BUILT FOR</div>
+                        <div className="text-studio-text font-semibold mt-0.5">UK VAT · reminders</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a href={FLOW_URL} className="flex-1 py-3.5 px-5 rounded-xl bg-studio-elevated hover:bg-studio-border-strong border border-studio-border-strong text-studio-text font-display font-black text-sm uppercase tracking-wider text-center transition-colors">
+                      Open HermiteFlow ↗
+                    </a>
+                    <a href={CUT_URL} className="py-3.5 px-5 rounded-xl bg-studio-bg hover:bg-studio-elevated border border-studio-border text-studio-muted hover:text-studio-text font-mono text-xs text-center transition-colors">
+                      See HermiteCut
+                    </a>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-3">
+                {PRINCIPLES.map(p => (
+                  <div key={p.n} className="rounded-2xl bg-studio-surface/80 border border-studio-border p-5">
+                    <div className="font-mono text-[11px] uppercase tracking-wider text-studio-accent">{p.n} · {p.title}</div>
+                    <p className="text-xs sm:text-sm text-studio-muted mt-2 leading-relaxed">{p.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </main>
+        <StudioFooter />
+      </div>
+    </RegionProvider>
   );
 }

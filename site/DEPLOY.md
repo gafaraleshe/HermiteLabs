@@ -24,7 +24,7 @@ Both sites are one Next.js app (this `site/` folder) on **one Vercel project**.
 | Name | Needed | What it does |
 |---|---|---|
 | `NEXT_PUBLIC_POLAR_CHECKOUT_URL` | when you start selling | The Polar checkout link. Empty = every Buy button is hidden and only Download shows. |
-| `NEXT_PUBLIC_CUT_PRICE` | with the checkout link | The price label, e.g. `£39`. |
+| `NEXT_PUBLIC_CUT_PRICE_GBP` | optional | The UK price label (default `£30`). See the table below. |
 | `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | only for `/api/waitlist` | Unchanged from before. |
 
 You can also set the checkout link in `lib/config.ts` (`POLAR_CHECKOUT_URL`).
@@ -48,3 +48,16 @@ once it is set.
 
 Check locally with `npm ci && npx next build && npx next start`, then
 `curl -H "Host: cut.hermitelabs.com" localhost:3000/` to test the host routing.
+
+
+## Prices and checkout (studio design, Nov 2026)
+
+| Variable | Default | What it does |
+|---|---|---|
+| `NEXT_PUBLIC_POLAR_CHECKOUT_URL` | empty | The Polar checkout link. While empty, every page offers the free download and no Buy button shows. Once set, Buy buttons, the price card, "one-time licence" copy and the Polar footer note all switch on. |
+| `NEXT_PUBLIC_POLAR_CHECKOUT_URL_USD` | empty | Optional separate link for US buyers; the main link is used if empty. |
+| `NEXT_PUBLIC_CUT_PRICE_GBP` | `£30` | Price for the UK and elsewhere. |
+| `NEXT_PUBLIC_CUT_PRICE_USD` | `$50` | Price for the US. Visitors can switch region; it is guessed from their time zone. |
+
+Redeploy after changing them. `hermitelabs.com/cut` and `hermitelabs.com/flow` 301 to
+`cut.hermitelabs.com` and `flow.hermitelabs.com` (middleware.ts).
