@@ -6,6 +6,17 @@ All notable changes to HermiteCut are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-11-18
+
+### Added
+- **Licence keys.** HermiteCut is sold for £30 ($50 in the US), one-time,
+  through Polar. The app asks for your licence key once; each key works on
+  two computers, and HermiteCut keeps working offline once activated (it
+  checks back with Polar weekly when it can, with 30 days' grace). The app
+  and the Resolve panel share the activation, and Claude's tools need it
+  too. **Setup → Licence** shows your key and deactivates this computer so
+  you can move the licence to another.
+
 ## [2.1.0] - 2026-11-18
 
 ### Added
