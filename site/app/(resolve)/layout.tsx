@@ -1,3 +1,4 @@
+import { Announce } from "@/components/announce";
 import { CutNav } from "@/components/cut/nav";
 import { SiteFooter } from "@/components/footer";
 import "../brand.css";
@@ -11,6 +12,7 @@ export default function CutLayout({ children }: Readonly<{ children: React.React
   return (
     <div className="hermite hermite-cut" data-product="cut">
       <a className="skip-link" href="#main">Skip to content</a>
+      <Announce />
       <CutNav />
       {children}
       <SiteFooter />

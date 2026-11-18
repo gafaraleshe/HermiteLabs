@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { HermiteMark } from "@/components/hermite-mark";
 import { PRODUCTS } from "@/lib/products";
-import { CREDIT, CUT_DOCS, CUT_REPO, CUT_SUPPORT, CUT_URL } from "@/lib/config";
+import { CREDIT, CUT_DOCS, CUT_REPO, CUT_SUPPORT, CUT_URL, HUB_URL } from "@/lib/config";
 
 /** The footer for every page, on both hermitelabs.com and cut.hermitelabs.com. */
 export function SiteFooter() {
@@ -10,7 +9,7 @@ export function SiteFooter() {
       <div className="h-wrap">
         <div className="labs-footer-grid">
           <div>
-            <a href="https://hermitelabs.com" className="labs-wordmark" style={{ fontSize: "17px" }}>
+            <a href={HUB_URL} className="labs-wordmark" style={{ fontSize: "17px" }}>
               <HermiteMark size={20} />
               Hermite<span>&nbsp;Labs</span>
             </a>
@@ -38,10 +37,10 @@ export function SiteFooter() {
           <nav aria-label="Legal">
             <span className="h-label h-label--on">Legal</span>
             <ul className="labs-footer-list">
-              <li><Link href="/terms">Terms of sale</Link></li>
-              <li><Link href="/eula">Licence (EULA)</Link></li>
-              <li><Link href="/privacy">Privacy</Link></li>
-              <li><Link href="/refunds">Refunds</Link></li>
+              <li><a href={`${HUB_URL}/terms`}>Terms of sale</a></li>
+              <li><a href={`${HUB_URL}/eula`}>Licence (EULA)</a></li>
+              <li><a href={`${HUB_URL}/privacy`}>Privacy</a></li>
+              <li><a href={`${HUB_URL}/refunds`}>Refunds</a></li>
             </ul>
           </nav>
         </div>
