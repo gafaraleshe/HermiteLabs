@@ -9,30 +9,30 @@
       "status": "in-progress",
       "color": "pink",
       "tagline": "After Effects–style animation control, inside Resolve.",
-      "summary": "One-click motion presets, a bezier easing curve editor, and speed-ramp tools — so smooth keyframe animation doesn't require hand-editing curves in Fusion.",
+      "summary": "Part of HermiteCut. One-click motion presets and templates, a bezier easing curve editor, and speed-ramp tools, so smooth animation doesn't mean hand-editing curves in Fusion.",
       "features": [
-        {
-          "id": "preset-pack",
-          "title": "Motion preset pack (.drfx)",
-          "blurb": "Slide-in (4 directions), pop/scale-in, ken burns pan-zoom, and fade+move combos as reusable Fusion macros with Inspector controls. One double-click to install.",
-          "status": "in-progress"
-        },
         {
           "id": "curve-editor",
           "title": "Bezier easing curve editor",
-          "blurb": "Draggable-handle curve UI with a preset library — linear, ease, ease-in-out, overshoot, bounce — applied to real keyframes on a selected Fusion node.",
-          "status": "planned"
+          "blurb": "HermiteCut 1.0's Ease tool: a speed-graph editor with 30 presets and saved curves, applied to real Fusion keyframes on the selected nodes or clips.",
+          "status": "shipped"
+        },
+        {
+          "id": "batch-apply",
+          "title": "Motion presets on selected clips",
+          "blurb": "HermiteCut 1.0's Motion and Bounce tools: grow, slide, whip, spin, pop, punch, Ken Burns, shake and springs, applied to every selected clip at once.",
+          "status": "shipped"
+        },
+        {
+          "id": "preset-pack",
+          "title": "Template pack (.drfx)",
+          "blurb": "77 Fusion templates: effects, time effects, transitions and titles with shared Apply at / Frames / Curve controls. It includes the seven Hermite Motion presets (Slide In ×4, Pop In, Ken Burns, Fade Move), rebuilt so they work on trimmed clips.",
+          "status": "in-progress"
         },
         {
           "id": "speed-ramp",
           "title": "Speed-ramp graph editor",
           "blurb": "Click-drag speed curves with ease handles and hold/freeze segments, modeled on the After Effects graph editor.",
-          "status": "planned"
-        },
-        {
-          "id": "batch-apply",
-          "title": "Batch apply",
-          "blurb": "Select multiple clips, apply one preset to all of them at once.",
           "status": "planned"
         }
       ]

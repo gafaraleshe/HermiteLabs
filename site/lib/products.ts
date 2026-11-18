@@ -47,8 +47,8 @@ export const PRODUCTS: Product[] = [
     domain: "cut.hermitelabs.com",
     href: "/cut",
     blurb:
-      "After Effects-style motion control inside Resolve — presets, a real easing curve editor, speed ramps — plus on-device subtitling.",
-    status: "In development",
+      "The editing toolkit for DaVinci Resolve. Seven tools in one panel today, with a pack of effects, transitions and titles coming in 2.0.",
+    status: "Live",
     accent: "var(--cut)",
   },
   {

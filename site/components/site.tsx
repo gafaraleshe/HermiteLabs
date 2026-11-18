@@ -70,17 +70,24 @@ export function Footer() {
               Hermite
             </Link>
             <p className="fine">
-              Smooth animation, on-device subtitles, and a local AI layer for
-              DaVinci Resolve. Built in the open by Gaffy Studios.
+              HermiteCut is the editing toolkit for DaVinci Resolve: tools,
+              templates, subtitles and a local AI layer. Built in the open by
+              Gaffy Studios.
             </p>
             <p className="fine">
-              Motion, Subs, and AI run fully on your machine. The enterprise
-              API is the deliberate, clearly separated cloud exception.
+              Everything runs on your machine. The enterprise API is the
+              deliberate, clearly separated cloud exception.
             </p>
           </div>
           <div>
             <h5>Product</h5>
             <ul>
+              <li>
+                <Link href="/cut">HermiteCut</Link>
+              </li>
+              <li>
+                <Link href="/cut#templates">Template pack</Link>
+              </li>
               <li>
                 <Link href="/motion">Hermite Motion</Link>
               </li>

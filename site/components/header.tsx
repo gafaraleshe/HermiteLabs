@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { GITHUB_URL } from "@/lib/content";
+import { CUT_REPO } from "@/lib/cut";
 import { HermiteMark } from "@/components/hermite-mark";
 
 const LINKS = [
+  ["/cut#tools", "Tools"],
+  ["/cut#templates", "Templates"],
   ["/motion", "Motion"],
   ["/subs", "Subs"],
-  ["/ai", "AI"],
-  ["/enterprise", "Enterprise"],
   ["/roadmap", "Roadmap"],
   ["/docs", "Docs"],
 ] as const;
@@ -113,7 +113,7 @@ export function Header() {
           <ThemeToggle />
           <a
             className="btn btn-secondary nav-github"
-            href={GITHUB_URL}
+            href={CUT_REPO}
             target="_blank"
             rel="noreferrer"
           >
@@ -149,7 +149,7 @@ export function Header() {
             ))}
             <a
               className="btn btn-secondary"
-              href={GITHUB_URL}
+              href={CUT_REPO}
               target="_blank"
               rel="noreferrer"
               onClick={close}

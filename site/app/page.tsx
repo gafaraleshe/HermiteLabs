@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hermite Labs — software for creative businesses",
     description:
-      "One account, one design language, everything that runs a studio. HermiteFlow is live today.",
+      "One account, one design language, everything that runs a studio. HermiteFlow and HermiteCut are live today.",
     url: "https://hermitelabs.com",
     siteName: "Hermite Labs",
     type: "website",
@@ -195,15 +195,16 @@ export default function Home() {
               <h2 className="h-h2">Start where it helps most</h2>
             </div>
             <p className="h-body">
-              HermiteFlow is live today. HermiteCut is in active development and
-              you can follow it as it is built.
+              HermiteFlow and HermiteCut 1.0 are live today. HermiteCut 2.0,
+              with its pack of effects, transitions and titles, is being built
+              in the open.
             </p>
             <div className="h-row">
               <a className="h-btn h-btn--solid" href="https://flow.hermitelabs.com">
                 Open HermiteFlow
               </a>
               <Link className="h-btn" href="/cut">
-                Follow HermiteCut
+                Explore HermiteCut
               </Link>
               <Link className="h-btn h-btn--ghost" href="/roadmap">
                 Roadmap

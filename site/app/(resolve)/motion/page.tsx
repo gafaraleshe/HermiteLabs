@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { StagePage } from "@/components/stage-page";
 import { CurveFragment } from "@/components/fragments";
 
@@ -16,10 +17,11 @@ export default function MotionPage() {
           <strong>Why this needs to exist:</strong> Resolve can do smooth
           animation — but only if you hand-edit splines in Fusion&apos;s node
           graph. Hermite Motion packages that power the way editors expect it:
-          pick a preset, drag a curve, done. The preset pack installs as a
-          standard <code className="inline">.drfx</code> — double-click with
-          Resolve open — and works in <strong>free Resolve</strong>, not just
-          Studio.
+          pick a preset, drag a curve, done. The curve editor and motion
+          presets ship today in HermiteCut 1.0, and the presets also come in
+          the HermiteCut template pack, a standard{" "}
+          <code className="inline">.drfx</code> built for free Resolve as well
+          as Studio. <Link href="/cut#templates">See the templates →</Link>
         </div>
       </section>
     </StagePage>

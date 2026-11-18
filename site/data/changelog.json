@@ -1,5 +1,15 @@
 [
   {
+    "date": "2026-11-18",
+    "title": "HermiteCut 2.0 template pack built",
+    "body": "77 templates (41 effects and time effects, 24 transitions, 12 titles) generated from source, with Post / Pre / Both timing on every effect. Every template passes offline checks of its structure and timing; testing inside Resolve and real thumbnails come next."
+  },
+  {
+    "date": "2026-11-18",
+    "title": "HermiteCut 1.0 released",
+    "body": "The Resolve panel ships for Windows with seven tools: Ease, Align, Actions, Motion, Bounce, Beats and Captions. Free and open source."
+  },
+  {
     "date": "2026-07-18",
     "title": "Transcription engine running",
     "body": "Hermite Subs' on-device engine is alive: faster-whisper + Silero VAD behind a local service — model manager with disk/RAM requirements up front, async jobs, SRT/VTT export. Verified end-to-end; correction UI is next."

@@ -1,0 +1,1309 @@
+{
+ "source": "HermiteCut tools/fusegen/build_pack.py -> build/HermiteCut-manifest.json",
+ "version": "2.0.0-dev",
+ "templates": [
+  {
+   "name": "Flash",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "A clean white flash that burns out of the cut.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Colour"
+   ]
+  },
+  {
+   "name": "Glow Flash",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "Blooming highlights that flare and settle.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Threshold",
+    "Glow size"
+   ]
+  },
+  {
+   "name": "Frame Flash",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "A single hard white frame on the cut.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Colour"
+   ]
+  },
+  {
+   "name": "Colour Flash",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "A tinted screen flash in any colour.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Colour"
+   ]
+  },
+  {
+   "name": "Exposure Pop",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "An exposure and contrast punch with a small scale pop.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength"
+   ]
+  },
+  {
+   "name": "Strobe",
+   "kind": "effect",
+   "family": "Flashes",
+   "blurb": "Flickering white frames, on and off at a set rate.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Rate (frames)",
+    "Colour"
+   ]
+  },
+  {
+   "name": "Twitch",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "Sharp random jolts, a few frames at a time.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "XY Shake",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "Smooth camera shake on both axes.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Vertical Shake",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "A bass-hit bounce, up and down only.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Zoom Shake",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "Pulsing zoom with a little drift.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Earthquake",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "Violent, per-frame shake with rotation.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Handheld",
+   "kind": "effect",
+   "family": "Shakes",
+   "blurb": "Slow, organic drift, like a camera on the shoulder.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Motion blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Defocus",
+   "kind": "effect",
+   "family": "Blurs",
+   "blurb": "A soft lens defocus that pulls back into focus.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Blur size"
+   ]
+  },
+  {
+   "name": "Zoom Blur",
+   "kind": "effect",
+   "family": "Blurs",
+   "blurb": "A radial zoom streak from the centre.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Length",
+    "Centre"
+   ]
+  },
+  {
+   "name": "Whip Blur",
+   "kind": "effect",
+   "family": "Blurs",
+   "blurb": "A directional whip with motion streaks.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Direction",
+    "Length"
+   ]
+  },
+  {
+   "name": "Glow Blur",
+   "kind": "effect",
+   "family": "Blurs",
+   "blurb": "A dreamy blurred glow over the picture.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Blur size"
+   ]
+  },
+  {
+   "name": "Zoom Punch",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Punch in on the cut and settle.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Zoom",
+    "Centre"
+   ]
+  },
+  {
+   "name": "Zoom Out",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Start pulled back with mirrored edges, then fill the frame.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Zoom"
+   ]
+  },
+  {
+   "name": "Slide",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Slide in from a side (Post) or out to it (Pre). Hermite Motion's Slide In.",
+   "styles": [
+    "Left",
+    "Right",
+    "Top",
+    "Bottom"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Side",
+    "Distance",
+    "Motion blur"
+   ]
+  },
+  {
+   "name": "Spin",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "A full spin into (or out of) the shot.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Turns"
+   ]
+  },
+  {
+   "name": "Pop",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Scale up from nothing with an overshoot. Hermite Motion's Pop In.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Centre"
+   ]
+  },
+  {
+   "name": "Bounce",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Drop in from above and bounce to rest.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Height"
+   ]
+  },
+  {
+   "name": "Smooth Zoom",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "A slow, eased push across the whole clip.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Zoom",
+    "Centre"
+   ]
+  },
+  {
+   "name": "Ken Burns",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "A slow pan and zoom across the clip. Hermite Motion's Ken Burns.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Zoom",
+    "Pan towards",
+    "Pan"
+   ]
+  },
+  {
+   "name": "Fade Move",
+   "kind": "effect",
+   "family": "Motion",
+   "blurb": "Fade in while rising into place. Hermite Motion's Fade Move.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Rise"
+   ]
+  },
+  {
+   "name": "RGB Split",
+   "kind": "effect",
+   "family": "Glitch",
+   "blurb": "Red and blue pull apart from green.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Offset",
+    "Angle"
+   ]
+  },
+  {
+   "name": "Digital Glitch",
+   "kind": "effect",
+   "family": "Glitch",
+   "blurb": "Torn horizontal slices and colour shifts.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Slice shift",
+    "Hold (frames)",
+    "Seed"
+   ]
+  },
+  {
+   "name": "VHS",
+   "kind": "effect",
+   "family": "Glitch",
+   "blurb": "Tape wobble, colour bleed, grain and a tracking band.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Invert",
+   "kind": "effect",
+   "family": "Glitch",
+   "blurb": "A negative hit; can flicker frame to frame.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Flicker"
+   ]
+  },
+  {
+   "name": "Pixelate",
+   "kind": "effect",
+   "family": "Glitch",
+   "blurb": "Mosaic blocks that resolve back into the picture.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Block size"
+   ]
+  },
+  {
+   "name": "Film Burn",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "A hot orange burn that flares across the frame.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Colour",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Light Leak",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "A soft drifting leak of warm light.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Speed",
+    "Colour",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Film Look",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "Contrast, warmth, grain and a vignette in one.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Warmth",
+    "Grain",
+    "Vignette",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Gate Weave",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "The gentle frame drift of a film projector.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Vignette Pulse",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "The edges darken in a pulse on the beat.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Size"
+   ]
+  },
+  {
+   "name": "Letterbox",
+   "kind": "effect",
+   "family": "Film & Light",
+   "blurb": "Cinema bars at 2.39, 2.00, 1.85 or 2.76.",
+   "styles": [],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Ratio",
+    "Timeline"
+   ]
+  },
+  {
+   "name": "Slow Shutter",
+   "kind": "effect",
+   "family": "Time FX",
+   "blurb": "Real shutter-angle blur: 180, 360, 720 or 1440 degrees.",
+   "styles": [
+    "180°",
+    "360°",
+    "720°",
+    "1440°"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Shutter"
+   ]
+  },
+  {
+   "name": "Echo",
+   "kind": "effect",
+   "family": "Time FX",
+   "blurb": "Ghost trails behind motion: echoes, glass or stretch.",
+   "styles": [
+    "Echoes",
+    "Glass",
+    "Stretch"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Style",
+    "Spacing (frames)",
+    "Trail"
+   ]
+  },
+  {
+   "name": "Prism",
+   "kind": "effect",
+   "family": "Time FX",
+   "blurb": "Moving detail splits into a colour trail: spectrum or delay.",
+   "styles": [
+    "Spectrum",
+    "Delay"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Style",
+    "Delay (frames)",
+    "Spread",
+    "Angle"
+   ]
+  },
+  {
+   "name": "Stutter",
+   "kind": "effect",
+   "family": "Time FX",
+   "blurb": "Held, repeated frames: classic steps or soft trails.",
+   "styles": [
+    "Classic",
+    "Soft Trails"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Style",
+    "Hold (frames)"
+   ]
+  },
+  {
+   "name": "Time Shift",
+   "kind": "effect",
+   "family": "Time FX",
+   "blurb": "Vertical streaks that follow motion: pull up or pull down.",
+   "styles": [
+    "Pull Up",
+    "Pull Down"
+   ],
+   "controls": [
+    "Apply at",
+    "Frames",
+    "Curve",
+    "Strength",
+    "Style",
+    "Length",
+    "Spacing (frames)",
+    "Mix"
+   ]
+  },
+  {
+   "name": "Whip",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "A fast whip pan from one shot into the next.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur",
+    "Glow",
+    "Flash",
+    "Distance",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Hyper Slide",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "An exaggerated slide with a zoom bump and heavy blur.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur",
+    "Glow",
+    "Flash",
+    "Distance",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Swish Glow",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "A whip that blooms with light on the cut.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur",
+    "Glow",
+    "Flash",
+    "Distance",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Slide",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "A clean push: the new shot pushes the old one out.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur"
+   ]
+  },
+  {
+   "name": "Split Slide",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "Top and bottom halves slide apart in opposite directions.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur"
+   ]
+  },
+  {
+   "name": "Spin 360",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "A full spin with motion blur from one shot to the next.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur",
+    "Glow"
+   ]
+  },
+  {
+   "name": "Scale In",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "Zoom through the outgoing shot into the next.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Blur",
+    "Zoom"
+   ]
+  },
+  {
+   "name": "Scale Out",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "Pull back out of the outgoing shot into the next.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Blur",
+    "Zoom"
+   ]
+  },
+  {
+   "name": "Grid",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "Both shots tile into a grid and back out.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Blur",
+    "Tiles"
+   ]
+  },
+  {
+   "name": "Shake",
+   "kind": "transition",
+   "family": "Motion",
+   "blurb": "A rough camera shake across the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength",
+    "Blur",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Lens Flare",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "A warm flare sweeps across and carries the cut.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Strength",
+    "Glow",
+    "Flare colour"
+   ]
+  },
+  {
+   "name": "Light Wipe",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "A soft wipe led by a bright band of light.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Strength",
+    "Glow"
+   ]
+  },
+  {
+   "name": "Exposure Flash",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "Blow out to white on the cut and come back.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Glow",
+    "Flash",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Film Burn",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "A hot film burn flares over the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength",
+    "Burn colour",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Light Leak",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "A soft wash of warm light across the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength",
+    "Leak colour",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Luma Fade",
+   "kind": "transition",
+   "family": "Light",
+   "blurb": "The new shot appears through its brightest areas first.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Glow",
+    "Softness"
+   ]
+  },
+  {
+   "name": "Chromatic Split",
+   "kind": "transition",
+   "family": "Glitch",
+   "blurb": "The picture splits into red, green and blue across the cut.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Strength",
+    "Blur",
+    "Glow"
+   ]
+  },
+  {
+   "name": "Glitch",
+   "kind": "transition",
+   "family": "Glitch",
+   "blurb": "Torn digital slices and colour shifts carry the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Negative",
+   "kind": "transition",
+   "family": "Glitch",
+   "blurb": "Inverted frames flicker over the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength"
+   ]
+  },
+  {
+   "name": "Displace",
+   "kind": "transition",
+   "family": "Glitch",
+   "blurb": "The picture warps through a liquid ripple into the next.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Strength",
+    "Glow",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Focus Pull",
+   "kind": "transition",
+   "family": "Blur",
+   "blurb": "Rack out of focus, cut, and pull back into focus.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Blur",
+    "Glow"
+   ]
+  },
+  {
+   "name": "Zoom Blur",
+   "kind": "transition",
+   "family": "Blur",
+   "blurb": "A punchy zoom streak through the cut.",
+   "styles": [],
+   "controls": [
+    "Curve",
+    "Blur",
+    "Flash",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Shutter Swipe",
+   "kind": "transition",
+   "family": "Shutter",
+   "blurb": "Shutter blades snap shut and open on the next shot.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Flash",
+    "Blade colour",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Shutter Whip",
+   "kind": "transition",
+   "family": "Shutter",
+   "blurb": "A whip pan with a quick shutter blink in the middle.",
+   "styles": [],
+   "controls": [
+    "Direction",
+    "Curve",
+    "Blur",
+    "Flash",
+    "Distance",
+    "Blade colour",
+    "Flash colour"
+   ]
+  },
+  {
+   "name": "Credit Clean",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "A tidy bottom-left music-video credit.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Credit Blur",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "A centred credit that resolves out of a blur.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Credit Distressed",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "Worn typewriter credit with grain, flicker and jitter.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Credit Glass",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "Frosted glass panel with a soft glow.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Glow",
+    "Glow size",
+    "Panel",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Credit Neon",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "Neon-tube credit that flickers on.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Glow",
+    "Glow size",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Credit Bold",
+   "kind": "title",
+   "family": "Credits",
+   "blurb": "A huge artist name with the details underneath.",
+   "styles": [],
+   "controls": [
+    "Artist",
+    "Song",
+    "Directed By",
+    "Credit",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Lower Third",
+   "kind": "title",
+   "family": "Lower Thirds",
+   "blurb": "Name and role with an accent bar.",
+   "styles": [],
+   "controls": [
+    "Name",
+    "Role",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Social Handle",
+   "kind": "title",
+   "family": "Social",
+   "blurb": "Your @handle on a pill that pops in.",
+   "styles": [],
+   "controls": [
+    "Label",
+    "Handle",
+    "Font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Panel",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Subscribe Pop",
+   "kind": "title",
+   "family": "Social",
+   "blurb": "A subscribe button that pops in and out.",
+   "styles": [],
+   "controls": [
+    "Text",
+    "Font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Cinematic Title",
+   "kind": "title",
+   "family": "Cinematic",
+   "blurb": "Wide-tracked film title with a subtitle line.",
+   "styles": [],
+   "controls": [
+    "Title",
+    "Subtitle",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Neon Location",
+   "kind": "title",
+   "family": "Cinematic",
+   "blurb": "Place, date and time in neon, flickering on.",
+   "styles": [],
+   "controls": [
+    "Location",
+    "Date / time",
+    "Font",
+    "Detail font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Glow",
+    "Glow size",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  },
+  {
+   "name": "Caption",
+   "kind": "title",
+   "family": "Captions",
+   "blurb": "A bold one-line caption that pops on. Used by Captions+.",
+   "styles": [],
+   "controls": [
+    "Caption",
+    "Font",
+    "Text colour",
+    "Accent colour",
+    "Size",
+    "Position",
+    "Tracking",
+    "Shadow",
+    "Grain",
+    "Flicker",
+    "Jitter",
+    "Softness",
+    "Style",
+    "In (frames)",
+    "Out (frames)",
+    "Curve",
+    "Seed"
+   ]
+  }
+ ]
+}

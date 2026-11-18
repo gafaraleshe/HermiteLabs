@@ -1,5 +1,14 @@
 # fusion-macros
 
+> **Merged into HermiteCut.** These seven presets are now part of the
+> HermiteCut template pack (`gafaraleshe/HermiteCut`, `tools/fusegen/`):
+> Slide In ×4 became **Slide** with a *Side* control, and Pop In, Ken Burns and
+> Fade Move became **Pop**, **Ken Burns** and **Fade Move**. The rebuilt
+> versions use HermiteCut's shared timing controls (Apply at, Frames, Curve,
+> Strength). They are measured from the clip's first rendered frame, so they
+> also work on trimmed clips, which the keyframes at frame 0 here do not.
+> This folder is kept for reference only.
+
 Stage 1a — **Hermite Motion** preset pack. Fusion `.setting` macros packaged
 into a one-click-installable `.drfx`. No app, no backend, no network — works in
 free Resolve.
