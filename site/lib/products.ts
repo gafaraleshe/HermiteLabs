@@ -6,7 +6,7 @@
  * (`--<id>`), and add its page under app/. Only list products that are live:
  * no placeholders.
  */
-import { CUT_URL } from "@/lib/config";
+import { CUT_URL, FLOW_URL } from "@/lib/config";
 
 export type Product = {
   id: "cut" | "flow";
@@ -37,7 +37,7 @@ export const PRODUCTS: Product[] = [
       "A Resolve panel and a desktop app for Windows and macOS: 91 templates with Post / Pre timing, Grid Reveal, 81 sound effects, motion, beat markers and captions.",
     accent: "var(--cut)",
     featured: true,
-    points: ["91 templates", "Grid Reveal", "81 sound effects", "Windows & Mac"],
+    points: ["91 templates", "Grid Reveal", "81 sound effects", "Works with Claude", "Windows & Mac"],
     cta: "Explore HermiteCut",
   },
   {
@@ -45,7 +45,7 @@ export const PRODUCTS: Product[] = [
     prefix: "Hermite",
     suffix: "Flow",
     category: "CRM + invoicing",
-    href: "https://flow.hermitelabs.com",
+    href: FLOW_URL,
     external: true,
     tagline: "CRM and invoicing, built for creative businesses.",
     blurb:

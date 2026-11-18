@@ -6,7 +6,8 @@ import { TimingDemo } from "@/components/cut/timing";
 import { StickyBar } from "@/components/cut/sticky-bar";
 import { Compare, GridRevealDemo, SoundCards, StyleShowcase } from "@/components/cut/interactive";
 import { COMPAT, FAQ, TOOLS, counts, sounds } from "@/lib/cut";
-import { CUT_DOWNLOAD, CUT_PRICE, CUT_URL, POLAR_CHECKOUT_URL } from "@/lib/config";
+import { CUT_DOWNLOAD, CUT_DOWNLOAD_MAC, CUT_DOWNLOAD_WIN, CUT_PRICE, CUT_URL, HUB_URL, POLAR_CHECKOUT_URL } from "@/lib/config";
+import { cutVersion } from "@/lib/cut-version";
 import "./cut.css";
 
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 const SECTIONS = [
   ["overview", "Overview"], ["effects", "Effects"], ["transitions", "Transitions"], ["grid-reveal", "Grid Reveal"],
-  ["titles", "Titles"], ["sound", "Sound"], ["tools", "Tools"], ["faq", "FAQ"],
+  ["titles", "Titles"], ["sound", "Sound"], ["tools", "Tools"], ["claude", "Claude"], ["faq", "FAQ"],
 ] as const;
 
 const EFFECT_STYLES = [
@@ -60,7 +61,7 @@ const jsonLd = [
     description: `The editing toolkit for DaVinci Resolve: ${counts.templates} templates, Grid Reveal and ${counts.sounds} sound effects.`,
     url: CUT_URL,
     downloadUrl: CUT_DOWNLOAD,
-    publisher: { "@type": "Organization", name: "Hermite Labs", url: "https://hermitelabs.com" },
+    publisher: { "@type": "Organization", name: "Hermite Labs", url: HUB_URL },
     ...(CUT_PRICE ? { offers: { "@type": "Offer", price: CUT_PRICE.replace(/[^0-9.]/g, ""), priceCurrency: "GBP" } } : {}),
   },
   {
@@ -79,14 +80,18 @@ function Ctas({ big = false }: { big?: boolean }) {
           <a className="h-btn cut-btn-ghost" href={CUT_DOWNLOAD}>Download</a>
         </>
       ) : (
-        <a className={`h-btn cut-btn${big ? " is-big" : ""}`} href={CUT_DOWNLOAD}>Download HermiteCut</a>
+        <>
+          <a className={`h-btn cut-btn${big ? " is-big" : ""}`} href={CUT_DOWNLOAD_WIN}>Download for Windows</a>
+          <a className={`h-btn cut-btn${big ? " is-big" : ""}`} href={CUT_DOWNLOAD_MAC}>Download for Mac</a>
+        </>
       )}
-      <a className="h-btn cut-btn-ghost" href="#grid-reveal">See Grid Reveal</a>
+      <a className="h-btn cut-btn-ghost" href={CUT_DOWNLOAD}>Intel Mac &amp; all files</a>
     </div>
   );
 }
 
 export default function CutPage() {
+  const version = cutVersion();
   return (
     <>
       <main id="main" className="hc-page cut-page">
@@ -97,12 +102,20 @@ export default function CutPage() {
           <div className="h-grid-overlay" aria-hidden="true" />
           <div className="h-wrap cut-hero-grid">
             <div>
-              <span className="h-label cut-label">DaVinci Resolve · Toolkit</span>
+              <nav className="crumbs" aria-label="Breadcrumb">
+                <a href={HUB_URL}>Hermite Labs</a><span aria-hidden="true">/</span>
+                <span>DaVinci Resolve</span><span aria-hidden="true">/</span>
+                <span aria-current="page">HermiteCut</span>
+              </nav>
+              <span className="h-label cut-label">Tools &amp; effects · DaVinci Resolve</span>
               <h1 className="h-display">Hermite<span className="cut-accent">Cut</span></h1>
               <p className="cut-promise">Effects, transitions, titles, Grid Reveal, sound and captions, in one click inside Resolve.</p>
-              {CUT_PRICE && POLAR_CHECKOUT_URL && <p className="cut-price">{CUT_PRICE}</p>}
+              <p className="cut-price">{CUT_PRICE && POLAR_CHECKOUT_URL ? CUT_PRICE : "Free"}</p>
               <Ctas big />
-              <p className="cut-trust">{POLAR_CHECKOUT_URL ? "Secure checkout · Instant download · Windows & macOS" : "Instant download · Windows & macOS · No account"}</p>
+              <p className="cut-trust">
+                {POLAR_CHECKOUT_URL ? "Secure checkout · Instant download · Windows & macOS" : "Instant download · Windows & macOS · No account"}
+                {version ? ` · Version ${version}` : ""}
+              </p>
             </div>
             <Live className="cut-hero-demo"><GridRevealDemo /></Live>
           </div>
@@ -255,6 +268,31 @@ export default function CutPage() {
         </section>
 
         {/* ── FAQ ── */}
+        {/* ── Claude ── */}
+        <section id="claude" className="cut-sec">
+          <div className="h-wrap cut-two">
+            <div>
+              <div className="h-sec-head"><span className="h-sec-num">AI</span><h2 className="h-h2">Edit with Claude.</h2></div>
+              <p className="h-body">
+                HermiteCut works with Claude. Ask in plain words and Claude uses HermiteCut&apos;s tools in Resolve for you:
+                it reads your timeline, finds the right template or sound, and applies it to the clips you&apos;ve selected.
+                It runs on your computer only, through HermiteCut&apos;s local MCP server, with a private key.
+              </p>
+              <ol className="ticks claude-steps">
+                <li>Open HermiteCut and go to <b>Setup → Claude</b>.</li>
+                <li>Copy the setup for <b>Claude Desktop</b> or <b>Claude Code</b>, and paste it in.</li>
+                <li>Select some clips in Resolve and ask.</li>
+              </ol>
+            </div>
+            <ul className="claude-asks" aria-label="Things to ask">
+              <li>&ldquo;Add a Whip transition at every cut of the selected clips, and a whoosh on each cut.&rdquo;</li>
+              <li>&ldquo;Put a Glow Flash on the first frame of each clip, 8 frames long.&rdquo;</li>
+              <li>&ldquo;Insert a Credit Neon title at the playhead: artist Nova, song Midnight.&rdquo;</li>
+              <li>&ldquo;Make a 9:16 short of this timeline with Smart Reframe.&rdquo;</li>
+            </ul>
+          </div>
+        </section>
+
         <section id="faq" className="cut-sec">
           <div className="h-wrap cut-faq">
             <div className="h-sec-head"><span className="h-sec-num">09</span><h2 className="h-h2">FAQ</h2></div>

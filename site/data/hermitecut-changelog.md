@@ -6,6 +6,21 @@ All notable changes to HermiteCut are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-18
+
+### Added
+- **Claude can use HermiteCut.** The app (and the panel) runs a local MCP
+  server, so Claude Desktop or Claude Code can work in Resolve with you. It
+  can check what's open, find and apply effects, add transitions and Grid
+  Reveal, insert titles, place sounds on the playhead, cuts or markers, run
+  the one-click actions, open pages and make a 9:16 short. **Setup → Claude**
+  copies the setup for Claude Code or Claude Desktop. It only listens on your
+  computer and needs a private key. Claude Desktop connects through a small
+  Rust program that ships with the app.
+- Mac-style window buttons. macOS shows its own close, minimise and zoom
+  buttons; Windows and the Resolve panel get matching ones. Double-click the
+  title bar to zoom.
+
 ## [2.0.1] - 2026-11-18
 
 ### Fixed
