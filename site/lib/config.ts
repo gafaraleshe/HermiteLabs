@@ -24,8 +24,19 @@ export const CUT_SUPPORT = `${CUT_REPO}/issues`;
  * NEXT_PUBLIC_POLAR_CHECKOUT_URL in Vercel, then redeploy.
  */
 export const POLAR_CHECKOUT_URL = process.env.NEXT_PUBLIC_POLAR_CHECKOUT_URL || "";
-/** Shown on the pricing card and in the hero once checkout is live. */
-export const CUT_PRICE = process.env.NEXT_PUBLIC_CUT_PRICE || "";
+/** Buying is on once the checkout link is set. */
+export const CHECKOUT_LIVE = Boolean(POLAR_CHECKOUT_URL);
+/**
+ * HermiteCut's one-time price by region (the owner's pricing, Nov 2026):
+ * £30 in the UK and elsewhere, $50 in the US. Override in Vercel with
+ * NEXT_PUBLIC_CUT_PRICE_GBP / NEXT_PUBLIC_CUT_PRICE_USD.
+ */
+export const CUT_PRICE_GBP = process.env.NEXT_PUBLIC_CUT_PRICE_GBP || "£30";
+export const CUT_PRICE_USD = process.env.NEXT_PUBLIC_CUT_PRICE_USD || "$50";
+/** Optional second Polar link for US buyers; the main link is used if empty. */
+export const POLAR_CHECKOUT_URL_USD = process.env.NEXT_PUBLIC_POLAR_CHECKOUT_URL_USD || "";
+/** Kept for older pages: the UK price, shown only once checkout is live. */
+export const CUT_PRICE = POLAR_CHECKOUT_URL ? CUT_PRICE_GBP : "";
 
 export const COMPANY = {
   name: "Gaffy Studios Ltd",

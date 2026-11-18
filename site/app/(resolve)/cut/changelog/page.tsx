@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
-import { CUT_URL } from "@/lib/config";
-import "../cut.css";
+import { CUT_DOWNLOAD, CUT_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: { absolute: "Changelog — HermiteCut" },
@@ -66,9 +65,12 @@ function render(md: string) {
     }
     flushList(); flushPara();
     return (
-      <article key={ver} className="cl-entry" id={`v${ver}`}>
-        <header><h2>{ver}</h2>{date && <time className="h-label">{date}</time>}</header>
-        <div className="cl-body">{items}</div>
+      <article key={ver} id={`v${ver}`} className="studio-prose rounded-2xl bg-studio-surface border border-studio-border p-6 sm:p-8 scroll-mt-24">
+        <header className="flex items-baseline justify-between gap-4 border-b border-studio-border pb-3 -mt-1">
+          <h2 className="!m-0">{ver}</h2>
+          {date && <time className="font-mono text-xs text-studio-muted">{date}</time>}
+        </header>
+        <div>{items}</div>
       </article>
     );
   });
@@ -77,11 +79,16 @@ function render(md: string) {
 export default async function Changelog() {
   const md = await source();
   return (
-    <main id="main" className="h-wrap changelog">
-      <span className="h-label cut-label">HermiteCut</span>
-      <h1 className="h-display">Changelog</h1>
-      <p className="h-body">Every release, newest first. Downloads are on <a href="https://github.com/gafaraleshe/HermiteCut/releases">GitHub Releases</a>.</p>
-      {render(md)}
+    <main id="main" className="studio-grid-bg">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <span className="font-mono text-xs uppercase tracking-widest text-studio-accent block mb-2">HermiteCut</span>
+        <h1 className="font-display font-black text-4xl sm:text-6xl tracking-tight text-studio-text">Changelog.</h1>
+        <p className="text-studio-muted mt-4 mb-10">
+          Every release, newest first. The latest downloads are on the{" "}
+          <a className="text-studio-accent underline" href={CUT_DOWNLOAD}>release page</a>.
+        </p>
+        <div className="grid gap-5">{render(md)}</div>
+      </div>
     </main>
   );
 }

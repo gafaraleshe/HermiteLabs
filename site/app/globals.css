@@ -1,3 +1,8 @@
+/* The old site-wide styles, in a layer declared before Tailwind's, so the
+   studio design's utility classes (app/studio.css) win over its resets. */
+@layer legacy, theme, base, components, utilities;
+
+@layer legacy {
 /* Hermite site — Clay design system implementation.
    All values trace to DESIGN.md tokens; don't inline new hex colors. */
 
@@ -1020,4 +1025,6 @@ a {
   .waitlist-form .btn {
     width: 100%;
   }
+}
+
 }

@@ -5,3 +5,6 @@
 .legal-body p, .legal-body ul { margin: 0 0 12px; }
 .legal-body ul { padding-left: 20px; }
 .legal-body a { color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
+/* inside the studio chrome: keep the page background, and list bullets */
+.legal-wrap { background: transparent; min-height: 0; }
+.legal-body ul { list-style: disc; }

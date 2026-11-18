@@ -60,7 +60,7 @@ export const PRINCIPLES = [
   {
     n: "01",
     title: "One system, many surfaces",
-    body: "Every product shares the same grid, type and spacing, and is told apart by exactly one accent colour. The parent stays monochrome.",
+    body: "Every Hermite Labs site and app shares one studio design: the same grid, type and controls, so moving between them feels like one tool.",
   },
   {
     n: "02",
