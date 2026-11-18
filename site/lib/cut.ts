@@ -121,11 +121,11 @@ export const FAQ = [
   },
   {
     q: "How do I install it?",
-    a: "Download and run the installer, open HermiteCut and click Setup → Install everything. That adds the templates, the Resolve panel, the Scripts menu launcher and the title fonts. Restart Resolve once and you are done.",
+    a: "Run the installer and open HermiteCut. Enter your licence key the first time it asks, then click Setup → Install everything. That adds the templates, the Resolve panel, the Scripts menu launcher and the title fonts. Restart Resolve once and you are done.",
   },
   {
     q: "Do I get updates?",
-    a: "Yes. Updates are published on GitHub Releases with full notes in the changelog. Install the new version over the old one; your presets and favourites are kept.",
+    a: "Yes. Every update to version 2 is included, with full notes in the changelog. Download the new version from the same place you got HermiteCut and install it over the old one; your presets, favourites and licence are kept.",
   },
   {
     q: "What about refunds?",

@@ -4,7 +4,7 @@ import { Playground } from "@/components/studio/playground";
 import { BuyButton, Price, RegionToggle } from "@/components/studio/pricing";
 import { FAQ, countFor, counts } from "@/lib/cut";
 import { cutVersion } from "@/lib/cut-version";
-import { CHECKOUT_LIVE, CUT_DOWNLOAD, CUT_DOWNLOAD_MAC, CUT_DOWNLOAD_WIN, CUT_PRICE_GBP, CUT_PRICE_USD, CUT_URL, HUB_URL } from "@/lib/config";
+import { CHECKOUT_LIVE, CUT_DOWNLOAD, CUT_DOWNLOAD_MAC, CUT_DOWNLOAD_WIN, CUT_PRICE_GBP, CUT_PRICE_USD, CUT_URL, HUB_URL, POLAR_PORTAL_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: { absolute: "HermiteCut — effects, motion and sound for DaVinci Resolve" },
@@ -61,7 +61,7 @@ const jsonLd = {
   applicationCategory: "MultimediaApplication",
   operatingSystem: "Windows 10, Windows 11, macOS 12+",
   url: CUT_URL,
-  downloadUrl: CUT_DOWNLOAD,
+  downloadUrl: CHECKOUT_LIVE ? `${CUT_URL}/#purchase` : CUT_DOWNLOAD,
   publisher: { "@type": "Organization", name: "Hermite Labs", url: HUB_URL },
   ...(CHECKOUT_LIVE
     ? { offers: [
@@ -335,8 +335,11 @@ export default function CutPage() {
                   </div>
                 )}
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 font-mono text-xs text-studio-muted text-center">
-                  <span>Instant download</span><span>·</span><span>Two computers</span><span>·</span><a className="hover:text-studio-text" href={`${HUB_URL}/refunds`}>14-day refunds</a>
+                  <span>{CHECKOUT_LIVE ? "Licence key by email" : "Instant download"}</span><span>·</span><span>Two computers</span><span>·</span><a className="hover:text-studio-text" href={`${HUB_URL}/refunds`}>14-day refunds</a>
                 </div>
+                {CHECKOUT_LIVE && POLAR_PORTAL_URL && (
+                  <p className="mt-3 text-center font-mono text-xs"><a className="text-studio-accent hover:underline" href={POLAR_PORTAL_URL}>Already bought? Get your key and downloads →</a></p>
+                )}
               </div>
             </div>
           </div>

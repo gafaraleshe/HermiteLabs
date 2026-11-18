@@ -55,6 +55,7 @@ Check locally with `npm ci && npx next build && npx next start`, then
 | Variable | Default | What it does |
 |---|---|---|
 | `NEXT_PUBLIC_POLAR_CHECKOUT_URL` | empty | The Polar checkout link. While empty, every page offers the free download and no Buy button shows. Once set, Buy buttons, the price card, "one-time licence" copy and the Polar footer note all switch on. |
+| `NEXT_PUBLIC_POLAR_PORTAL_URL` | empty | The Polar customer portal, where buyers find their licence key and downloads ("Already bought?" links). |
 | `NEXT_PUBLIC_POLAR_CHECKOUT_URL_USD` | empty | Optional separate link for US buyers; the main link is used if empty. |
 | `NEXT_PUBLIC_CUT_PRICE_GBP` | `£30` | Price for the UK and elsewhere. |
 | `NEXT_PUBLIC_CUT_PRICE_USD` | `$50` | Price for the US. Visitors can switch region; it is guessed from their time zone. |

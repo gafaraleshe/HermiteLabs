@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
-import { CUT_DOWNLOAD, CUT_URL } from "@/lib/config";
+import { CHECKOUT_LIVE, CUT_DOWNLOAD, CUT_URL, POLAR_PORTAL_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: { absolute: "Changelog — HermiteCut" },
@@ -84,8 +84,12 @@ export default async function Changelog() {
         <span className="font-mono text-xs uppercase tracking-widest text-studio-accent block mb-2">HermiteCut</span>
         <h1 className="font-display font-black text-4xl sm:text-6xl tracking-tight text-studio-text">Changelog.</h1>
         <p className="text-studio-muted mt-4 mb-10">
-          Every release, newest first. The latest downloads are on the{" "}
-          <a className="text-studio-accent underline" href={CUT_DOWNLOAD}>release page</a>.
+          Every release, newest first.{" "}
+          {CHECKOUT_LIVE ? (
+            <>Download the latest version from <a className="text-studio-accent underline" href={POLAR_PORTAL_URL || `${CUT_URL}/#purchase`}>your account</a>.</>
+          ) : (
+            <>The latest downloads are on the <a className="text-studio-accent underline" href={CUT_DOWNLOAD}>release page</a>.</>
+          )}
         </p>
         <div className="grid gap-5">{render(md)}</div>
       </div>
