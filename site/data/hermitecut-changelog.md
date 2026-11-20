@@ -6,6 +6,38 @@ All notable changes to HermiteCut are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-11-20
+
+### Added
+- **Command palette.** Press Ctrl+K (⌘K on a Mac), or the search button, to
+  find any tool, any of the 67 actions or any setting by name and run it with
+  Enter. Your recent picks are listed first.
+- **Keyboard shortcuts.** Ctrl/⌘ 1–8 switch tool sets, Ctrl/⌘ , opens
+  Settings, Ctrl/⌘ R refreshes the connection to Resolve, and Ctrl/⌘ / (or ?)
+  lists them all.
+- **Update notices.** HermiteCut checks cut.hermitelabs.com twice a day and
+  shows a bar when a new version is out, with What's new and Download. Turn
+  it off, or check now, in Settings.
+- **Diagnostics for support.** Settings → Copy diagnostics (or Save
+  diagnostics…) gathers the version, system, engine, Resolve connection and
+  the recent log for a support email. It never includes your licence key,
+  and your home folder is shortened to ~.
+- **A Mac menu bar** with About, Check for Updates, Settings, Edit (copy and
+  paste now work in every text field on macOS), View, Window and Help.
+- **About HermiteCut** and a short welcome on first launch.
+
+### Changed
+- HermiteCut remembers its window size and place, and puts the window back
+  on screen if that monitor has gone.
+- Opening HermiteCut again brings the open window forward instead of
+  starting a second copy.
+- The log file starts afresh past 2 MB (one older log is kept).
+- If the window's page crashes, it reloads by itself, and errors are logged.
+- Keyboard focus is always visible, notices are read out by screen readers,
+  and animations follow the system's Reduce motion setting.
+- The window can't be sent to other web pages, and the app refuses any
+  camera, microphone or location requests.
+
 ## [2.2.0] - 2026-11-18
 
 ### Added
