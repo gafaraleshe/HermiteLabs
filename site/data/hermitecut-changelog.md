@@ -6,6 +6,26 @@ All notable changes to HermiteCut are listed here. The format follows
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-11-21
+
+### Added
+- **Connect Claude in one click, on Mac and Windows.** Setup → Claude now has
+  a **Connect** button for Claude Desktop and one for Claude Code. HermiteCut
+  adds itself to Claude's settings (keeping everything else there, with a
+  backup of Claude Desktop's original settings), shows a green dot when each
+  is connected, and **Disconnect** removes it again. Works with the Microsoft
+  Store version of Claude Desktop, and finds Claude Code even when it isn't on
+  the PATH of apps opened from the Dock or Start menu.
+
+### Changed
+- The Claude bridge is kept in `~/.hermitecut/bin`, and HermiteCut refreshes
+  it when it starts, so updating, moving or reinstalling HermiteCut no longer
+  breaks Claude's connection. Claude's settings no longer contain a key: the
+  bridge reads it from this computer each time.
+- On macOS the bridge no longer needs the `xattr` command: HermiteCut clears
+  the download flag itself.
+- The copy-and-paste setup moved under **Set it up by hand** on the card.
+
 ## [2.3.0] - 2026-11-20
 
 ### Added
